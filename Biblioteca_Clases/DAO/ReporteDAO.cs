@@ -658,5 +658,32 @@ namespace Biblioteca_Clases.DAO
             return serv;
 
         }
+
+        public List<Reporte> listaReporte(int id)
+        {
+            List<Reporte> listaContactos = new List<Reporte>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_REG_LISTAR_REPORTE_APROBACION_RECHAZO @PK_REPORTE";
+            comando.Parameters.AddWithValue("@PK_REPORTE", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Reporte cont = new Reporte();
+                cont.PK_ID_REPORTE = list.GetInt32(0);
+                cont.TIPO_DOCUMENTO = list.GetString(1);
+                cont.CANTIDAD_HORAS = list.GetDouble(3);
+                cont.OBSERVACION = list.GetString(4);
+               // cont.FECHA = list.GetString(5);
+
+                listaContactos.Add(cont);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaContactos;
+
+        }
     }
 }

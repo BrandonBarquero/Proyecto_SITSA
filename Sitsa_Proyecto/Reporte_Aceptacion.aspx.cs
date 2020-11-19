@@ -1,4 +1,5 @@
 ﻿using Biblioteca_Clases.DAO;
+using Biblioteca_Clases.Models;
 using Biblioteca_Clases.Seguridad;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Sitsa_Proyecto
         Encryption aux = new Encryption();
         ReporteDAO dao = new ReporteDAO();
         string datoUrl = null;
+        List<Reporte> list = new List<Reporte>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -26,8 +28,6 @@ namespace Sitsa_Proyecto
                 }
 
             }
-            
-
 
         }
 
@@ -72,6 +72,19 @@ namespace Sitsa_Proyecto
 
         }
 
+        public List<Reporte> Datos_Reporte()
+        {
+
+            ReporteDAO dao = new ReporteDAO();
+
+            string val_reporte = aux.Decrypt(HttpUtility.UrlDecode(Request.QueryString["key"]));
+
+            int id_reporte = int.Parse(val_reporte);
+
+            list = dao.listaReporte(id_reporte);
+
+            return list;
+        }
 
 
 

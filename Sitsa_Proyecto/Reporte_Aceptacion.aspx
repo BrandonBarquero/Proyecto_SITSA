@@ -152,23 +152,54 @@
         <div class="container-login100">
             <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55" style="zoom:80%";>
 
-                      <span class="login100-form-title p-b-32">
-                        Reportería
-                    </span>
+                      
               
 
 
                  <form id="form1" runat="server">
        
 
-                <div class="alert alert-info" Visible="false" runat="server" id="Div2">
+               
+
+                      <%
+                        List<Biblioteca_Clases.Models.Reporte> list = new List<Biblioteca_Clases.Models.Reporte>();
+                        list = Datos_Reporte();
+
+                        int autoincrement = 0;
+                        foreach (var dato in list)
+                        {
+                            autoincrement = autoincrement + 1;
+                    %>
+
+                     <span class="login100-form-title p-b-32">
+                        Reporte #<%=dato.PK_ID_REPORTE%>
+                    </span>
+
+                      <div class="form-group">
+                            <label>Cliente: </label>
+                            <input   type="text" class="form-control" readonly="true" value="Cliente quemado" />
+                        </div>
+
+                         <div class="form-group">
+                            <label>Tipo de Reporte: </label>
+                            <input   type="text" class="form-control" readonly="true" value="<%=dato.TIPO_DOCUMENTO%>" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Observaciones: </label>
+                            <input  type="text" class="form-control" readonly="true" value="<%=dato.OBSERVACION%>" />
+                        </div>
+
+                     <div class="alert alert-info" Visible="false" runat="server" id="Div2">
                     <asp:Label ID="Label3" runat="server" Text="Ya se hizo la verificación"></asp:Label>
                     </div>
 
+                   
+                      <%}%>
 
-
+                     <br /><br />
                  <div runat="server" id="Div3">
-                 <asp:Label CssClass="txt1 p-b-11" ID="Label1" runat="server" Text="Seleccione una opción:"></asp:Label>
+                 <asp:Label Font-Bold="true" CssClass="txt1 p-b-11" ID="Label1" runat="server" Text="Seleccione una opción:"></asp:Label>
                      <br/><br/>
                  <asp:DropDownList CssClass="form-control" AutoPostBack="True" OnTextChanged="Mostrar" ID="DropDownList1" runat="server">
                   <asp:ListItem  Value=""> Seleccione </asp:ListItem>
