@@ -1,0 +1,507 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Pagina_Maestra.Master.cs" Inherits="Control_Visitas.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+
+
+      
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+        <link rel="icon" type="image/png" href="Assets_CTRL/images/icons/page.ico"/><!--Icono Página-->
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/util.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/main.css">
+        <link rel="stylesheet" href="Assets_CTRL/css/all.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/bootstrap.min.css">
+        <!--Estilos tabla-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="Assets_CTRL/js/cdn.datatables.js"></script>
+        <script src="Assets_CTRL/js/cdn.datatables.net.js"></script>
+        <!--Fin Estilos tabla-->
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/TreeView.css">
+        <link rel="stylesheet" type="text/css" href="Assets_CTRL/css/menu.css">
+        <link href="Assets_CTRL/css/chosenSelect.css" rel="stylesheet"/>
+        <script src="Assets_CTRL/js/Combo/Multiple/chosenSelect.js"></script>
+        <script src="Assets_CTRL/js/PaginacionDataTables.js"></script>
+        <script src="Assets_CTRL/js/FuncionesGenerales.js"></script>
+         <!--Sweet Alert-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+         <!--Select-->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
+
+
+  <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+  </asp:ContentPlaceHolder>
+
+  <link rel='shortcut icon' type='image/x-icon' href='Assets/img/Camion.ico' />
+
+  <link href="Assets/css/notificacionPedidos.css" rel="stylesheet" />
+ 
+
+  <asp:ContentPlaceHolder ID="styles" runat="server">
+  </asp:ContentPlaceHolder>
+
+  <link rel='shortcut icon' type='image/x-icon' href='Assets/img/Camion.ico' />
+
+  <link href="Assets/css/notificacionPedidos.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+    <header>
+	<nav class="navbar navbar-light">
+  <a class="navbar-brand" href="#" style="color:white; font-family: Raleway-Regular; font-size: 15px;">
+   SITSA S.A 
+  </a>
+</nav>
+</header>
+<body class="hidden">
+
+
+
+     <div id="onload" class="centrado">
+<div class="loadingio-spinner-double-ring-q8rek8psfur"><div class="ldio-v9xjutbhmuj">
+<div></div>
+<div></div>
+<div><div></div></div>
+<div><div></div></div>
+</div></div>
+<style type="text/css">
+@keyframes ldio-v9xjutbhmuj {
+  0% { transform: rotate(0) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-v9xjutbhmuj div { box-sizing: border-box!important }
+.ldio-v9xjutbhmuj > div {
+  position: absolute;
+  width: 89.60000000000001px;
+  height: 89.60000000000001px;
+  top: 67.2px;
+  left: 67.2px;
+  border-radius: 50%;
+  border: 4.48px solid #000;
+  border-color: #1b252f transparent #1b252f transparent;
+  animation: ldio-v9xjutbhmuj 1.7241379310344827s linear infinite;
+}
+
+.ldio-v9xjutbhmuj > div:nth-child(2), .ldio-v9xjutbhmuj > div:nth-child(4) {
+  width: 76.16000000000001px;
+  height: 76.16000000000001px;
+  top: 73.92px;
+  left: 73.92px;
+  animation: ldio-v9xjutbhmuj 1.7241379310344827s linear infinite reverse;
+}
+.ldio-v9xjutbhmuj > div:nth-child(2) {
+  border-color: transparent #34495e transparent #34495e
+}
+ .centrado{
+        background-color: white;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+    }
+    .hidden {
+         overflow: hidden;
+    }
+.ldio-v9xjutbhmuj > div:nth-child(3) { border-color: transparent }
+.ldio-v9xjutbhmuj > div:nth-child(3) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.ldio-v9xjutbhmuj > div:nth-child(3) div:before, .ldio-v9xjutbhmuj > div:nth-child(3) div:after { 
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4.48px;
+  height: 4.48px;
+  top: -4.48px;
+  left: 38.080000000000005px;
+  background: #1b252f;
+  border-radius: 50%;
+  box-shadow: 0 85.12px 0 0 #1b252f;
+}
+.ldio-v9xjutbhmuj > div:nth-child(3) div:after {
+  left: -4.48px;
+  top: 38.080000000000005px;
+  box-shadow: 85.12px 0 0 0 #1b252f;
+}
+
+.ldio-v9xjutbhmuj > div:nth-child(4) { border-color: transparent; }
+.ldio-v9xjutbhmuj > div:nth-child(4) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+.ldio-v9xjutbhmuj > div:nth-child(4) div:before, .ldio-v9xjutbhmuj > div:nth-child(4) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4.48px;
+  height: 4.48px;
+  top: -4.48px;
+  left: 31.360000000000003px;
+  background: #34495e;
+  border-radius: 50%;
+  box-shadow: 0 71.68px 0 0 #34495e;
+}
+.ldio-v9xjutbhmuj > div:nth-child(4) div:after {
+  left: -4.48px;
+  top: 31.360000000000003px;
+  box-shadow: 71.68px 0 0 0 #34495e;
+}
+.loadingio-spinner-double-ring-q8rek8psfur {
+  width: 224px;
+  height: 224px;
+  display: inline-block;
+  overflow: hidden;
+  background: none;
+}
+.ldio-v9xjutbhmuj {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-v9xjutbhmuj div { box-sizing: content-box; }
+/* generated by https://loading.io/ */
+</style>
+        
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form  id="form1" runat="server">
+     <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="3600"></asp:ScriptManager>
+    <script src="Assets/js/bootstrap/bootstrap.js"></script>
+       
+    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+      <ContentTemplate>
+
+         <nav style="-webkit-box-shadow: 0 10px 5px #888888;
+     -moz-box-shadow: 0 10px 5px #888888;
+     box-shadow: 0 10px 5px #888888;" class="mainmenu navbar navbar-expand-lg ">
+          <a class="navbar-brand" href="#"></a>
+
+      <button style="color: black !important;" class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">   
+             <i class="fas fa-bars" style="color:#1B252F; font-size:28px;"></i>
+            </span>
+          </button>
+
+         
+            <%--MENU SECUNDARIO--%>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                   <ul class="navbar-nav navbar-left">
+              <li class="nav-item" style="display: none;">
+                <asp:LinkButton ID="lnkCasilleroCliente"  class="nav-link" runat="server">
+                  <i class="fa fa-archive badgeIcon"></i>
+                  <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                    <ContentTemplate>
+                      <span class="badge badge-light">
+                        <asp:Label ID="lblContador" runat="server"></asp:Label>
+                      </span>
+                    </ContentTemplate>
+                  </asp:UpdatePanel>
+                </asp:LinkButton>
+              </li>
+
+              <li class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="NDCerrarSesion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<asp:Label ID="lblUsuario" runat="server" Text="" Style="font-size: 13px;"><%=Session["User"] as string %></asp:Label>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="NDCerrarSesion">
+                  <li>
+                    <button Class="nav-link" ID="CerrarSesion" OnClick="Cerrar()" >
+                                    <i class="fas fa-sign-out-alt"></i>&nbsp;Cerrar Sesión
+                    </button>
+
+                  </li>
+                  <li>
+                    <asp:LinkButton   CssClass="nav-link" ID="btnCambiarContrasenna" runat="server" OnClientClick="LinkButton_Click" data-toggle="modal" data-target="#cambio_contrasenna">
+                                    <i class="fa fa-key"></i>&nbsp;Cambiar Contraseña
+                    </asp:LinkButton>
+                  </li>
+                </ul>
+
+
+              </li>
+            </ul>
+
+             <%--MENU PRINCIPAL--%>
+            <ul class="navbar-nav mr-auto" runat="server" id="MenuPrincipal">
+            </ul>
+
+            
+           
+
+          </div>
+        </nav>
+          
+          
+      </ContentTemplate>
+    </asp:UpdatePanel>
+        
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+      
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Popup Cambiar Contrasenna-->
+     <div id="cambio_contrasenna" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #EBEBEB">
+
+          <div class="modal-header popup-estilo-head">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body popup-estilo">
+
+            <form onsubmit="return false" role="form" method="post" id="form_cambio_contrar">
+                <div style="display: none;" id="correcto_cambio_contrasenna" class="alert alert-success">
+              
+                 <strong>¡Correcto!</strong> La contraseña fue restablecida.
+                      </div>
+              <p>Cambio de contraseña</p>
+
+              <div class="form-group">
+                <label>Contraseña actual:</label>
+                <input style="width: 440px; height: 100%" type="password" class="form-control" id="old_password" name="old_password">
+              </div>
+                <div style="display: none;" id="error_contrasenna" class="alert alert-danger">
+              
+                 <strong>¡Error!</strong> La contraseña no es correcta.
+                      </div>
+                <div style="display: none;"  id="correcto_contrasenna" class="alert alert-success">
+             
+                 <strong>¡Correcto!</strong> La contraseña suministrada es correcta.
+                      </div>
+                    <div class="form-group">
+                <label>Nueva contraseña:</label>
+                <input readonly="" style="width: 440px; height: 100%" type="password" class="form-control" id="new_password" name="new_password">
+              </div>
+
+
+                    <div class="form-group">
+                <label>Confirmar contraseña:</label>
+                <input readonly="" style="width: 440px; height: 100%" type="password" class="form-control" id="new_password_accept" name="new_password_accept">
+              </div>
+               
+
+                <div  style="display: none;" id="error_cambio_contrasenna" class="alert alert-danger">
+              
+                 <strong>¡Error!</strong> Las contraseñas no son iguales.
+                      </div>
+            </form>
+
+              <div style="text-align: center">
+              <button type="submit" onclick="Validacontrasennas()" id="contra"  class="popup-btn">Confirmar</button>
+
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin Popup -->
+     </body>   
+<!-- Footer -->
+<footer class="page-footer font-small">
+
+  <!-- Copyright -->
+  <!-- Copyright -->
+
+  <div class="footer-copyright text-center py-3 txt6">© 2020 Desarrollado por: SITSA S.A
+    
+  </div>
+
+</footer>
+<!-- Footer -->
+    
+
+</html>
+
+
+<script>
+
+    window.onload = function () {
+        $('#onload').fadeOut();
+        $('body').removeClass('hidden');
+    }
+
+    //Login del sistema
+
+    var Cerrar = function () {
+      
+        $.ajax({
+            type: "post",
+            url: "/Default/CerrarSesion",
+            
+            success: function (result) {
+                if (result == "fail") {
+                    swal({
+                        title: "Error",
+                        text: "Se encontró un problema al cerrar la sesión",
+                        type: "error",
+                        showConfirmButton: true
+                    })
+                   
+                      
+                }
+                else {
+                    swal({
+                        title: "\u00BFEst\u00E1 seguro de cerrar la sesión actual?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Cerrar sesión",
+                        cancelButtonText: "Cancelar",
+                        closeOnConfirm: false
+                    },
+                        function (isConfirm) {
+                            if (isConfirm) {
+               
+                                $(location).attr('href', 'Login.aspx');
+
+                            } else {
+                                swal({
+                                    title: "Error",
+                                    text: "Se ha producido un problema",
+                                    type: "error",
+                                    showConfirmButton: false
+                                })
+
+                            }
+                        })
+                }
+            }
+        })
+    }
+
+       
+        $(document).ready(function () {
+            $('#old_password').change(function () {
+                var Contrasenna = $('#old_password').val();
+                $.ajax({
+                    type: 'post',
+                    data: { Contrasenna: Contrasenna },
+                    url: '/Default/ValidarContrasenna',
+                    success: function (result) {
+                        if (result == "fail") {
+                            $("#error_contrasenna").css("display", "block");
+                            $("#correcto_contrasenna").css("display", "none");
+                            $("#new_password").prop('readonly', true);
+                            $("#new_password_accept").prop('readonly', true);
+                            $("#error_cambio_contrasenna").css("display", "none");
+                            $("#correcto_cambio_contrasenna").css("display", "none");
+                        }
+                        else {
+                            $("#correcto_contrasenna").css("display", "block");
+                            $("#error_contrasenna").css("display", "none");
+                            $("#new_password").prop('readonly', false);
+                            $("#new_password_accept").prop('readonly', false);
+                            $("#error_cambio_contrasenna").css("display", "none");
+                            $("#correcto_cambio_contrasenna").css("display", "none");
+
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+
+    var Validacontrasennas = function () {
+
+        var contrasenna_1 = $("#new_password").val();
+        var contrasenna_2 = $("#new_password_accept").val();
+
+        if (contrasenna_1 == contrasenna_2) {
+            $.ajax({
+                type: "post",
+                url: "/Default/cambiocontraseena",
+                data: { contrasenna_1: contrasenna_1 },
+                success: function (result) {
+                    if (result == "fail") {
+                        $("#msg").show();
+                    }
+                    else {
+                        $("#new_password").val("");
+                        $("#new_password_accept").val("");
+                        $("#old_password").val("");
+
+                        $("#new_password").prop('readonly', true);
+                        $("#new_password_accept").prop('readonly', true);
+
+                        $("#error_cambio_contrasenna").css("display", "none");
+                        $("#error_contrasenna").css("display", "none");
+                        $("#correcto_contrasenna").css("display", "none");
+
+                        $("#correcto_cambio_contrasenna").css("display", "block");
+                    }
+                }
+            })
+
+
+
+        } else {
+
+            $("#error_cambio_contrasenna").css("display", "block");
+        }
+
+    }
+
+    var ShowPopup = function () {
+        alert("no tiene permisos");
+
+    }
+
+ 
+</script>

@@ -1,0 +1,157 @@
+﻿.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu > a:after {
+        content: "\f0da";
+        float: initial;
+        border: none;
+        font-family: 'FontAwesome';
+    }
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+
+
+
+.menu-area {
+    background: #2c3e50;
+}
+
+.dropdown-menu {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    color: white !important;
+}
+
+.mainmenu a, .navbar-default .navbar-nav > li > a, .mainmenu ul li a, .navbar-expand-lg .navbar-nav .nav-link {
+    color: #2D3E50 !important;
+    font-size: 16px;
+    text-transform: capitalize;
+    padding: 16px 15px;
+    /*font-family: 'Roboto',sans-serif;*/
+    display: block !important;
+}
+
+.mainmenu .active a, .mainmenu .active a:focus, .mainmenu .active a:hover, .mainmenu li a:hover, .mainmenu li a:focus, .navbar-default .navbar-nav > .show > a, .navbar-default .navbar-nav > .show > a:focus, .navbar-default .navbar-nav > .show > a:hover {
+    color: white !important;
+    background-color: #F2F2F2;
+    outline: 0;
+}
+/*==========Sub Menu=v==========*/
+.mainmenu .collapse ul > li:hover > a {
+    color: #34495E !important;
+}
+
+.mainmenu .collapse ul ul > li:hover > a, .navbar-default .navbar-nav .show .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .show .dropdown-menu > li > a:hover {
+    color: #34495E !important;
+}
+
+.mainmenu .collapse ul ul ul > li:hover > a {
+    color: #34495E !important;
+}
+
+.mainmenu .collapse ul ul, .mainmenu .collapse ul ul.dropdown-menu {
+    color: #34495E !important;
+}
+
+    .mainmenu .collapse ul ul ul, .mainmenu .collapse ul ul ul.dropdown-menu {
+        background: #34495E;
+        color: white !important;
+    }
+
+        .mainmenu .collapse ul ul ul ul, .mainmenu .collapse ul ul ul ul.dropdown-menu {
+            background: #34495E;
+            color: white !important;
+        }
+
+/******************************Drop-down menu work on hover**********************************/
+.mainmenu {
+    background: none;
+    border: 0 solid;
+    margin: 0px auto;
+    padding: 0;
+    min-height: 20px;
+    width: 100%;
+    color: #fff !important;
+    background-color: #F2F2F2 !important;
+    margin: 0px auto;
+}
+
+@media only screen and (min-width: 767px) {
+    .mainmenu .collapse ul li:hover > ul {
+        display: block
+    }
+
+    .mainmenu .collapse ul ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 250px;
+        display: none
+    }
+        /*******/
+        .mainmenu .collapse ul ul li {
+            position: relative
+        }
+
+            .mainmenu .collapse ul ul li:hover > ul {
+                display: block
+            }
+
+        .mainmenu .collapse ul ul ul {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            min-width: 250px;
+            display: none
+        }
+            /*******/
+            .mainmenu .collapse ul ul ul li {
+                position: relative
+            }
+
+                .mainmenu .collapse ul ul ul li:hover ul {
+                    display: block
+                }
+
+            .mainmenu .collapse ul ul ul ul {
+                position: absolute;
+                top: 0;
+                left: -100%;
+                min-width: 250px;
+                display: none;
+                z-index: 1
+            }
+}
+
+@media only screen and (max-width: 1200 px) {
+    .navbar-nav .show .dropdown-menu .dropdown-menu > li > a {
+        padding: 16px 15px 16px 35px
+    }
+
+    .navbar-nav .show .dropdown-menu .dropdown-menu .dropdown-menu > li > a {
+        padding: 16px 15px 16px 45px
+    }
+}
+
+.navbar .dropdown-menu a {
+    color: white !important;
+}
+
+.dropdown-menu {
+    background-color: #ECEAEA !important;
+    border-radius: unset !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: black !important;
+}

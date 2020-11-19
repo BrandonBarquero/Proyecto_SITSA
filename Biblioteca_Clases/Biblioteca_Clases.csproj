@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BBFE5E18-53CF-4641-9220-3E0259A97267}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Biblioteca_Clases</RootNamespace>
+    <AssemblyName>Biblioteca_Clases</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.1.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\Sitsa_Proyecto\packages\Common.Logging.2.1.1\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\Sitsa_Proyecto\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Pechkin, Version=0.5.8.1, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\Sitsa_Proyecto\packages\Pechkin.0.5.8.1\lib\net40\Pechkin.dll</HintPath>
+    </Reference>
+    <Reference Include="Pechkin.Synchronized, Version=0.5.8.1, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\Sitsa_Proyecto\packages\Pechkin.Synchronized.0.5.8.1\lib\net40\Pechkin.Synchronized.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAO\ClienteDAO.cs" />
+    <Compile Include="DAO\Cliente_ContactoDAO.cs" />
+    <Compile Include="DAO\Cliente_ServicioDAO.cs" />
+    <Compile Include="DAO\ContactoDAO.cs" />
+    <Compile Include="DAO\ContadoresDAO.cs" />
+    <Compile Include="DAO\ContratoDAO.cs" />
+    <Compile Include="DAO\Fase_TiempoDAO.cs" />
+    <Compile Include="DAO\LoginDAO.cs" />
+    <Compile Include="DAO\Mail.cs" />
+    <Compile Include="DAO\MenuDAO.cs" />
+    <Compile Include="DAO\PerfilDAO.cs" />
+    <Compile Include="DAO\PrivilegiosD.cs" />
+    <Compile Include="DAO\ProyectoDAO.cs" />
+    <Compile Include="DAO\Rechazo_ReporteDAO.cs" />
+    <Compile Include="DAO\ReporteDAO.cs" />
+    <Compile Include="DAO\ServicioDAO.cs" />
+    <Compile Include="DAO\Tabla_ConfiguracionDAO.cs" />
+    <Compile Include="DAO\Tipo_ContratoDAO.cs" />
+    <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Cliente_Contacto.cs" />
+    <Compile Include="Models\Cliente_Servicio.cs" />
+    <Compile Include="Models\Conexion.cs" />
+    <Compile Include="Models\Contacto.cs" />
+    <Compile Include="Models\Contrato.cs" />
+    <Compile Include="Models\Detalle_Reporte.cs" />
+    <Compile Include="Models\Fases.cs" />
+    <Compile Include="Models\Fase_Tiempo.cs" />
+    <Compile Include="Models\Fecha.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\Perfil.cs" />
+    <Compile Include="Models\Permiso_e.cs" />
+    <Compile Include="Models\PrivilegiosE.cs" />
+    <Compile Include="Models\Proyecto.cs" />
+    <Compile Include="Models\Proyectos.cs" />
+    <Compile Include="Models\Rechazo_Reporte.cs" />
+    <Compile Include="Models\Reporte.cs" />
+    <Compile Include="Models\Servicio.cs" />
+    <Compile Include="Models\Servicio_Contrato.cs" />
+    <Compile Include="Models\Tabla_Configuracion.cs" />
+    <Compile Include="Models\Tipo_Contrato.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\Utilities\TreeHelpers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seguridad\Encryption.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libeay32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libgcc_s_dw2-1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mingwm10.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ssleay32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltox0.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

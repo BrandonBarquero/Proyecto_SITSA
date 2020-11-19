@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitsa_Proyecto", "Sitsa_Proyecto.csproj", "{4E5DC516-AAD4-4F4A-8298-04DE22F4328A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biblioteca_Clases", "..\Biblioteca_Clases\Biblioteca_Clases.csproj", "{BBFE5E18-53CF-4641-9220-3E0259A97267}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E5DC516-AAD4-4F4A-8298-04DE22F4328A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E5DC516-AAD4-4F4A-8298-04DE22F4328A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E5DC516-AAD4-4F4A-8298-04DE22F4328A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E5DC516-AAD4-4F4A-8298-04DE22F4328A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBFE5E18-53CF-4641-9220-3E0259A97267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBFE5E18-53CF-4641-9220-3E0259A97267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBFE5E18-53CF-4641-9220-3E0259A97267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBFE5E18-53CF-4641-9220-3E0259A97267}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE56D675-B0DB-4FE7-A143-A54425447E7F}
+	EndGlobalSection
+EndGlobal

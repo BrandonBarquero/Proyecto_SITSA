@@ -1,0 +1,574 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using Biblioteca_Clases.Models;
+using Biblioteca_Clases.Seguridad;
+using Pechkin;
+
+namespace Biblioteca_Clases.DAO
+{
+    public class Mail
+    {
+        Encryption encryption = new Encryption();
+        public string Contrasenna()
+        {
+
+            Random rdn = new Random();
+            // string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%$#@";
+            string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            int longitud = caracteres.Length;
+            char letra;
+            int longitudContrasenia = 10;
+            string contraseniaAleatoria = string.Empty;
+            for (int i = 0; i < longitudContrasenia; i++)
+            {
+                letra = caracteres[rdn.Next(longitud)];
+                contraseniaAleatoria += letra.ToString();
+            }
+            return contraseniaAleatoria;
+        }
+
+        public void mail(string correo, string contrasenna)
+        {
+
+            try
+            {
+                MailMessage msg = new MailMessage(
+                "allan6kzx@gmail.com",
+                correo,
+                "Restablecimiento de contraseña",
+                "<html >" +
+                "<body style='margin: 0; padding: 0;'>" +
+                "<table role='presentation' border='0' cellpadding='0' cellspacing='0' width='100%'>" +
+                "<tr>" +
+                "<td style='padding: 20px 0 30px 0;'>" +
+                "<table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse: collapse; border: 1px solid #cccccc;'>" +
+                "<tr>" +
+                "<td align='center' bgcolor='#1B252F' style='padding: 0px 0 0px 0;'>" +
+                "<img src='http://www.sitsacr.net/Media/IMG/Dynamic/Home/Carousel/1Imagen%201.png' alt='Creating Email Magic.' width='600' height='280' style='display: block;' />" +
+                "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>" +
+                "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='border-collapse: collapse;'>" +
+                "<tr>" +
+                "<td style='color: #153643; font-family: Arial, sans-serif;'>" +
+                "<h1 style='font-size: 24px; margin: 0;'> Estimado Usuario:</h1>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td style='color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;'>" +
+                        "<p style='margin: 0;'> Su nueva contraseña es:<br><br> <center><strong> " + contrasenna + "</strong></center><br> <br>Podrá cambiarla en el sistema por una personalizada una vez iniciada la sesión.</p>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>" +
+                    "</td>" +
+                "</tr>" +
+            "</table>" +
+        "</td>" +
+    "</tr>" +
+    "<tr>" +
+        "<td bgcolor='#1B252F' style='padding: 30px 30px;'>'" +
+            "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='border-collapse: collapse;'>" +
+                "<tr>" +
+                    "<td style='color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;'>" +
+                        "<p style='margin: 0;'>  &reg; SITSA <br/> Soluciones Integrales en Tecnología</p>" +
+                      "</td>" +
+                      "<td align='right'>" +
+                          "<table border='0' cellpadding='0' cellspacing='0' style='border-collapse: collapse;'>" +
+                              "<tr>" +
+                                  "<td>" +
+                                      "<a href='https://www.facebook.com/SITSACostaRica'>" +
+                                          "<img src='https://cdn.icon-icons.com/icons2/220/PNG/512/facebook_25551.png' alt='Twitter.' width='38' height='38' style='display: block;' border='0' />" +
+                                      "</a>" +
+                                  "</td>" +
+                                  "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                     "<td>" +
+                                         "<a href='https://api.whatsapp.com/send?phone=50661934435&text=Hola%20SITSA!%20Me%20gustaría%20adquirir%20información%20de%20sus%20productos%20y%20servicios'>" +
+                                             "<img src='https://cdn.icon-icons.com/icons2/373/PNG/256/Whatsapp_37229.png' alt='whatsapp.' width='38' height='38' style='display: block;' border='0' />" +
+                                         "</a>" +
+                                     "</td>" +
+                                     "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                        "<td>" +
+                                            "<a href='tel:+506 24312925'>" +
+                                                "<img src='https://cdn.icon-icons.com/icons2/196/PNG/128/phone_23732.png' alt='Telefono.' width='38' height='38' style='display: block;' border='0' />" +
+                                            "</a>" +
+                                        "</td>" +
+                                            "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                           "<td>" +
+                                               "<a href='mailto:comercial@sitsacr.net'>" +
+                                                   "<img src='https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889681-email_82528.png' alt='Email.' width='38' height='38' style='display: block;' border='0' />" +
+                                               "</a>" +
+                                           "</td>" +
+                                       "</tr>" +
+                                   "</table>" +
+                               "</td>" +
+                           "</tr>" +
+                       "</table>" +
+                   "</td>" +
+               "</tr>" +
+           "</table>" +
+                       "</td>" +
+                   "</tr>" +
+               "</table>" +
+           "</body>" +
+           "</html>"
+                 );
+
+
+                msg.IsBodyHtml = true;
+                // MailAddress ms = new MailAddress("barquerobrandon@gmail.com");
+                // MailAddress ms1 = new MailAddress("eduardarauz2799@gmail.com");
+
+
+                //msg.Bcc.Add(ms);
+
+                //msg.Bcc.Add(ms1);
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                sc.EnableSsl = true;
+                sc.Send(msg);
+
+
+            }
+            catch (Exception e)
+            {
+                string hola = e.Message;
+
+            }
+
+
+        }
+
+        public void agregar_usuario_mail(string correo, string contrasenna)
+        {
+
+            try
+            {
+                MailMessage msg = new MailMessage("barquerobrandon@gmail.com",
+                 correo,
+                   "Registro de usuario Sitsa",
+                   "<html >" +
+                   "<body style='margin: 0; padding: 0;'>" +
+                    "<table role='presentation' border='0' cellpadding='0' cellspacing='0' width='100%'>" +
+                     "<tr>" +
+            "<td style='padding: 20px 0 30px 0;'>" +
+
+"<table align='center' border='0' cellpadding='0' cellspacing='0' width='600' style='border-collapse: collapse; border: 1px solid #cccccc;'>" +
+    "<tr>" +
+        "<td align='center' bgcolor='#1B252F' style='padding: 0px 0 0px 0;'>" +
+            "<img src='http://www.sitsacr.net/Media/IMG/Dynamic/Home/Carousel/1Imagen%201.png' alt='Creating Email Magic.' width='600' height='280' style='display: block;' />" +
+        "</td>" +
+    "</tr>" +
+    "<tr>" +
+        "<td bgcolor='#ffffff' style='padding: 40px 30px 40px 30px;'>" +
+            "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='border-collapse: collapse;'>" +
+                "<tr>" +
+                    "<td style='color: #153643; font-family: Arial, sans-serif;'>" +
+                        "<h1 style='font-size: 24px; margin: 0;'> Estimado Usuario:</h1>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td style='color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;'>" +
+                        "<p style='margin: 0;'> La contraseña autogenerada de su cuenta es:<br><br><center><strong> " + contrasenna + "</strong></center><br><br> Podrá cambiarla en el sistema por una personalizada una vez iniciada la sesión.</p>" +
+                    "</td>" +
+                "</tr>" +
+                "<tr>" +
+                    "<td>" +
+                    "</td>" +
+                "</tr>" +
+            "</table>" +
+        "</td>" +
+    "</tr>" +
+    "<tr>" +
+        "<td bgcolor='#1B252F' style='padding: 30px 30px;'>'" +
+            "<table border='0' cellpadding='0' cellspacing='0' width='100%' style='border-collapse: collapse;'>" +
+                "<tr>" +
+                    "<td style='color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;'>" +
+                        "<p style='margin: 0;'>  &reg; SITSA <br/> Soluciones Integrales en Tecnología</p>" +
+                      "</td>" +
+                      "<td align='right'>" +
+                          "<table border='0' cellpadding='0' cellspacing='0' style='border-collapse: collapse;'>" +
+                              "<tr>" +
+                                  "<td>" +
+                                      "<a href='https://www.facebook.com/SITSACostaRica'>" +
+                                          "<img src='https://cdn.icon-icons.com/icons2/220/PNG/512/facebook_25551.png' alt='Twitter.' width='38' height='38' style='display: block;' border='0' />" +
+                                      "</a>" +
+                                  "</td>" +
+                                  "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                     "<td>" +
+                                         "<a href='https://api.whatsapp.com/send?phone=50661934435&text=Hola%20SITSA!%20Me%20gustaría%20adquirir%20información%20de%20sus%20productos%20y%20servicios'>" +
+                                             "<img src='https://cdn.icon-icons.com/icons2/373/PNG/256/Whatsapp_37229.png' alt='whatsapp.' width='38' height='38' style='display: block;' border='0' />" +
+                                         "</a>" +
+                                     "</td>" +
+                                     "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                        "<td>" +
+                                            "<a href='tel:+506 24312925'>" +
+                                                "<img src='https://cdn.icon-icons.com/icons2/196/PNG/128/phone_23732.png' alt='Telefono.' width='38' height='38' style='display: block;' border='0' />" +
+                                            "</a>" +
+                                        "</td>" +
+                                            "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                           "<td>" +
+                                               "<a href='mailto:comercial@sitsacr.net'>" +
+                                                   "<img src='https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889681-email_82528.png' alt='Email.' width='38' height='38' style='display: block;' border='0' />" +
+                                               "</a>" +
+                                           "</td>" +
+                                       "</tr>" +
+                                   "</table>" +
+                               "</td>" +
+                           "</tr>" +
+                       "</table>" +
+                   "</td>" +
+               "</tr>" +
+           "</table>" +
+                       "</td>" +
+                   "</tr>" +
+               "</table>" +
+           "</body>" +
+           "</html>"
+                 );
+
+                msg.IsBodyHtml = true;
+
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                sc.EnableSsl = true;
+                sc.Send(msg);
+
+
+            }
+            catch (Exception e)
+            {
+                string hola = e.Message;
+
+            }
+
+
+        }
+
+        public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte)
+        {
+            GenerarPDF(PK_ID_REPORTE, reporte, detalles_reporte);
+
+            try
+            {
+                string filename = @"c:\\Pdf\\Reporte#.pdf";
+                Attachment data = new Attachment(filename, MediaTypeNames.Application.Octet);
+
+
+                MailMessage msg = new MailMessage("allan6kzx@gmail.com",
+                   "barquerobrandon@gmail.com",
+                   "Aceptacion de reporte",
+                   "<html>" +
+"<body style = 'margin: 0; padding: 0;' >" +
+"<table role = 'presentation' border = '0' cellpadding = '0' cellspacing = '0' width = '100%' >       <tr >" +
+"<td style = 'padding: 20px 0 30px 0;' >" +
+"<table align = 'center' border = '0' cellpadding = '0' cellspacing = '0' width = '600' style = 'border-collapse: collapse; border: 1px solid #cccccc;' >" +
+"<tr >" +
+"<td align = 'center' bgcolor = '#1B252F' style = 'padding: 0px 0 0px 0;' >" +
+"<img src = 'http://www.sitsacr.net/Media/IMG/Dynamic/Home/Carousel/1Imagen%201.png?v=6899' alt = 'Creating Email Magic.' width = '600' height = '280' style = 'display: block;' />" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td bgcolor = '#ffffff' style = 'padding: 40px 30px 40px 30px;' >" +
+"<table border = '0' cellpadding = '0' cellspacing = '0' width = '100%' style = 'border-collapse: collapse;' >" +
+"<tr >" +
+"<td style = 'color: #153643; font-family: Arial, sans-serif;' >" +
+"<h1 style = 'font-size: 24px; margin: 0;' > Estimado cliente:</h1 >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td style = 'color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;' >" +
+"<p style = 'margin: 0;' > Adjunto se encuentra el estado del informe del contrato. <br><br>Por medio del <a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=' " + PK_ID_REPORTE + "> enlace</a> puede realizar la aprobación o rechazo del mismo. </p >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td >" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td bgcolor = '#1B252F' style = 'padding: 30px 30px;' >" +
+"<table border = '0' cellpadding = '0' cellspacing = '0' width = '100%' style = 'border-collapse: collapse;' >" +
+"<tr >" +
+"<td style = 'color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;' >" +
+"<p style = 'margin: 0;' > &reg; SITSA <br />" +
+"Soluciones Integrales en Tecnología </p >" +
+"</td >" +
+"<td align = 'right' >" +
+ "<table border='0' cellpadding='0' cellspacing='0' style='border-collapse: collapse;'>" +
+                              "<tr>" +
+                                  "<td>" +
+                                      "<a href='https://www.facebook.com/SITSACostaRica'>" +
+                                          "<img src='https://cdn.icon-icons.com/icons2/220/PNG/512/facebook_25551.png' alt='Twitter.' width='38' height='38' style='display: block;' border='0' />" +
+                                      "</a>" +
+                                  "</td>" +
+                                  "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                     "<td>" +
+                                         "<a href='https://api.whatsapp.com/send?phone=50661934435&text=Hola%20SITSA!%20Me%20gustaría%20adquirir%20información%20de%20sus%20productos%20y%20servicios'>" +
+                                             "<img src='https://cdn.icon-icons.com/icons2/373/PNG/256/Whatsapp_37229.png' alt='whatsapp.' width='38' height='38' style='display: block;' border='0' />" +
+                                         "</a>" +
+                                     "</td>" +
+                                     "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                        "<td>" +
+                                            "<a href='tel:+506 24312925'>" +
+                                                "<img src='https://cdn.icon-icons.com/icons2/196/PNG/128/phone_23732.png' alt='Telefono.' width='38' height='38' style='display: block;' border='0' />" +
+                                            "</a>" +
+                                        "</td>" +
+                                            "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                           "<td>" +
+                                               "<a href='mailto:comercial@sitsacr.net'>" +
+                                                   "<img src='https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889681-email_82528.png' alt='Email.' width='38' height='38' style='display: block;' border='0' />" +
+                                               "</a>" +
+                                           "</td>" +
+                                       "</tr>" +
+                                   "</table>" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</td>" +
+"</tr >" +
+"</table >" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</body >" +
+"</html > "
+                 );
+
+
+
+                msg.Attachments.Add(data);
+                msg.IsBodyHtml = true;
+
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                sc.EnableSsl = true;
+                sc.Send(msg);
+
+
+            }
+            catch (Exception e)
+            {
+                string hola = e.Message;
+
+            }
+
+        }
+
+        public void Enviar_Resporte_Correo_Proyecto(string PK_ID_REPORTE, Reporte reporte)
+        {
+            GenerarPDFProyecto(PK_ID_REPORTE, reporte);
+
+            try
+            {
+                string filename = @"c:\\Pdf\\Reporte#P.pdf";
+                Attachment data = new Attachment(filename, MediaTypeNames.Application.Octet);
+
+
+                MailMessage msg = new MailMessage("allan6kzx@gmail.com",
+                   "barquerobrandon@gmail.com",
+                   "Aceptacion de reporte",
+                   "<html>" +
+"<body style = 'margin: 0; padding: 0;' >" +
+"<table role = 'presentation' border = '0' cellpadding = '0' cellspacing = '0' width = '100%' >       <tr >" +
+"<td style = 'padding: 20px 0 30px 0;' >" +
+"<table align = 'center' border = '0' cellpadding = '0' cellspacing = '0' width = '600' style = 'border-collapse: collapse; border: 1px solid #cccccc;' >" +
+"<tr >" +
+"<td align = 'center' bgcolor = '#1B252F' style = 'padding: 0px 0 0px 0;' >" +
+"<img src = 'http://www.sitsacr.net/Media/IMG/Dynamic/Home/Carousel/1Imagen%201.png?v=6899' alt = 'Creating Email Magic.' width = '600' height = '280' style = 'display: block;' />" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td bgcolor = '#ffffff' style = 'padding: 40px 30px 40px 30px;' >" +
+"<table border = '0' cellpadding = '0' cellspacing = '0' width = '100%' style = 'border-collapse: collapse;' >" +
+"<tr >" +
+"<td style = 'color: #153643; font-family: Arial, sans-serif;' >" +
+"<h1 style = 'font-size: 24px; margin: 0;' > Estimado cliente:</h1 >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td style = 'color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;' >" +
+"<p style = 'margin: 0;' > Adjunto se encuentra el estado del informe del contrato. <br><br>Por medio del <a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=' " + PK_ID_REPORTE + "> enlace</a> puede realizar la aprobación o rechazo del mismo. </p >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td >" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</td >" +
+"</tr >" +
+"<tr >" +
+"<td bgcolor = '#1B252F' style = 'padding: 30px 30px;' >" +
+"<table border = '0' cellpadding = '0' cellspacing = '0' width = '100%' style = 'border-collapse: collapse;' >" +
+"<tr >" +
+"<td style = 'color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;' >" +
+"<p style = 'margin: 0;' > &reg; SITSA <br />" +
+"Soluciones Integrales en Tecnología </p >" +
+"</td >" +
+"<td align = 'right' >" +
+ "<table border='0' cellpadding='0' cellspacing='0' style='border-collapse: collapse;'>" +
+                              "<tr>" +
+                                  "<td>" +
+                                      "<a href='https://www.facebook.com/SITSACostaRica'>" +
+                                          "<img src='https://cdn.icon-icons.com/icons2/220/PNG/512/facebook_25551.png' alt='Twitter.' width='38' height='38' style='display: block;' border='0' />" +
+                                      "</a>" +
+                                  "</td>" +
+                                  "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                     "<td>" +
+                                         "<a href='https://api.whatsapp.com/send?phone=50661934435&text=Hola%20SITSA!%20Me%20gustaría%20adquirir%20información%20de%20sus%20productos%20y%20servicios'>" +
+                                             "<img src='https://cdn.icon-icons.com/icons2/373/PNG/256/Whatsapp_37229.png' alt='whatsapp.' width='38' height='38' style='display: block;' border='0' />" +
+                                         "</a>" +
+                                     "</td>" +
+                                     "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                        "<td>" +
+                                            "<a href='tel:+506 24312925'>" +
+                                                "<img src='https://cdn.icon-icons.com/icons2/196/PNG/128/phone_23732.png' alt='Telefono.' width='38' height='38' style='display: block;' border='0' />" +
+                                            "</a>" +
+                                        "</td>" +
+                                            "<td style='font-size: 0; line-height: 0;' width='20'> &nbsp; </td>" +
+                                           "<td>" +
+                                               "<a href='mailto:comercial@sitsacr.net'>" +
+                                                   "<img src='https://cdn.icon-icons.com/icons2/1195/PNG/512/1490889681-email_82528.png' alt='Email.' width='38' height='38' style='display: block;' border='0' />" +
+                                               "</a>" +
+                                           "</td>" +
+                                       "</tr>" +
+                                   "</table>" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</td>" +
+"</tr >" +
+"</table >" +
+"</td >" +
+"</tr >" +
+"</table >" +
+"</body >" +
+"</html > "
+                 );
+
+
+
+                msg.Attachments.Add(data);
+                msg.IsBodyHtml = true;
+
+                SmtpClient sc = new SmtpClient("smtp.gmail.com");
+                sc.Port = 25;
+                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                sc.EnableSsl = true;
+                sc.Send(msg);
+
+
+            }
+            catch (Exception e)
+            {
+                string hola = e.Message;
+
+            }
+
+        }
+
+
+
+
+
+
+        public void GenerarPDF(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte)
+        {
+            string cadena = "", tipo = "";
+
+            tipo = "Reporte de contrato";
+
+
+
+
+            foreach (var dato in detalles_reporte)
+            {
+
+                cadena = cadena + "<tr><td>aqui va el servicio</td>" +
+                    "<td>" + dato.OBSERVACION + "</td>" +
+                    "<td>" + dato.TARIFA + "</td>" +
+                    "<td>" + dato.HORAS + "</td>" +
+                    "<td> Aqui va el costo</td><tr>";
+            }
+
+            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> Brandon Barquero &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br><br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br><label style = 'font-size: 18px;'> <strong> Horas totales: </strong > </label > &nbsp 30 <br><br> <label style = 'font-size: 18px;'> <strong> Horas consumidas: </strong> </label > &nbsp " + reporte.CANTIDAD_HORAS + " <br><br> <label style = 'font-size: 18px;'> <strong > Horas disponibles: </strong ></label> &nbsp 5</TABLE> <CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%> <TR > <TR ><TD ><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;' ><strong > Servicios:</strong > </label > <br><br><table border style = 'width:100%;'> <thead ><tr ><th> Servicio </th ><th > Descripción </th ><th > Monto </th ><th > Horas </th ><th > Costo por Hora</th ></tr></thead > <tbody >    " + cadena + "   </tbody>        </table><br><br>         <label style = 'font-size: 18px;' > <strong > Monto total: </strong> </label> &nbsp  55000<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea readonly='' style='width:100%; height: 100px; font-family: arial; font-size: 14px;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
+
+
+
+            // Folder where the file will be created 
+            string directory = "C:\\Pdf\\";
+            // Name of the PDF
+            string filename = "Reporte#.pdf";
+
+            if (ByteArrayToFile(directory + filename, pdfContent))
+            {
+                Console.WriteLine("PDF Succesfully created");
+            }
+            else
+            {
+                Console.WriteLine("Cannot create PDF");
+            }
+        }
+        public void GenerarPDFProyecto(string PK_ID_REPORTE, Reporte reporte)
+        {
+            string  tipo = "";
+            tipo = "Reporte de Proyecto";
+
+
+
+
+          
+
+            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> Brandon Barquero &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br>      <label style = 'font-size: 18px;' > <strong > Monto total: </strong> </label> &nbsp  55000<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea readonly='' style='width:100%; height: 100px; font-family: arial; font-size: 14px;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
+
+
+
+            // Folder where the file will be created 
+            string directory = "C:\\Pdf\\";
+            // Name of the PDF
+            string filename = "Reporte#P.pdf";
+
+            if (ByteArrayToFile(directory + filename, pdfContent))
+            {
+                Console.WriteLine("PDF Succesfully created");
+            }
+            else
+            {
+                Console.WriteLine("Cannot create PDF");
+            }
+        }
+        public bool ByteArrayToFile(string _FileName, byte[] _ByteArray)
+        {
+            try
+            {
+                // Open file for reading
+                FileStream _FileStream = new FileStream(_FileName, FileMode.Create, FileAccess.Write);
+                // Writes a block of bytes to this stream using data from  a byte array.
+                _FileStream.Write(_ByteArray, 0, _ByteArray.Length);
+
+                // Close file stream
+                _FileStream.Close();
+
+                return true;
+            }
+            catch (Exception _Exception)
+            {
+                Console.WriteLine("Exception caught in process while trying to save : {0}", _Exception.ToString());
+            }
+
+            return false;
+        }
+
+    }
+}
