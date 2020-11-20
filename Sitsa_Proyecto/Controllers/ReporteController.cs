@@ -79,6 +79,8 @@ namespace Sitsa_Proyecto.Controllers
 
             int id = dao_reporte.AgregarReporte(reporte);
 
+            string nombre_cliente = dao_reporte.ObtenerNombreCliente2(id);
+
 
             for (int i=0; i<detalles_reporte.Count; i++) { 
                 detalles_reporte[i].USUARIO_CREACION = (string)(Session["User"]);
@@ -102,7 +104,7 @@ namespace Sitsa_Proyecto.Controllers
                 dao_reporte.CambiarEstadoReporteContrato(reporte.ID_CONTRATO, (string)(Session["User"]), fecha_asignar);
             }
 
-            string nombre_cliente = dao_reporte.ObtenerNombreCliente2(reporte.ID_PROYECTO);
+            
 
             mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
 

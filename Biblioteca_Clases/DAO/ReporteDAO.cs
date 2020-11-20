@@ -759,7 +759,57 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-        
+        public double ObtenerHorasTotales(int id)
+        {
+
+            double result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_MAN_OBTENER_HORAS_TOTALES @PK_CONTRATO";
+            comando.Parameters.AddWithValue("@PK_CONTRATO", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+
+                result = list.GetDouble(0);
+
+
+            }
+            list.Dispose();
+            comando.Dispose();
+            return result;
+
+
+        }
+
+        public double ObtenerHorasConsumidas(int id)
+        {
+
+            double result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_MAN_OBTENER_HORAS_CONSUMIDAS @PK_CONTRATO";
+            comando.Parameters.AddWithValue("@PK_CONTRATO", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+
+                result = list.GetDouble(0);
+
+
+            }
+            list.Dispose();
+            comando.Dispose();
+            return result;
+
+
+        }
+
+
 
         public List<Contrato> ObtenerNombreContratoProyecto(int id)
         {
