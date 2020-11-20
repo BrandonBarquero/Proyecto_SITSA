@@ -167,6 +167,42 @@ namespace Biblioteca_Clases.DAO
         }
 
 
+        public List<Tabla_Configuracion> Correo_Configuracion()
+        {
+            List<Tabla_Configuracion> listaConfiguracion = new List<Tabla_Configuracion>();
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "exec [PA_CTRL_LISTAR_MAN_CONFIGURACION_CORREO]";
+
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Tabla_Configuracion cont = new Tabla_Configuracion();
+                cont.ESTADO = list.GetInt16(0);
+                cont.CONSECUTIVO = list.GetInt16(1);
+                cont.DESCRIPCION = list.GetString(2);
+                cont.OBSERVACION = list.GetString(3);
+                cont.LLAVE01 = list.GetString(4);
+                cont.LLAVE02 = list.GetString(5);
+                cont.LLAVE03 = list.GetString(6);
+                cont.LLAVE04 = list.GetString(7);
+                cont.LLAVE05 = list.GetString(8);
+                cont.LLAVE06 = list.GetString(9);
+                cont.VALOR = list.GetString(10);
+                cont.FK_LLAVE_FORANEA = list.GetInt64(11);
+                cont.ESTRUCTURA = list.GetString(12);
+                cont.GUI_RELACION = list.GetString(13);
+                cont.PK_TBL_CONFIG = list.GetInt64(14);
+                listaConfiguracion.Add(cont);
+
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaConfiguracion;
+
+        }
     }
+
 }
