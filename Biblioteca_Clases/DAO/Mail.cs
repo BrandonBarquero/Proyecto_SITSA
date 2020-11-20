@@ -314,7 +314,7 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-        public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte, String Nombre_cliente)
+        public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte, String Nombre_cliente, string [] correos)
         {
             listaConfiguracion = dao.Correo_Configuracion();
 
@@ -344,7 +344,6 @@ namespace Biblioteca_Clases.DAO
             {
                 string filename = @"c:\\Pdf\\Reporte#.pdf";
                 Attachment data = new Attachment(filename, MediaTypeNames.Application.Octet);
-
 
                 MailMessage msg = new MailMessage("allan6kzx@gmail.com",
                    "barquerobrandon@gmail.com",
@@ -428,7 +427,12 @@ namespace Biblioteca_Clases.DAO
 "</html > "
                  );
 
+                for (int i = 0; i < correos.Length - 1; i++)
+                {
+                    MailAddress ms = new MailAddress(correos[i]);
 
+                    msg.Bcc.Add(ms);
+                }
 
 
                 msg.Attachments.Add(data);
@@ -450,7 +454,7 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-        public void Enviar_Resporte_Correo_Proyecto(string PK_ID_REPORTE, Reporte reporte, Detalle_Reporte detalle_Reporte, String nombre_cliente)
+        public void Enviar_Resporte_Correo_Proyecto(string PK_ID_REPORTE, Reporte reporte, Detalle_Reporte detalle_Reporte, String nombre_cliente, string[] correos)
         {
             GenerarPDFProyecto(PK_ID_REPORTE, reporte, detalle_Reporte, nombre_cliente);
 
@@ -562,6 +566,13 @@ namespace Biblioteca_Clases.DAO
                     {
                         Contrasenna1 = dato.VALOR;
                     }
+                }
+
+                for (int i = 0; i < correos.Length - 1; i++)
+                {
+                    MailAddress ms = new MailAddress(correos[i]);
+
+                    msg.Bcc.Add(ms);
                 }
 
 

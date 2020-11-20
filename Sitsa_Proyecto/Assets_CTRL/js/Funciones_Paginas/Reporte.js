@@ -1015,7 +1015,8 @@ function guardar(opc) {
                 url: url,
                 data: JSON.stringify({
                     reporte: Reporte,
-                    detalle_reporte: Detalle_Reporte
+                    detalle_reporte: Detalle_Reporte,
+                    correos: correo_final
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

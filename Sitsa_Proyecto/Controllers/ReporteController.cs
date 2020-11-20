@@ -71,9 +71,9 @@ namespace Sitsa_Proyecto.Controllers
         public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles, string correos) {
             int result = 0;
 
-            string recibir_correo = correos;
-            var ARRAY_CORREOS = recibir_correo.Split(',');
-            recibir_correo = String.Join(",", ARRAY_CORREOS); 
+            string[] vector_correo = correos.Split(',');
+            
+
 
             Fecha fecha = new Fecha();
             string fecha_asignar = fecha.fecha();
@@ -110,14 +110,16 @@ namespace Sitsa_Proyecto.Controllers
 
             
 
-            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente/*, ARRAY_CORREOS*/);
+            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente, vector_correo);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         
-        public JsonResult agregar_reporte_proyecto(Reporte reporte, Detalle_Reporte detalle_Reporte)
+        public JsonResult agregar_reporte_proyecto(Reporte reporte, Detalle_Reporte detalle_Reporte, string correos)
         {
             int result = 0;
+
+            string[] vector_correo = correos.Split(',');
 
             Fecha fecha = new Fecha();
             string fecha_asignar = fecha.fecha();
@@ -137,7 +139,7 @@ namespace Sitsa_Proyecto.Controllers
 
             result = dao_reporte.AgregarDetalleReporteProyecto(detalle_Reporte);
 
-            mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte, detalle_Reporte, nombre_cliente);
+            mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte, detalle_Reporte, nombre_cliente, vector_correo);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -227,7 +229,7 @@ namespace Sitsa_Proyecto.Controllers
 
             string nombre_cliente = dao_reporte.ObtenerNombreCliente2(reporte.ID_PROYECTO);
 
-            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
+         //   mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
