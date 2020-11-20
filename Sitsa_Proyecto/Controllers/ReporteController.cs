@@ -68,8 +68,12 @@ namespace Sitsa_Proyecto.Controllers
 
 
 
-        public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles) {
+        public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles, string correos) {
             int result = 0;
+
+            string recibir_correo = correos;
+            var ARRAY_CORREOS = recibir_correo.Split(',');
+            recibir_correo = String.Join(",", ARRAY_CORREOS); 
 
             Fecha fecha = new Fecha();
             string fecha_asignar = fecha.fecha();
@@ -106,7 +110,7 @@ namespace Sitsa_Proyecto.Controllers
 
             
 
-            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
+            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente/*, ARRAY_CORREOS*/);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

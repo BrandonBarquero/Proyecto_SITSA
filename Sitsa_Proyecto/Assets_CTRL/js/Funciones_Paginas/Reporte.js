@@ -867,6 +867,18 @@ function guardar(opc) {
     var cliente = $('#cliente').val();
     var horas_disponibles = $("#horas_disponibles").val();
 
+
+
+    var correos = $("#email").val();
+
+    var g_correos2 = [];
+
+    g_correos2 = correos.split(";");
+
+    var correo_final = g_correos2.toString();
+
+
+
     var val_r_select = $('input:radio[name=grupo_r]:checked').val();
 
     if (val_select == "contrato" || (val_r_select == "contrato" && (val_select == "facturado" || val_select == "garantia")) && cliente != "") {
@@ -934,7 +946,8 @@ function guardar(opc) {
                     data: JSON.stringify({
                         reporte: Reporte,
                         detalles_reporte: g_detalles_reporte,
-                        horas_disponibles: horas_disponibles
+                        horas_disponibles: horas_disponibles,
+                        correos: correo_final
                     }),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
