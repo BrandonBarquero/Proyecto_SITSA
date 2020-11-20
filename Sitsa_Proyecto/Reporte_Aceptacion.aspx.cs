@@ -16,6 +16,8 @@ namespace Sitsa_Proyecto
         ReporteDAO dao = new ReporteDAO();
         string datoUrl = null;
         List<Reporte> list = new List<Reporte>();
+        List<Cliente> list2 = new List<Cliente>();
+        List<Contrato> list3 = new List<Contrato>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -86,6 +88,36 @@ namespace Sitsa_Proyecto
             return list;
         }
 
+        public List<Cliente> Nombre_Cliente_Reporte()
+        {
+
+            ReporteDAO dao = new ReporteDAO();
+
+            string val_reporte = aux.Decrypt(HttpUtility.UrlDecode(Request.QueryString["key"]));
+
+            int id_reporte = int.Parse(val_reporte);
+
+            list2 = dao.ObtenerNombreCliente(id_reporte);
+
+            return list2;
+        }
+
+        public List<Contrato> Nombre_Contrato_Proyecto_Reporte()
+        {
+
+            ReporteDAO dao = new ReporteDAO();
+
+            string val_reporte = aux.Decrypt(HttpUtility.UrlDecode(Request.QueryString["key"]));
+
+            int id_reporte = int.Parse(val_reporte);
+
+            list3 = dao.ObtenerNombreContratoProyecto(id_reporte);
+
+            return list3;
+        }
+
+
+        
 
 
 

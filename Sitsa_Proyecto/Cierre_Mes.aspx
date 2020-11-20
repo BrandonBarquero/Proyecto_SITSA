@@ -13,13 +13,13 @@
     <div class="container-repo">
 
         <!-- Page Header -->
-        <div class="#">
+        <div style="margin-right: auto;">
             <h3 class="text-left">
                 <i class="far fa-file color-icono"></i>&nbsp; Cierre de mes
             </h3>
             <p class="text-justify txt5">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-            </p>
+           Manejo y control de registro de reportes por facturar y facturados.
+                </p>
         </div>
 
         <!-- Contenido -->

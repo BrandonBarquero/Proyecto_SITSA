@@ -7,12 +7,12 @@
    <div class="container-home">
 	  
 			<!-- Page Header -->
-			<div class="#">
+			<div style="margin-right: auto;">
 				<h3 class="text-left">
 				<i class="fas fa-door-open color-icono"></i> &nbsp; Bienvenido
 				</h3>
 				<p class="text-justify txt5">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
+					Sistema de Control de Visitas para el manejo y control de reportes de contratos, proyectos y cierre de mes.
 				</p>
 			</div>
 			

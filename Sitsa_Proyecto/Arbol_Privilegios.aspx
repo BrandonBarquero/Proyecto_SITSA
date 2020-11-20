@@ -23,13 +23,13 @@
           </ContentTemplate>
         </asp:UpdatePanel>
 
-           <div class="#"> <!--Cabecera-->
+           <div margin-right: auto;> <!--Cabecera-->
           <h3 class="text-left">
            <i class="fas fa-lock color-icono" aria-hidden="true"></i>&nbsp; Permisos
          </h3>
          <p class="text-justify txt5">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit nostrum rerum animi natus beatae ex. Culpa blanditiis tempore amet alias placeat, obcaecati quaerat ullam, sunt est, odio aut veniam ratione.
-        </p>
+       Manejo y control de permisos para los distintos perfiles del Sistema de Control de Visitas.
+             </p>
       </div><!--Fin Cabecera-->
         <asp:UpdatePanel ID="upNum4" runat="server">
           <ContentTemplate>

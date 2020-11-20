@@ -685,5 +685,51 @@ namespace Biblioteca_Clases.DAO
             return listaContactos;
 
         }
+
+        public List<Cliente> ObtenerNombreCliente(int id)
+        {
+            List<Cliente> listaContactos = new List<Cliente>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_MAN_OBTENER_NOMBRE_CLIENTE_REPORTE @PK_REPORTE";
+            comando.Parameters.AddWithValue("@PK_REPORTE", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Cliente cont = new Cliente();
+                cont.NOMBRE = list.GetString(0);
+
+                listaContactos.Add(cont);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaContactos;
+
+        }
+
+        public List<Contrato> ObtenerNombreContratoProyecto(int id)
+        {
+            List<Contrato> listaContactos = new List<Contrato>();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_MAN_OBTENER_NOMBRE_CONTRATO_PROYECTO @PK_REPORTE";
+            comando.Parameters.AddWithValue("@PK_REPORTE", id);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                Contrato cont = new Contrato();
+                cont.NOMBRE_CONTRATO = list.GetString(0);
+
+                listaContactos.Add(cont);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return listaContactos;
+
+        }
     }
 }

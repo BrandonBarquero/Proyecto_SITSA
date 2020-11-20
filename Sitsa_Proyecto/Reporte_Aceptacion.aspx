@@ -158,8 +158,7 @@
 
                  <form id="form1" runat="server">
        
-
-               
+                 
 
                       <%
                         List<Biblioteca_Clases.Models.Reporte> list = new List<Biblioteca_Clases.Models.Reporte>();
@@ -175,29 +174,61 @@
                         Reporte #<%=dato.PK_ID_REPORTE%>
                     </span>
 
-                      <div class="form-group">
+                            <%    List<Biblioteca_Clases.Models.Cliente> list2 = new List<Biblioteca_Clases.Models.Cliente>();
+                         list2 = Nombre_Cliente_Reporte();
+
+                         int autoincrement2 = 0;
+                         foreach (var dato2 in list2)
+                         {
+                             autoincrement2 = autoincrement2 + 1;
+
+                         %>
+
+                            <div class="form-group">
                             <label>Cliente: </label>
-                            <input   type="text" class="form-control" readonly="true" value="Cliente quemado" />
+                            <input   type="text" class="form-control" readonly="true" value="<%=dato2.NOMBRE%>" />
                         </div>
+
+                     <%} %>
 
                          <div class="form-group">
                             <label>Tipo de Reporte: </label>
                             <input   type="text" class="form-control" readonly="true" value="<%=dato.TIPO_DOCUMENTO%>" />
                         </div>
 
-                        <div class="form-group">
-                            <label>Observaciones: </label>
-                            <input  type="text" class="form-control" readonly="true" value="<%=dato.OBSERVACION%>" />
+                       <%    List<Biblioteca_Clases.Models.Contrato> list3 = new List<Biblioteca_Clases.Models.Contrato>();
+                         list3 = Nombre_Contrato_Proyecto_Reporte();
+
+                         int autoincrement3 = 0;
+                         foreach (var dato3 in list3)
+                         {
+                             autoincrement3 = autoincrement3 + 1;
+
+                         %>
+
+                            <div class="form-group">
+                            <label>Nombre de documento: </label>
+                            <input   type="text" class="form-control" readonly="true" value="<%=dato3.NOMBRE_CONTRATO%>" />
                         </div>
 
-                     <div class="alert alert-info" Visible="false" runat="server" id="Div2">
-                    <asp:Label ID="Label3" runat="server" Text="Ya se hizo la verificación"></asp:Label>
-                    </div>
+                     <%} %>
 
+                        <div class="form-group">
+                            <label>Observación: </label>
+                            <textarea rows="2" class="form-control" readonly="true" ><%=dato.OBSERVACION%></textarea>
+                        </div>
                    
                       <%}%>
 
-                     <br /><br />
+              
+
+
+
+                              <div class="alert alert-info" Visible="false" runat="server" id="Div2">
+                    <asp:Label ID="Label3" runat="server" Text="Ya se hizo la verificación"></asp:Label>
+                    </div>
+
+                     <br />
                  <div runat="server" id="Div3">
                  <asp:Label Font-Bold="true" CssClass="txt1 p-b-11" ID="Label1" runat="server" Text="Seleccione una opción:"></asp:Label>
                      <br/><br/>
