@@ -13,6 +13,8 @@ namespace Biblioteca_Clases.DAO
     public class Mail
     {
         Encryption encryption = new Encryption();
+
+        ReporteDAO dao_reporte = new ReporteDAO();
         public string Contrasenna()
         {
 
@@ -252,9 +254,9 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-        public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte)
+        public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte, String Nombre_cliente)
         {
-            GenerarPDF(PK_ID_REPORTE, reporte, detalles_reporte);
+            GenerarPDF(PK_ID_REPORTE, reporte, detalles_reporte, Nombre_cliente);
 
             try
             {
@@ -365,9 +367,9 @@ namespace Biblioteca_Clases.DAO
 
         }
 
-        public void Enviar_Resporte_Correo_Proyecto(string PK_ID_REPORTE, Reporte reporte)
+        public void Enviar_Resporte_Correo_Proyecto(string PK_ID_REPORTE, Reporte reporte, Detalle_Reporte detalle_Reporte, String nombre_cliente)
         {
-            GenerarPDFProyecto(PK_ID_REPORTE, reporte);
+            GenerarPDFProyecto(PK_ID_REPORTE, reporte, detalle_Reporte, nombre_cliente);
 
             try
             {
@@ -483,11 +485,12 @@ namespace Biblioteca_Clases.DAO
 
 
 
-        public void GenerarPDF(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte)
+        public void GenerarPDF(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte, String nombre_cliente)
         {
             string cadena = "", tipo = "";
 
             tipo = "Reporte de contrato";
+            string pk_reporte = encryption.Decrypt(PK_ID_REPORTE);
 
 
 
@@ -495,14 +498,15 @@ namespace Biblioteca_Clases.DAO
             foreach (var dato in detalles_reporte)
             {
 
-                cadena = cadena + "<tr><td>aqui va el servicio</td>" +
+                string nombre_servicio = dao_reporte.ObtenerNombreServicio(dato.ID_SERVICIO);
+
+                cadena = cadena + "<tr><td>"+nombre_servicio+"</td>" +
                     "<td>" + dato.OBSERVACION + "</td>" +
                     "<td>" + dato.TARIFA + "</td>" +
-                    "<td>" + dato.HORAS + "</td>" +
-                    "<td> Aqui va el costo</td><tr>";
+                    "<td>" + dato.HORAS + "</td>";
             }
 
-            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> Brandon Barquero &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br><br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br><label style = 'font-size: 18px;'> <strong> Horas totales: </strong > </label > &nbsp 30 <br><br> <label style = 'font-size: 18px;'> <strong> Horas consumidas: </strong> </label > &nbsp " + reporte.CANTIDAD_HORAS + " <br><br> <label style = 'font-size: 18px;'> <strong > Horas disponibles: </strong ></label> &nbsp 5</TABLE> <CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%> <TR > <TR ><TD ><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;' ><strong > Servicios:</strong > </label > <br><br><table border style = 'width:100%;'> <thead ><tr ><th> Servicio </th ><th > Descripción </th ><th > Monto </th ><th > Horas </th ><th > Costo por Hora</th ></tr></thead > <tbody >    " + cadena + "   </tbody>        </table><br><br>         <label style = 'font-size: 18px;' > <strong > Monto total: </strong> </label> &nbsp  55000<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea readonly='' style='width:100%; height: 100px; font-family: arial; font-size: 14px;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
+            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #"+pk_reporte+"</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> "+nombre_cliente+" &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br><br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br><label style = 'font-size: 18px;'> <strong> Horas totales: </strong > </label > &nbsp 30 <br><br> <label style = 'font-size: 18px;'> <strong> Horas consumidas: </strong> </label > &nbsp " + reporte.CANTIDAD_HORAS + " <br><br> <label style = 'font-size: 18px;'> <strong > Horas disponibles: </strong ></label> &nbsp 5</TABLE> <CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%> <TR > <TR ><TD ><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;' ><strong > Servicios:</strong > </label > <br><br><table border style = 'width:100%;'> <thead ><tr ><th> Servicio </th ><th > Descripción </th ><th > Monto </th ><th > Horas </th ></tr></thead > <tbody >    " + cadena + "   </tbody>        </table><br><br>         <label style = 'font-size: 18px;' > <strong > Monto total: </strong> </label> &nbsp  55000<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea readonly='' style='width:100%; height: 100px; font-family: arial; font-size: 14px;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
 
 
 
@@ -520,8 +524,12 @@ namespace Biblioteca_Clases.DAO
                 Console.WriteLine("Cannot create PDF");
             }
         }
-        public void GenerarPDFProyecto(string PK_ID_REPORTE, Reporte reporte)
+        public void GenerarPDFProyecto(string PK_ID_REPORTE, Reporte reporte,Detalle_Reporte detalle_Reporte, string nombre_cliente)
         {
+
+           string pk_reporte =  encryption.Decrypt(PK_ID_REPORTE);
+
+
             string  tipo = "";
             tipo = "Reporte de Proyecto";
 
@@ -530,7 +538,7 @@ namespace Biblioteca_Clases.DAO
 
           
 
-            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> Brandon Barquero &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br>      <label style = 'font-size: 18px;' > <strong > Monto total: </strong> </label> &nbsp  55000<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea readonly='' style='width:100%; height: 100px; font-family: arial; font-size: 14px;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
+            byte[] pdfContent = new SimplePechkin(new GlobalConfig()).Convert("<html><body style='background - color: #E3F5FF '><CENTER> <TABLE style = 'font-family: arial;'  WIDTH ='80%'><TR><TD WIDTH ='75%'><h2 style = 'color: #1B252F'> Soluciones <strong> S.I.T.S.A </strong></h2><h4><a href = 'http://www.sitsacr.net'> www.sitsacr.net </a></h4><h4><a> ventas@sitsacr.net </a></h4><p> Tel: 2431 - 2925 </p><hr style = 'border-color: #707070;'><p> 50 m.Sur del Scotiabank Alajuela Centro <br/> <strong> 'Avenida Juan Lopez del corral' </strong></p><TD style = 'font-family: arial;'><center><h1 style = 'color: #1B252F'> S.I.T.S.A </h1> Soluciones Integrales en Tecnología </center><center> </TABLE><TABLE style = 'font-family: arial;'  WIDTH=80%><TR><TD ><hr style ='border-color: #707070;'><center><p style ='font-size: 24px;'> Reporte #"+pk_reporte+ "</p> <h2>S.I.T.S.A</h2></center><TR> <TD><hr style = 'border-color: #707070;' ><label style = 'font-size: 18px;'><strong> Cliente:</strong> </label> "+nombre_cliente+" &nbsp &nbsp &nbsp <label style = 'font-size: 18px; font-family: arial;'> <strong> Fecha:</strong > </label > " + reporte.FECHA + "<br><br> <label style = 'font-size: 18px;'> <strong> Tipo de reporte: </strong > </label > &nbsp  " + tipo + "<br> <br>      <label style = 'font-size: 18px;' > <strong > Monto consumido: </strong> </label> &nbsp  " + detalle_Reporte.TARIFA + "<br><br></TABLE><CENTER><TABLE style = 'font-family: arial;'  WIDTH=80%><TR ><TR ><TD ><hr style= 'border-color: #707070;' ><label style= 'font-size: 18px;'><strong> Pendientes / Observaciones:</strong> </label><br><br><textarea style='width:100%; height: 100px; font-family: arial; font-size: 14px; font-color:black;'>" + reporte.OBSERVACION + "</textarea><br><br><CENTER><a href = 'https://localhost:44375/Reporte_Aceptacion.aspx?key=" + PK_ID_REPORTE + "'><button style='border-radius: 12px; font-family: arial; font-size: 16px; background-color: #e7e7e7; color: black;'>Cambiar estado</button></a></CENTER></TABLE></body</html>");
 
 
 

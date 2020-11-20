@@ -100,9 +100,11 @@ namespace Sitsa_Proyecto.Controllers
             }
             else {
                 dao_reporte.CambiarEstadoReporteContrato(reporte.ID_CONTRATO, (string)(Session["User"]), fecha_asignar);
-            }                   
-         
-            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte);
+            }
+
+            string nombre_cliente = dao_reporte.ObtenerNombreCliente2(reporte.ID_PROYECTO);
+
+            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -125,9 +127,11 @@ namespace Sitsa_Proyecto.Controllers
 
             dao_reporte.CambiarEstadoReporteProyecto(reporte.ID_PROYECTO, (string)(Session["User"]), fecha_asignar);
 
+           string nombre_cliente =  dao_reporte.ObtenerNombreCliente2(reporte.ID_PROYECTO);
+
             result = dao_reporte.AgregarDetalleReporteProyecto(detalle_Reporte);
 
-            mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte);
+            mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte, detalle_Reporte, nombre_cliente);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -215,7 +219,9 @@ namespace Sitsa_Proyecto.Controllers
                 dao_reporte.CambiarEstadoReporteContrato(reporte.ID_CONTRATO, (string)(Session["User"]), fecha_asignar);
             }
 
-            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte);
+            string nombre_cliente = dao_reporte.ObtenerNombreCliente2(reporte.ID_PROYECTO);
+
+            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
