@@ -12,8 +12,11 @@ namespace Biblioteca_Clases.DAO
 {
     public class Mail
     {
-        Encryption encryption = new Encryption();
 
+        string Correo = "", SMTP = "", Puerto = "", Contrasenna1 = "";
+        List<Tabla_Configuracion> listaConfiguracion = new List<Tabla_Configuracion>();
+        Encryption encryption = new Encryption();
+        Tabla_ConfiguracionDAO dao = new Tabla_ConfiguracionDAO();
         ReporteDAO dao_reporte = new ReporteDAO();
         public string Contrasenna()
         {
@@ -35,8 +38,12 @@ namespace Biblioteca_Clases.DAO
 
         public void mail(string correo, string contrasenna)
         {
+           
 
-            try
+
+
+
+                try
             {
                 MailMessage msg = new MailMessage(
                 "allan6kzx@gmail.com",
@@ -130,9 +137,38 @@ namespace Biblioteca_Clases.DAO
                 //msg.Bcc.Add(ms);
 
                 //msg.Bcc.Add(ms1);
-                SmtpClient sc = new SmtpClient("smtp.gmail.com");
-                sc.Port = 25;
-                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+
+
+
+                listaConfiguracion = dao.Correo_Configuracion();
+
+                foreach (var dato in listaConfiguracion)
+                {
+
+                    if (dato.LLAVE04.Equals("CORREO"))
+                    {
+                        Correo = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("SMTP"))
+                    {
+                        SMTP = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("PUERTO"))
+                    {
+                        Puerto = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("CONTRASENNA"))
+                    {
+                        Contrasenna1 = dato.VALOR;
+                    }
+                }
+
+
+
+
+                SmtpClient sc = new SmtpClient(SMTP);
+                sc.Port = Int32.Parse(Puerto);
+                sc.Credentials = new NetworkCredential(correo, Contrasenna1);
                 sc.EnableSsl = true;
                 sc.Send(msg);
 
@@ -235,11 +271,35 @@ namespace Biblioteca_Clases.DAO
            "</html>"
                  );
 
+                listaConfiguracion = dao.Correo_Configuracion();
+
+                foreach (var dato in listaConfiguracion)
+                {
+
+                    if (dato.LLAVE04.Equals("CORREO"))
+                    {
+                        Correo = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("SMTP"))
+                    {
+                        SMTP = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("PUERTO"))
+                    {
+                        Puerto = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("CONTRASENNA"))
+                    {
+                        Contrasenna1 = dato.VALOR;
+                    }
+                }
+
+
                 msg.IsBodyHtml = true;
 
-                SmtpClient sc = new SmtpClient("smtp.gmail.com");
-                sc.Port = 25;
-                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                SmtpClient sc = new SmtpClient(SMTP);
+                sc.Port = Int32.Parse(Puerto);
+                sc.Credentials = new NetworkCredential(correo, Contrasenna1);
                 sc.EnableSsl = true;
                 sc.Send(msg);
 
@@ -256,6 +316,28 @@ namespace Biblioteca_Clases.DAO
 
         public void Enviar_Resporte_Correo(string PK_ID_REPORTE, Reporte reporte, List<Detalle_Reporte> detalles_reporte, String Nombre_cliente)
         {
+            listaConfiguracion = dao.Correo_Configuracion();
+
+            foreach (var dato in listaConfiguracion)
+            {
+
+                if (dato.LLAVE04.Equals("CORREO"))
+                {
+                    Correo = dato.VALOR;
+                }
+                if (dato.LLAVE04.Equals("SMTP"))
+                {
+                    SMTP = dato.VALOR;
+                }
+                if (dato.LLAVE04.Equals("PUERTO"))
+                {
+                    Puerto = dato.VALOR;
+                }
+                if (dato.LLAVE04.Equals("CONTRASENNA"))
+                {
+                    Contrasenna1 = dato.VALOR;
+                }
+            }
             GenerarPDF(PK_ID_REPORTE, reporte, detalles_reporte, Nombre_cliente);
 
             try
@@ -348,12 +430,13 @@ namespace Biblioteca_Clases.DAO
 
 
 
+
                 msg.Attachments.Add(data);
                 msg.IsBodyHtml = true;
 
-                SmtpClient sc = new SmtpClient("smtp.gmail.com");
-                sc.Port = 25;
-                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                SmtpClient sc = new SmtpClient(SMTP);
+                sc.Port = Int32.Parse( Puerto);
+                sc.Credentials = new NetworkCredential(Correo, Contrasenna1);
                 sc.EnableSsl = true;
                 sc.Send(msg);
 
@@ -458,15 +541,36 @@ namespace Biblioteca_Clases.DAO
 "</body >" +
 "</html > "
                  );
+                listaConfiguracion = dao.Correo_Configuracion();
 
+                foreach (var dato in listaConfiguracion)
+                {
+
+                    if (dato.LLAVE04.Equals("CORREO"))
+                    {
+                        Correo = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("SMTP"))
+                    {
+                        SMTP = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("PUERTO"))
+                    {
+                        Puerto = dato.VALOR;
+                    }
+                    if (dato.LLAVE04.Equals("CONTRASENNA"))
+                    {
+                        Contrasenna1 = dato.VALOR;
+                    }
+                }
 
 
                 msg.Attachments.Add(data);
                 msg.IsBodyHtml = true;
 
-                SmtpClient sc = new SmtpClient("smtp.gmail.com");
-                sc.Port = 25;
-                sc.Credentials = new NetworkCredential("allan6kzx@gmail.com", "argentun1Q(");
+                SmtpClient sc = new SmtpClient(SMTP);
+                sc.Port = Int32.Parse(Puerto);
+                sc.Credentials = new NetworkCredential(Correo, Contrasenna1);
                 sc.EnableSsl = true;
                 sc.Send(msg);
 
