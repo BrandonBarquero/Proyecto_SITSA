@@ -19,63 +19,11 @@ namespace Sitsa_Proyecto.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public JsonResult Filtrar_Cliente(string dato)
-        {
-            List<Reporte> list = daoreporte.listaCliente(dato);
+       
+     
 
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult Filtrar_Clientefacturado(string dato)
-        {
-            List<Reporte> list = daoreporte.listaClienteFacturado(dato);
-
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult Filtrar_Reporte(string dato)
-        {
-            List<Reporte> list = daoreporte.listaReporte(dato);
-
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Filtrar_Reporte_Facturados(string dato)
-        {
-            List<Reporte> list = daoreporte.listaReportefacturados(dato);
-
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Filtrar_Fechas(string dato, string dato1)
-        {
-            
-
-
-
-            List<Reporte> list = daoreporte.listaFechas(dato, dato1);
-
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
-        public JsonResult Filtrar_Fechas_Facturado(string dato, string dato1)
-        {
-
-            List<Reporte> list = daoreporte.listaFechasfacturado(dato, dato1);
-
-
-            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
-            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-        }
+     
+      
         public JsonResult AceptarReporte(string dato)
         {
             string user = (string)(Session["User"]);
@@ -108,7 +56,65 @@ namespace Sitsa_Proyecto.Controllers
 
           
         }
+        public JsonResult Buscar(string reporte, string cliente, string horas_convertidas, string horas_convertidas2)
+        {
 
+            if (horas_convertidas.Equals("") && horas_convertidas2.Equals("")) {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+            if ( horas_convertidas2.Equals(""))
+            {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+            if (horas_convertidas.Equals(""))
+            {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+
+
+
+
+            List<Reporte> list = daoreporte.listaReporte(reporte, cliente, horas_convertidas, horas_convertidas2);
+
+
+            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult Buscar_Facturados(string reporte, string cliente, string horas_convertidas, string horas_convertidas2)
+        {
+
+            if (horas_convertidas.Equals("") && horas_convertidas2.Equals(""))
+            {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+            if (horas_convertidas2.Equals(""))
+            {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+            if (horas_convertidas.Equals(""))
+            {
+                horas_convertidas = "1999-10-10";
+                horas_convertidas2 = "2040-10-10";
+            }
+
+
+
+
+            List<Reporte> list = daoreporte.listaReportefacturados(reporte, cliente, horas_convertidas, horas_convertidas2);
+
+
+            string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);
+
+            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
+
+        }
         public JsonResult Generales()
         {
 

@@ -390,59 +390,61 @@ namespace Biblioteca_Clases.DAO
             return result;
 
         }
-        public List<Reporte> listaReporte(string dato)
+        public List<Reporte> listaReporte(string dato, string cliente,string fechaI, string fechaF )
         {
             List<Reporte> listareportes = new List<Reporte>();
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CTRL_MAN_LISTAR_REPORTES_FILTRADO_NUMERO_REPORTE @dato";
+            comando.CommandText = "exec PA_CTRL_MAN_LISTAR_REPORTES_FILTRADO_NUMERO_REPORTE @dato,@cliente,@fechaI,@fechaF";
             comando.Parameters.AddWithValue("@dato", dato);
-
+            comando.Parameters.AddWithValue("@cliente", cliente);
+            comando.Parameters.AddWithValue("@fechaI", fechaI);
+            comando.Parameters.AddWithValue("@fechaF", fechaF);
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
             {
                 Reporte serv = new Reporte();
                 serv.PK_ID_REPORTE = list.GetInt32(0);
-                if (!list.IsDBNull(1))
-                {
-                    serv.CANTIDAD_HORAS = list.GetDouble(1);
-                }
-                
-                serv.TIPO_DOCUMENTO = list.GetString(2);
+                serv.TIPO_DOCUMENTO = list.GetString(1);
+                serv.CANTIDAD_HORAS = list.GetDouble(2);
+            
                 listareportes.Add(serv);
+
             }
             list.Dispose();
             comando.Dispose();
             return listareportes;
 
         }
-        public List<Reporte> listaReportefacturados(string dato)
+        public List<Reporte> listaReportefacturados(string dato, string cliente, string fechaI, string fechaF)
         {
             List<Reporte> listareportes = new List<Reporte>();
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec [PA_CTRL_MAN_LISTAR_REPORTES_FILTRADO_NUMERO_REPORTE_FACTURADO] @dato";
+            comando.CommandText = "exec [PA_CTRL_MAN_LISTAR_REPORTES_FILTRADO_NUMERO_REPORTE_FACTURADO] @dato,@cliente,@fechaI,@fechaF";
             comando.Parameters.AddWithValue("@dato", dato);
-
+            comando.Parameters.AddWithValue("@cliente", cliente);
+            comando.Parameters.AddWithValue("@fechaI", fechaI);
+            comando.Parameters.AddWithValue("@fechaF", fechaF);
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
             {
                 Reporte serv = new Reporte();
                 serv.PK_ID_REPORTE = list.GetInt32(0);
-                if (!list.IsDBNull(1))
-                {
-                    serv.CANTIDAD_HORAS = list.GetDouble(1);
-                }
-                serv.TIPO_DOCUMENTO = list.GetString(2);
+                serv.TIPO_DOCUMENTO = list.GetString(1);
+                serv.CANTIDAD_HORAS = list.GetDouble(2);
+
                 listareportes.Add(serv);
+
             }
             list.Dispose();
             comando.Dispose();
             return listareportes;
 
         }
+       
         public List<Reporte> listaCliente(string dato)
         {
             List<Reporte> listareportes = new List<Reporte>();

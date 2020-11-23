@@ -52,9 +52,9 @@
                     <label for="firstName">Reporte</label>
 
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Reporte" id="reporte" name="reporte">
+                        <input required type="text" class="form-control" placeholder="Reporte" id="reporte" name="reporte">
                         <div class="input-group-append">
-                            <button type="button" onclick="Flitrar_Reporte()" class="cliente-btn-search">Buscar</button>
+                          
                         </div>
                     </div>
 
@@ -74,7 +74,7 @@
 
                     <div class="input-group">
                         <input type="date" class="form-control" id="horas_convertidas2" name="horas_convertidas">
-                        <div class="input-group-append" > <button type="button" onclick="Flitrar_Fechas()" class="cliente-btn-search">Buscar</button></div>
+                        <div class="input-group-append" > <button type="button" onclick="Buscar()" class="cliente-btn-search">Buscar</button></div>
                     </div>
                     
                 </div>
@@ -182,63 +182,31 @@
 
         var servicios = [];
         var servicios2 = [];
-        function Flitrar_Fechas() {
+       
+       
+        function Buscar() {
 
-            let dato = $("#horas_convertidas").val();
-            let dato1 = $("#horas_convertidas2").val();
-            alert(dato);
+            let Reporte = $("#reporte").val();
+            let cliente = $("#cliente").val();
+            let horas_convertidas = $("#horas_convertidas").val();
+            let horas_convertidas2 = $("#horas_convertidas2").val();
 
+            if (Tipo == "General") { 
+            $.ajax({
+                type: "post",
+                url: "/Cierre_Mes/Buscar",
+                data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2},
+                success: function (result) {
+                    var json_obj6 = $.parseJSON(result);
+                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
-            if (Tipo == "General") {
-                $.ajax({
-                    type: "post",
-                    url: "/Cierre_Mes/Filtrar_Fechas",
-                    data: { dato: dato, dato1: dato1 },
-                    success: function (result) {
-                        var json_obj6 = $.parseJSON(result);
-                        var cantidadDeClaves6 = Object.keys(json_obj6).length;
+                    $("#tabla-mant > tbody").empty();
 
-                        $("#tabla-mant > tbody").empty();
+                    for (var i = 0; i < cantidadDeClaves6; i++) {
 
-                        for (var i = 0; i < cantidadDeClaves6; i++) {
+                        servicios2.push($('#tabla-mant').val());
 
-                            servicios.push($('#tabla-mant').val());
-
-                            var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                            $('#tabla-mant tbody').append(htmlTags6);
-                        }
-
-
-
-                    }
-                })
-            }
-            if (Tipo == "Facturados") {
-
-                $.ajax({
-                    type: "post",
-                    url: "/Cierre_Mes/Filtrar_Fechas_Facturado",
-                    data: { dato: dato, dato1: dato1 },
-                    success: function (result) {
-                        var json_obj6 = $.parseJSON(result);
-                        var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                        $("#tabla-mant > tbody").empty();
-
-                        for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                            servicios.push($('#tabla-mant').val());
-
-                            var htmlTags6 = `
+                        var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
@@ -248,61 +216,20 @@
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
-                            $('#tabla-mant tbody').append(htmlTags6);
-                        }
-
-
-
+                        $('#tabla-mant tbody').append(htmlTags6);
                     }
-                })
 
 
 
+                }
+            })
             }
 
-        }
-        function Flitrar_Reporte() {
-
-            let dato = $("#reporte").val();
-
-            if (Tipo == "General") {
-                $.ajax({
-                    type: "post",
-                    url: "/Cierre_Mes/Filtrar_Reporte",
-                    data: { dato: dato },
-                    success: function (result) {
-                        var json_obj6 = $.parseJSON(result);
-                        var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                        $("#tabla-mant > tbody").empty();
-
-                        for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                            servicios2.push($('#tabla-mant').val());
-
-                            var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                            $('#tabla-mant tbody').append(htmlTags6);
-                        }
-
-
-
-                    }
-                })
-            }
             if (Tipo == "Facturados") {
                 $.ajax({
                     type: "post",
-                    url: "/Cierre_Mes/Filtrar_Reporte_Facturados",
-                    data: { dato: dato },
+                    url: "/Cierre_Mes/Buscar_Facturados",
+                    data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2 },
                     success: function (result) {
                         var json_obj6 = $.parseJSON(result);
                         var cantidadDeClaves6 = Object.keys(json_obj6).length;
@@ -329,87 +256,9 @@
 
 
                     }
-                })
-
-
-            }
-
+                })}
 
         }
-        $(document).ready(function () {
-            $('#cliente').change(function () {
-                var dato = $('#cliente').val();
-                alert(dato);
-                if (Tipo == "General") {
-                    $.ajax({
-                        type: "post",
-                        url: "/Cierre_Mes/Filtrar_Cliente",
-                        data: { dato: dato },
-                        success: function (result) {
-                            var json_obj6 = $.parseJSON(result);
-                            var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                            $("#tabla-mant > tbody").empty();
-
-                            for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                                servicios2.push($('#tabla-mant').val());
-
-                                var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                                $('#tabla-mant tbody').append(htmlTags6);
-                            }
-
-
-
-                        }
-                    })
-                }
-                if (Tipo == "Facturados") {
-                    $.ajax({
-                        type: "post",
-                        url: "/Cierre_Mes/Filtrar_Clientefacturado",
-                        data: { dato: dato },
-                        success: function (result) {
-                            var json_obj6 = $.parseJSON(result);
-                            var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                            $("#tabla-mant > tbody").empty();
-
-                            for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                                servicios2.push($('#tabla-mant').val());
-
-                                var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                                $('#tabla-mant tbody').append(htmlTags6);
-                            }
-
-
-
-                        }
-                    })
-
-                }
-
-            });
-        });
 
 
         function Aceptar(dato, dato2) {
