@@ -133,12 +133,67 @@
         <!--Container-->
 
 
+            <!--Popup Reenvio-->
+     <div id="cambio_contrasenna" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #EBEBEB">
+
+          <div class="modal-header popup-estilo-head">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body popup-estilo">
+
+              <p>Reenvío de reporte</p>
+
+
+                  <div class="col-md-12 mb-12">
+                        <label for="pk_reporte">ID Reporte</label>
+                        <input readonly type="text" class="form-control" id="pk_reporte">
+                    </div>
+              <br />
+                        <div class="col-md-12 mb-12">
+                              <label>Contáctos</label>
+                       <%--<%--     <label for="address">Añadir Correo</label>
+                            <%--<input type="text" class="form-control" id="encargado" name="encargado" placeholder="Encargado" required>--%>
+                           <select <%--onchange="actualizarRespuesta()" onblur="Validar_Campo()"--%> onchange="devuelve_correo()" id="correo" class="js-example-responsive"  lang="es" style="width: 100%;" name="state">
+                            <option selected value="nulo" disabled></option>
+
+                         
+                        </select>
+   
+                    </div>
+                    <br>
+                    <div class="col-md-12 mb-12">
+                        <label for="email">Correos</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico">
+                    </div>
+
+              
+                                
+              <br /><br />
+              
+              <div style="text-align: center">
+              <button type="button" onclick="reenvio_reporte()" id="reenvio"  class="popup-btn">Reenviar</button>
+
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin Popup -->
+
+
     </div>
     <!--Container-->
 
 
     <script>
         let Tipo = "General";
+
+        
 
         $(document).ready(function () {
 
@@ -164,7 +219,7 @@
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -182,7 +237,7 @@
 
         var servicios = [];
         var servicios2 = [];
-       
+        var Array_Correos = []; 
        
         function Buscar() {
 
@@ -212,8 +267,8 @@
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a  onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
                         $('#tabla-mant tbody').append(htmlTags6);
@@ -246,7 +301,7 @@
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -298,15 +353,36 @@
 
         function Reenviar(dato) {
 
+            $("#pk_reporte").val(dato);
+            $("#correo").empty();
+            $("#email").val("");
+            Array_Correos.length = 0;
+
+
+
+
+
             $.ajax({
                 type: "post",
-                url: "/Cierre_Mes/ReenviarCorreo",
+                url: "/Cierre_Mes/Reenviar_Correo",
                 data: { dato: dato },
                 success: function (result) {
 
+                    var json_obj6 = $.parseJSON(result);
+                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
-                    alert("reenviado");
+           
 
+
+                    for (var i = 0; i < cantidadDeClaves6; i++) {
+
+                        let x = document.getElementById("correo");
+                        var option = document.createElement("option");
+                        option.text = json_obj6[i].ENCARGADO;
+                        option.value = json_obj6[i].CORREO;
+                        x.add(option, x[0]);
+
+                    }
                 }
             })
 
@@ -341,7 +417,7 @@
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -388,7 +464,7 @@
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -401,9 +477,84 @@
 
         }
 
+     
+
         function detalla(id) {
             location.href = "Reportes.aspx?id=" + id;
         }
+
+        function devuelve_correo() {
+
+            
+
+            var contacto = document.getElementById("correo").value; //los correos
+
+            for (let i = 0; i <= Array_Correos.length; i++) {
+                if (Array_Correos[i] == contacto) {
+                    swal({
+                        title: "Error",
+                        text: "El correo ya se encuentra agregado",
+                        type: "error",
+                        showConfirmButton: true
+                    });
+                    return;
+                }
+
+                
+            }
+            Array_Correos.push(contacto);
+
+            
+            
+            let contactos_correos = $("#email").val() + contacto + ";"; 
+
+            $("#email").val(contactos_correos);
+
+
+
+        }
+
+        function reenvio_reporte() {
+
+
+            var correos = $("#email").val();
+
+            var g_correos2 = [];
+
+            g_correos2 = correos.split(";");
+
+            var correo_final = g_correos2.toString();
+
+
+
+           let ID_Reporte = $("#pk_reporte").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Cierre_Mes/Cambiar_Estado_Reporte",
+                data: JSON.stringify({
+                    ID_Reporte: ID_Reporte,
+                    correos: correo_final
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    swal({
+                        title: "Reenvío de reporte",
+                        text: "Reporte reenviado exitosamente",
+                        type: "success",
+                        showConfirmButton: true
+                    });
+
+                }
+            })
+
+
+
+        }
+
+
     </script>
 
 

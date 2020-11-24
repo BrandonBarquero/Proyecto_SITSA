@@ -10,7 +10,10 @@ namespace WebApplication2
     public partial class Cierre_Mes : System.Web.UI.Page
     {
         ClienteDAO dao_cliente = new ClienteDAO();
+        Cierre_MesDAO dao_contacto = new Cierre_MesDAO();
+
         List<Cliente> list_clientes = new List<Cliente>();
+        List<Contacto> list_contacto = new List<Contacto>();
         protected void Page_Load(object sender, EventArgs e)
         {
 

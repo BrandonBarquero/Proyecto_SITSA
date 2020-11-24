@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\Cierre_MesDAO.cs" />
     <Compile Include="DAO\ClienteDAO.cs" />
     <Compile Include="DAO\Cliente_ContactoDAO.cs" />
     <Compile Include="DAO\Cliente_ServicioDAO.cs" />
