@@ -60,7 +60,7 @@
 					<div class="tile-tittle txt1">Proyectos</div>
 					<div class="tile-icon">
 					<i class="fas fa-drafting-compass color-icono"></i>
-						<p class="txt3"><%=proyectos%> Registrada</p>
+						<p class="txt3"><%=proyectos%> Registrados</p>
 					</div>
 				</a>
 				
@@ -68,7 +68,7 @@
 					<div class="tile-tittle txt1">Cierre de mes</div>
 					<div class="tile-icon">
 					<i class="fas fa-calendar-times color-icono"></i>
-						<p class="txt3"><%=cierre_mes%> Registrada</p>
+						<p class="txt3"><%=cierre_mes%> Registrados</p>
 					</div>
 				</a>
 

@@ -58,5 +58,38 @@ namespace Biblioteca_Clases.DAO
             return result;
 
         }
+
+        public int Eliminar_Cierre_Mes(int dato)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "execute [PA_CTRL_MAN_ELIMINAR_CIERRE_MES] @FK_ID_REPORTE";
+            comando.Parameters.AddWithValue("@FK_ID_REPORTE", dato);
+
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
+
+        public int AgregarCierreMes(int FK_ID_REPORTE, string usuario, string fecha)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "execute PA_CTRL_MAN_INSERTAR_CIERRE_MES @USUARIO, @FECHA, @FK_ID_REPORTE";
+            comando.Parameters.AddWithValue("@USUARIO", usuario);
+            comando.Parameters.AddWithValue("@FECHA", fecha);
+            comando.Parameters.AddWithValue("@FK_ID_REPORTE", FK_ID_REPORTE);
+
+
+            result = comando.ExecuteNonQuery();
+
+            return result;
+
+        }
     }
 }

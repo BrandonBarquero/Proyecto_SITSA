@@ -30,7 +30,13 @@ namespace Sitsa_Proyecto.Controllers
       
         public JsonResult AceptarReporte(string dato)
         {
+
+            int fk_id_reporte = int.Parse(dato);
+
             string user = (string)(Session["User"]);
+
+            dao_cierre.AgregarCierreMes(fk_id_reporte, user, fecha.fecha());
+
 
           int result = daoreporte.aceptarreporte(dato, user, fecha.fecha());
 
@@ -40,7 +46,11 @@ namespace Sitsa_Proyecto.Controllers
         }
         public JsonResult RechazarReporte(string dato)
         {
+            int fk_id_reporte = int.Parse(dato);
+
             string user = (string)(Session["User"]);
+
+            dao_cierre.Eliminar_Cierre_Mes(fk_id_reporte);
 
             int result = daoreporte.RechazarReporte(dato, user, fecha.fecha());
 

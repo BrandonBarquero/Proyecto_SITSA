@@ -14,6 +14,8 @@ namespace Sitsa_Proyecto
     {
         Encryption aux = new Encryption();
         ReporteDAO dao = new ReporteDAO();
+        Cierre_MesDAO dao_cierre = new Cierre_MesDAO();
+        Fecha fecha = new Fecha();
         string datoUrl = null;
         List<Reporte> list = new List<Reporte>();
         List<Cliente> list2 = new List<Cliente>();
@@ -54,8 +56,18 @@ namespace Sitsa_Proyecto
 
         public void Cambio(Object sender, EventArgs e)
         {
+            string id_reporte = aux.Decrypt(HttpUtility.UrlDecode(Request.QueryString["key"]));
+            int fk_id_reporte = int.Parse(id_reporte);
+
             if (DropDownList1.SelectedValue.Equals("Aceptar")) {
                 dao.aceptar_reporte(aux.Decrypt(HttpUtility.UrlDecode(Request.QueryString["key"])));
+                list2 = dao.ObtenerNombreCliente(fk_id_reporte);
+
+                var firstItem = list2.ElementAt(0);
+                string usuario = firstItem.NOMBRE.ToString();
+
+                dao_cierre.AgregarCierreMes(fk_id_reporte, usuario, fecha.fecha());
+
                 Div3.Visible = false;
                 Div2.Visible = true;
                 Label3.Text = "Verificación realizada";
