@@ -890,11 +890,20 @@ function guardar(opc) {
 
     var correos = $("#email").val();
 
+    var ultimoCaracter = correos.charAt(correos.length - 1);
+
+    if (ultimoCaracter != ";") {
+        correos = correos + ";";
+    }
+
     var g_correos2 = [];
 
     g_correos2 = correos.split(";");
 
     var correo_final = g_correos2.toString();
+
+
+ 
 
 
 

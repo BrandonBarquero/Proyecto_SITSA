@@ -20,7 +20,11 @@ namespace Sitsa_Proyecto
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (Permisos.VER == false)
+            {
+                Response.Write("<script language='javascript'> alert('No posee los permisos necesarios'); window.location.href = 'Home.aspx'; </script>");
 
+            }
 
         }
 
@@ -36,6 +40,8 @@ namespace Sitsa_Proyecto
         }
 
 
+       
 
-    }
+
+}
 }

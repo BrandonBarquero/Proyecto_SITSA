@@ -111,9 +111,13 @@ namespace Control_Visitas
                       iMenu.CREAR_MENU,
                       iMenu.EDITAR_MENU,
                       iMenu.VER_MENU,
+                      iMenu.APROBACION_MENU,
+                      iMenu.REENVIO_MENU,
                       iMenu.CREAR_PERMISO,
                       iMenu.EDITAR_PERMISO,
                       iMenu.VER_PERMISO,
+                      iMenu.APROBACON_PERMISO,
+                      iMenu.REENVIO_PERMISO,
                       iMenu.PK_ID_MENU
                       );
 
@@ -235,9 +239,13 @@ namespace Control_Visitas
       bool CREAR_MENU,
       bool EDITAR_MENU,
       bool VER_MENU,
+      bool APROBACION_MENU,
+      bool REENVIO_MENU,
       bool CREAR_PERMISO,
       bool EDITAR_PERMISO,
       bool VER_PERMISO,
+      bool APROBACION_PERMISO,
+      bool REENVIO_PERMISO,
       int PK_ID_MENU
      )
         {
@@ -268,6 +276,24 @@ namespace Control_Visitas
                     nodoPermiso.Value = "permiso-ver/" + PK_ID_MENU;
                     nodoPermiso.ShowCheckBox = true;
                     nodoPermiso.Checked = VER_PERMISO ? true : false;
+                    nodo.ChildNodes.Add(nodoPermiso);
+                }
+                if (APROBACION_MENU)
+                {
+                    TreeNode nodoPermiso = new TreeNode();
+                    nodoPermiso.Text = "<i class='fa fa-check' aria-hidden='true'></i> &nbsp;<span>Aprobacion </span>";
+                    nodoPermiso.Value = "permiso-aprobacion/" + PK_ID_MENU;
+                    nodoPermiso.ShowCheckBox = true;
+                    nodoPermiso.Checked = APROBACION_PERMISO ? true : false;
+                    nodo.ChildNodes.Add(nodoPermiso);
+                }
+                if (REENVIO_MENU)
+                {
+                    TreeNode nodoPermiso = new TreeNode();
+                    nodoPermiso.Text = "<i class='fa fa-share' aria-hidden='true'></i> &nbsp;<span>Reenvio </span>";
+                    nodoPermiso.Value = "permiso-reenvio/" + PK_ID_MENU;
+                    nodoPermiso.ShowCheckBox = true;
+                    nodoPermiso.Checked = REENVIO_PERMISO ? true : false;
                     nodo.ChildNodes.Add(nodoPermiso);
                 }
 
@@ -305,9 +331,13 @@ namespace Control_Visitas
                           submenu.CREAR_MENU,
                           submenu.EDITAR_MENU,
                           submenu.VER_MENU,
+                          submenu.APROBACION_MENU,
+                          submenu.REENVIO_MENU,
                           submenu.CREAR_PERMISO,
                           submenu.EDITAR_PERMISO,
                           submenu.VER_PERMISO,
+                          submenu.APROBACON_PERMISO,
+                          submenu.REENVIO_PERMISO,
                           submenu.PK_ID_MENU
                          );
 

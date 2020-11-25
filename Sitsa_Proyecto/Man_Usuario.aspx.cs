@@ -26,7 +26,7 @@ namespace WebApplication2
 
             if (Permisos.VER == false)
             {
-                Response.Write("<script language='javascript'> alert('No tiene suficientes permisos'); window.location.href = 'Home.aspx'; </script>");
+                Response.Write("<script language='javascript'> alert('No posee los permisos necesarios'); window.location.href = 'Home.aspx'; </script>");
 
             }
 

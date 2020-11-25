@@ -73,7 +73,7 @@ function Buscar() {
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
+                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                         <td style="text-align: center;"><a  onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
@@ -176,10 +176,6 @@ function Reenviar(dato) {
     $("#email").val("");
     Array_Correos.length = 0;
 
-
-
-
-
     $.ajax({
         type: "post",
         url: "/Cierre_Mes/Reenviar_Correo",
@@ -190,20 +186,25 @@ function Reenviar(dato) {
             var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
 
+            let x = document.getElementById("correo");
 
+            var option2 = document.createElement("option");
+            option2.text = "";
+            option2.value = "";
+            x.add(option2, x[0]);
 
             for (var i = 0; i < cantidadDeClaves6; i++) {
 
-                let x = document.getElementById("correo");
                 var option = document.createElement("option");
                 option.text = json_obj6[i].ENCARGADO;
                 option.value = json_obj6[i].CORREO;
                 x.add(option, x[0]);
        
-               
+                //$("#correo option[value='nulo']").attr("selected", true);
+                //$('#correo').val('nulo').trigger('change');
             }
 
-            $("#correo option[value='nulo'").attr("selected", true);
+           
         }
     })
 
@@ -333,6 +334,12 @@ function reenvio_reporte() {
 
     var correos = $("#email").val();
 
+    var ultimoCaracter = correos.charAt(correos.length - 1);
+
+    if (ultimoCaracter != ";") {
+        correos = correos + ";";
+    }
+
     var g_correos2 = [];
 
     g_correos2 = correos.split(";");
@@ -355,7 +362,7 @@ function reenvio_reporte() {
         success: function (result) {
 
             swal({
-                title: "Reenvío de reporte",
+                title: "Reenv\u00EDo de reporte",
                 text: "Reporte reenviado exitosamente",
                 type: "success",
                 showConfirmButton: true
