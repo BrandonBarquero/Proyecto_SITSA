@@ -16,12 +16,16 @@ namespace WebApplication2
         ClienteDAO dao_cliente = new ClienteDAO();
         ReporteDAO dao_reporte = new ReporteDAO();
         ServicioDAO dao_servicio = new ServicioDAO();
+        public Permiso_e Permisos;
 
         List<Cliente> list_clientes = new List<Cliente>();
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            int perfil = (int)(Session["perfil"]);
+            Permisos = dao_contrato.ControlPaginas("Reportes", perfil.ToString());
 
         }
 

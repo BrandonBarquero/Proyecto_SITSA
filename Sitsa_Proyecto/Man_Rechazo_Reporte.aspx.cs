@@ -15,10 +15,14 @@ namespace Sitsa_Proyecto
 
         public Permiso_e Permisos;
         Rechazo_ReporteDAO dao = new Rechazo_ReporteDAO();
+        ProyectoDAO dao_proyecto = new ProyectoDAO();
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            int perfil = (int)(Session["perfil"]);
+            Permisos = dao_proyecto.ControlPaginas("Rechazos", perfil.ToString());
 
             if (Permisos.VER == false)
             {
