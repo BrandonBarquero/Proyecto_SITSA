@@ -71,9 +71,7 @@ namespace Sitsa_Proyecto.Controllers
         public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles, string correos) {
             int result = 0;
 
-            string[] vector_correo = correos.Split(',');
-            
-
+            string[] vector_correo = correos.Split(',');           
 
             Fecha fecha = new Fecha();
             string fecha_asignar = fecha.fecha();
@@ -84,16 +82,17 @@ namespace Sitsa_Proyecto.Controllers
             int id = dao_reporte.AgregarReporte(reporte);
 
             string nombre_cliente = dao_reporte.ObtenerNombreCliente2(id);
+                        
+            if (detalles_reporte != null){
+                for (int i = 0; i < detalles_reporte.Count; i++){
+                    detalles_reporte[i].USUARIO_CREACION = (string)(Session["User"]);
+                    detalles_reporte[i].FECHA_CREACION = fecha_asignar;
+                    detalles_reporte[i].FK_ID_REPORTE = id;
+                }
 
-
-            for (int i=0; i<detalles_reporte.Count; i++) { 
-                detalles_reporte[i].USUARIO_CREACION = (string)(Session["User"]);
-                detalles_reporte[i].FECHA_CREACION = fecha_asignar;
-                detalles_reporte[i].FK_ID_REPORTE = id;
+                result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
             }
-
-            result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
-
+            
             if (horas_disponibles != "f" && reporte.TIPO_DOCUMENTO != "Reporte Contrato Garantía")
             {
                 double hor = Double.Parse(horas_disponibles);
@@ -107,8 +106,6 @@ namespace Sitsa_Proyecto.Controllers
             else {
                 dao_reporte.CambiarEstadoReporteContrato(reporte.ID_CONTRATO, (string)(Session["User"]), fecha_asignar);
             }
-
-            
 
             //mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente, vector_correo);
 
