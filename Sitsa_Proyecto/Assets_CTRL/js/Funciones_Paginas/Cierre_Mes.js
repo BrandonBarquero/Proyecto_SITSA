@@ -210,7 +210,7 @@ function Buscar() {
                     let td_tabla;
 
                     if (val == 1) {
-                        td_tabla = `<td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>`;
+                        td_tabla = `<td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fas fa-times color-icono" aria-hidden="true"> </td>`;
 
 
                     } if (val == 0) {
@@ -360,7 +360,7 @@ function Facturados() {
                 let td_tabla;
 
                 if (val == 1) {
-                    td_tabla = `<td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>`;
+                    td_tabla = `<td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fas fa-times color-icono" aria-hidden="true"> </td>`;
 
 
                 } if (val == 0) {
