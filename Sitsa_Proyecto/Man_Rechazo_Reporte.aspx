@@ -32,7 +32,6 @@
                     <tr>
                         <th>Número de Reporte</th>
                         <th>Motivo de Rechazo</th>
-                        <th>Ver detalles</th>
                     </tr>
                 </thead>
 
@@ -55,7 +54,6 @@
                     <tr class="txt2">
                           <td><%=dato.FK_ID_REPORTE%></td>
                           <td><%=dato.MOTIVO%></td>
-                          <td style="text-align: center;"><a href="#"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
                     </tr>
 
                       <%}%>
@@ -66,7 +64,6 @@
                     <tr>
                         <th>Número de Reporte</th>
                         <th>Motivo de Rechazo</th>
-                        <th>Ver detalles</th>
                     </tr>
                 </tfoot>
 

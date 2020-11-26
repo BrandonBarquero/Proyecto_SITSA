@@ -12,6 +12,8 @@ namespace Biblioteca_Clases.Models
         public bool CREAR_PERMISO { set; get; }
         public bool EDITAR_PERMISO { set; get; }
         public bool VER_PERMISO { set; get; }
+        public bool REENVIO_PERMISO { set; get; }
+        public bool APROBACON_PERMISO { set; get; }
         public string LISTA_MENU { set; get; }
         public string LISTA_PERMISOS { set; get; }
         public DateTime FECHA_CREACION { set; get; }

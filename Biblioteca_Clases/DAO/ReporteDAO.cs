@@ -294,6 +294,8 @@ namespace Biblioteca_Clases.DAO
 
                 reporte.FECHA_CREACION = (list.GetDateTime(8).ToShortDateString());
 
+                reporte.FECHA = (list.GetDateTime(9).ToShortDateString());
+
             }
             list.Dispose();
             comando.Dispose();

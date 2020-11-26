@@ -38,10 +38,14 @@ namespace Biblioteca_Clases.DAO
                 men.CREAR_MENU = list.GetBoolean(6);
                 men.EDITAR_MENU = list.GetBoolean(7);
                 men.VER_MENU = list.GetBoolean(8);
-                men.ESTADO_PERMISO = list.GetBoolean(9);
-                men.CREAR_PERMISO = list.GetBoolean(10);
-                men.EDITAR_PERMISO = list.GetBoolean(11);
-                men.VER_PERMISO = list.GetBoolean(12);
+                men.APROBACION_MENU = list.GetBoolean(9);
+                men.REENVIO_MENU = list.GetBoolean(10);
+                men.ESTADO_PERMISO = list.GetBoolean(11);
+                men.CREAR_PERMISO = list.GetBoolean(12);
+                men.EDITAR_PERMISO = list.GetBoolean(13);
+                men.VER_PERMISO = list.GetBoolean(14);
+                men.APROBACON_PERMISO = list.GetBoolean(15);
+                men.REENVIO_PERMISO = list.GetBoolean(16);
                 listmenu.Add(men);
             }
             list.Dispose();
@@ -71,10 +75,14 @@ namespace Biblioteca_Clases.DAO
                 men.CREAR_MENU = list2.GetBoolean(6);
                 men.EDITAR_MENU = list2.GetBoolean(7);
                 men.VER_MENU = list2.GetBoolean(8);
-                men.ESTADO_PERMISO = list2.GetBoolean(9);
-                men.CREAR_PERMISO = list2.GetBoolean(10);
-                men.EDITAR_PERMISO = list2.GetBoolean(11);
-                men.VER_PERMISO = list2.GetBoolean(12);
+                men.APROBACION_MENU = list2.GetBoolean(9);
+                men.REENVIO_MENU = list2.GetBoolean(10);
+                men.ESTADO_PERMISO = list2.GetBoolean(11);
+                men.CREAR_PERMISO = list2.GetBoolean(12);
+                men.EDITAR_PERMISO = list2.GetBoolean(13);
+                men.VER_PERMISO = list2.GetBoolean(14);
+                men.APROBACON_PERMISO = list2.GetBoolean(15);
+                men.REENVIO_PERMISO = list2.GetBoolean(16);
                 listmenu.Add(men);
             }
             list2.Dispose();

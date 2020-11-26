@@ -691,6 +691,20 @@ function actualiza(id) {
         for (var i = 0; i < g_servicios.length; i++) {
             if (g_servicios[i].ID_SERVICIO == id) {
                 var horas = $('input:text[id=' + id + ']').val();
+<<<<<<< HEAD
+=======
+
+
+            
+            
+                //let Cantidad_L = disponible - horas;
+
+                //if (Cantidad_L <= 0) {
+                //    alert("limite");
+                //    return;
+                //}
+
+>>>>>>> d16c86343f3b470e3bd71d25ca6f75c24fe2c50a
                 g_servicios[i].HORAS = (parseInt(horas));
                 suma_total();
                 //if (g_contrato.MONTO > 0) {
@@ -871,11 +885,20 @@ function guardar(opc) {
 
     var correos = $("#email").val();
 
+    var ultimoCaracter = correos.charAt(correos.length - 1);
+
+    if (ultimoCaracter != ";") {
+        correos = correos + ";";
+    }
+
     var g_correos2 = [];
 
     g_correos2 = correos.split(";");
 
     var correo_final = g_correos2.toString();
+
+
+ 
 
 
 

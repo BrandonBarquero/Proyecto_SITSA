@@ -300,14 +300,17 @@
             </div>
 
             <br>
-            <div class="col text-center" style="display: none" id="div_btn_agregar">
+
+                      <%if (Permisos.CREAR == true)
+                          { %>
+            <div class="col text-center" style="display: block" id="div_btn_agregar">
                 <button type="button" class="guardar-btn-reporte" onclick="guardar(1);">Guardar</button>
             </div>
             <br>
             <div class="col text-center" style="display: none" id="div_btn_modificar">
                 <button type="button" class="guardar-btn-reporte" onclick="guardar(2);">Modificar</button>
             </div>
-
+              <%} %>
             <br>
             <br>
         </div>

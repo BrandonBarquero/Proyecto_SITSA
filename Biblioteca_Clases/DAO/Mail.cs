@@ -591,6 +591,8 @@ namespace Biblioteca_Clases.DAO
             {
                 string hola = e.Message;
 
+                Console.WriteLine(hola);
+
             }
 
         }
@@ -636,7 +638,7 @@ namespace Biblioteca_Clases.DAO
             // Folder where the file will be created 
             string directory = "C:\\Pdf\\";
             // Name of the PDF
-            string filename = "Reporte#.pdf";
+            string filename = "Reporte Contrato #"+pk_reporte+".pdf";
 
             if (ByteArrayToFile(directory + filename, pdfContent))
             {
@@ -668,7 +670,7 @@ namespace Biblioteca_Clases.DAO
             // Folder where the file will be created 
             string directory = "C:\\Pdf\\";
             // Name of the PDF
-            string filename = "Reporte#P.pdf";
+            string filename = "Reporte Proyecto #"+pk_reporte+".pdf";
 
             if (ByteArrayToFile(directory + filename, pdfContent))
             {

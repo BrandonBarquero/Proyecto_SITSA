@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <script src="Assets_CTRL/js/Funciones_Paginas/Reporte.js"></script>
+    <script src="Assets_CTRL/js/Funciones_Paginas/Cierre_Mes.js"></script>
 
     <div class="container-repo">
 
@@ -60,7 +60,7 @@
 
                 </div>
 
-                <div class="col-md-2.7 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="firstName">Fecha inicial</label>
 
                     <div class="input-group">
@@ -69,7 +69,7 @@
 
                 </div>
 
-                <div class="col-md-3.3 mb-3">
+                <div class="col-md-3 mb-3">
                     <label for="firstName">Fecha final</label>
 
                     <div class="input-group">
@@ -133,277 +133,67 @@
         <!--Container-->
 
 
+            <!--Popup Reenvio-->
+     <div id="cambio_contrasenna" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #EBEBEB">
+
+          <div class="modal-header popup-estilo-head">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body popup-estilo">
+
+              <p>Reenvío de reporte</p>
+
+
+                  <div class="col-md-12 mb-12">
+                        <label for="pk_reporte">ID Reporte</label>
+                        <input readonly type="text" class="form-control" id="pk_reporte">
+                    </div>
+              <br />
+                        <div class="col-md-12 mb-12">
+                              <label>Contáctos</label>
+                       <%--<%--     <label for="address">Añadir Correo</label>
+                            <%--<input type="text" class="form-control" id="encargado" name="encargado" placeholder="Encargado" required>--%>
+                           <select <%--onchange="actualizarRespuesta()" onblur="Validar_Campo()"--%> onchange="devuelve_correo()" id="correo" class="js-example-responsive"  lang="es" style="width: 100%;" name="state">
+                            <option selected value="nulo" disabled></option>
+
+                         
+                        </select>
+   
+                    </div>
+                    <br>
+                    <div class="col-md-12 mb-12">
+                        <label for="email">Correos</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico">
+                    </div>
+
+              
+                                
+              <br /><br />
+              
+              <div style="text-align: center">
+              <button type="button" onclick="reenvio_reporte()" id="reenvio"  class="popup-btn">Reenviar</button>
+
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Fin Popup -->
+
+
     </div>
     <!--Container-->
 
 
     <script>
-        let Tipo = "General";
+      
 
-        $(document).ready(function () {
 
-            $('.js-example-responsive').select2();
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/Generales",
-
-                success: function (result) {
-                    var json_obj6 = $.parseJSON(result);
-                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                    $("#tabla-mant > tbody").empty();
-
-                    for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                        servicios2.push($('#tabla-mant').val());
-
-                        var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                        $('#tabla-mant tbody').append(htmlTags6);
-                    }
-
-
-
-                }
-            })
-
-        });
-
-
-
-        var servicios = [];
-        var servicios2 = [];
-       
-       
-        function Buscar() {
-
-            let Reporte = $("#reporte").val();
-            let cliente = $("#cliente").val();
-            let horas_convertidas = $("#horas_convertidas").val();
-            let horas_convertidas2 = $("#horas_convertidas2").val();
-
-            if (Tipo == "General") { 
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/Buscar",
-                data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2},
-                success: function (result) {
-                    var json_obj6 = $.parseJSON(result);
-                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                    $("#tabla-mant > tbody").empty();
-
-                    for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                        servicios2.push($('#tabla-mant').val());
-
-                        var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                        $('#tabla-mant tbody').append(htmlTags6);
-                    }
-
-
-
-                }
-            })
-            }
-
-            if (Tipo == "Facturados") {
-                $.ajax({
-                    type: "post",
-                    url: "/Cierre_Mes/Buscar_Facturados",
-                    data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2 },
-                    success: function (result) {
-                        var json_obj6 = $.parseJSON(result);
-                        var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                        $("#tabla-mant > tbody").empty();
-
-                        for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                            servicios2.push($('#tabla-mant').val());
-
-                            var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                            $('#tabla-mant tbody').append(htmlTags6);
-                        }
-
-
-
-                    }
-                })}
-
-        }
-
-
-        function Aceptar(dato, dato2) {
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/AceptarReporte",
-                data: { dato: dato },
-                success: function (result) {
-
-                    $("#" + dato2).remove();
-                    alert("exito");
-
-                }
-            })
-
-
-        }
-        function Rechazar(dato, dato2) {
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/RechazarReporte",
-                data: { dato: dato },
-                success: function (result) {
-
-                    $("#" + dato2).remove();
-                    alert("eliminado");
-
-                }
-            })
-
-
-        }
-
-
-
-        function Reenviar(dato) {
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/ReenviarCorreo",
-                data: { dato: dato },
-                success: function (result) {
-
-
-                    alert("reenviado");
-
-                }
-            })
-
-
-        }
-
-
-
-        function Facturados() {
-            Tipo = "Facturados";
-
-            $("#estado").text("Desaprobar");
-            $("#estado2").text("Desaprobar");
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/Facturados",
-
-                success: function (result) {
-                    var json_obj6 = $.parseJSON(result);
-                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                    $("#tabla-mant > tbody").empty();
-
-                    for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                        servicios2.push($('#tabla-mant').val());
-
-                        var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                        $('#tabla-mant tbody').append(htmlTags6);
-                    }
-
-
-
-                }
-            })
-
-
-        }
-
-
-
-
-
-
-
-
-        function Generales() {
-            Tipo = "General";
-            $("#estado").text("Aprobar");
-            $("#estado2").text("Aprobar");
-
-            $.ajax({
-                type: "post",
-                url: "/Cierre_Mes/Generales",
-
-                success: function (result) {
-                    var json_obj6 = $.parseJSON(result);
-                    var cantidadDeClaves6 = Object.keys(json_obj6).length;
-
-                    $("#tabla-mant > tbody").empty();
-
-                    for (var i = 0; i < cantidadDeClaves6; i++) {
-
-                        servicios2.push($('#tabla-mant').val());
-
-                        var htmlTags6 = `
-                        <tr id=${i} class="txt2">
-                        <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
-                        <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
-                        </tr>`;
-
-                        $('#tabla-mant tbody').append(htmlTags6);
-                    }
-
-                }
-            })
-
-
-        }
-
-        function detalla(id) {
-            location.href = "Reportes.aspx?id=" + id;
-        }
     </script>
 
 
