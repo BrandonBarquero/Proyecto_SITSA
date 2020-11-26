@@ -95,7 +95,7 @@
 
                             <div class="form-group">
                                 <label>Descripción del servicio:</label>
-                                <input onchange="actualizarRespuesta()" maxlength="100" onblur="Validar_Campo()" type="text" class="form-control" id="desc_servicio" name="desc_servicio">
+                                <input onchange="actualizarRespuesta()" maxlength="50" onblur="Validar_Campo()" type="text" class="form-control" id="desc_servicio" name="desc_servicio">
                             </div>
 
                         </div>
@@ -222,8 +222,8 @@
         }
 
         $('#desc_servicio').on('input', function (e) {
-            if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
             }
         });
 

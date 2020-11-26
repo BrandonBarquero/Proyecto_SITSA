@@ -75,7 +75,7 @@
 
                     <div class="form-group">
                         <label>Nombre del tipo de contrato:</label>
-                        <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
+                        <input onchange="actualizarRespuesta()" maxlength="50" onblur="Validar_Campo()" type="text" class="form-control" id="nombre_tipo_contrato" name="nombre_tipo_contrato">
                     </div>
 
                     <div class="form-group">
@@ -208,8 +208,8 @@
         }
    
         $('#nombre_tipo_contrato').on('input', function (e) {
-            if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
             }
         });
 

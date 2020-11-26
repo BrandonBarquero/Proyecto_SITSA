@@ -1,8 +1,43 @@
 let Tipo = "General";
 
+let val = 0;
+let val2 = 0;
+
+
+    
+
+
+
 
 
 $(document).ready(function () {
+
+
+    $.ajax({
+        type: "post",
+        url: "/Cierre_Mes/Permisos",
+        async: false,
+        success: function (result) {
+
+            val = result;
+         
+        }
+       
+    })
+
+
+    $.ajax({
+        type: "post",
+        async: false,
+        url: "/Cierre_Mes/Permisos_Reenvio",
+        success: function (result) {
+
+            val2 = result;
+
+        }
+
+    })
+
 
     $('.js-example-responsive').select2();
 
@@ -20,13 +55,41 @@ $(document).ready(function () {
 
                 servicios2.push($('#tabla-mant').val());
 
+              
+             
+                let td_tabla;
+
+                if (val == 1) {
+                    td_tabla = `<td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>`;
+
+
+                } if (val == 0) {
+                    $("#aprobar2").hide();
+                    $("#aprobar1").hide();
+                    td_tabla = "";
+
+                }
+
+                let td_tabla2;
+
+                if (val2 == 1) {
+                    td_tabla2 = `<td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+`;
+
+
+                } if (val2 == 0) {
+                    $("#reenvio2").hide();
+                    $("#reenvio1").hide();
+                    td_tabla2 = "";
+                }
+
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        ${td_tabla} 
+                        ${td_tabla2} 
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -37,8 +100,32 @@ $(document).ready(function () {
 
         }
     })
-
+   
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -67,14 +154,33 @@ function Buscar() {
                 for (var i = 0; i < cantidadDeClaves6; i++) {
 
                     servicios2.push($('#tabla-mant').val());
+                    let td_tabla;
 
+                    if (val == 1) {
+                        td_tabla = `<td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>`;
+
+
+                    } if (val == 0) {
+                        td_tabla = "";
+                    }
+
+                    let td_tabla2;
+
+                    if (val2 == 1) {
+                        td_tabla2 = `<td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+`;
+
+
+                    } if (val2 == 0) {
+                        td_tabla2 = "";
+                    }
                     var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        ${td_tabla} 
+                        ${td_tabla2} 
                         <td style="text-align: center;"><a  onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -101,14 +207,33 @@ function Buscar() {
                 for (var i = 0; i < cantidadDeClaves6; i++) {
 
                     servicios2.push($('#tabla-mant').val());
+                    let td_tabla;
 
+                    if (val == 1) {
+                        td_tabla = `<td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fas fa-times color-icono" aria-hidden="true"> </td>`;
+
+
+                    } if (val == 0) {
+                        td_tabla = "";
+                    }
+
+                    let td_tabla2;
+
+                    if (val2 == 1) {
+                        td_tabla2 = `<td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+`;
+
+
+                    } if (val2 == 0) {
+                        td_tabla2 = "";
+                    }
                     var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        ${td_tabla} 
+                        ${td_tabla2} 
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -232,14 +357,33 @@ function Facturados() {
             for (var i = 0; i < cantidadDeClaves6; i++) {
 
                 servicios2.push($('#tabla-mant').val());
+                let td_tabla;
 
+                if (val == 1) {
+                    td_tabla = `<td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fas fa-times color-icono" aria-hidden="true"> </td>`;
+
+
+                } if (val == 0) {
+                    td_tabla = "";
+                }
+
+                let td_tabla2;
+
+                if (val2 == 1) {
+                    td_tabla2 = `<td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+`;
+
+
+                } if (val2 == 0) {
+                    td_tabla2 = "";
+                }
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Rechazar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                         ${td_tabla} 
+                        ${td_tabla2} 
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 
@@ -272,14 +416,33 @@ function Generales() {
             for (var i = 0; i < cantidadDeClaves6; i++) {
 
                 servicios2.push($('#tabla-mant').val());
+                let td_tabla;
 
+                if (val == 1) {
+                    td_tabla = `<td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>`;
+
+
+                } if (val == 0) {
+                    td_tabla = "";
+                }
+
+                let td_tabla2;
+
+                if (val2 == 1) {
+                    td_tabla2 = `<td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna"  onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+`;
+
+
+                } if (val2 == 0) {
+                    td_tabla2 = "";
+                }
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
                         <td>${json_obj6[i].CANTIDAD_HORAS}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
-                        <td style="text-align: center;"><a onclick="Aceptar(${json_obj6[i].PK_ID_REPORTE},${i})"><i class="fa fa-check-square color-icono" aria-hidden="true"> </td>
-                        <td style="text-align: center;"><a data-toggle="modal" data-target="#cambio_contrasenna" onclick="Reenviar(${json_obj6[i].PK_ID_REPORTE})"><i class="fa fa-file-import color-icono" aria-hidden="true"> </td>
+                        ${td_tabla} 
+                        ${td_tabla2} 
                         <td style="text-align: center;"><a onclick="detalla(${json_obj6[i].PK_ID_REPORTE});" data-toggle="modal" data-target="#modificar_contrato" href="#"><i class="fa fa-edit color-icono" aria-hidden="true">    </td>
                         </tr>`;
 

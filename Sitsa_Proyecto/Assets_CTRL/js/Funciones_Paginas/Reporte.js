@@ -15,7 +15,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  
+
     $('.js-example-responsive').select2();
 });
 
@@ -702,7 +702,7 @@ function pinta_servicios(data) {
 function actualiza(id) {
 
 
- 
+
 
 
 
@@ -717,8 +717,8 @@ function actualiza(id) {
                 var horas = $('input:text[id=' + id + ']').val();
 
 
-            
-            
+
+
                 //let Cantidad_L = disponible - horas;
 
                 //if (Cantidad_L <= 0) {
@@ -748,7 +748,7 @@ function suma_total() {
 
     let horas_disponibles = (parseInt($("#total_horas").val()) - parseInt($("#horas_consumidas").val()));
 
-    
+
     $("#horas_disponibles").val(disponible - suma);
     $("#horas_consumidas").val(suma);
 }
@@ -966,7 +966,7 @@ function guardar(opc) {
                     g_detalles_reporte.push(Detalle_Reporte);
                 }
             }
-                        
+
             if (Reporte != null) {
 
                 if (g_contrato.HORAS == "-1") {
@@ -1214,7 +1214,7 @@ function edita_r(id) {
                 $("#div_tipo_r").css("display", "block");
                 $("#Facturado").attr('checked', true).trigger('click');
                 $("#R_Contrato").attr('checked', true).trigger('click');
-            } else if (g_reporte.TIPO_DOCUMENTO == "Reporte Proyecto Facturado") {                
+            } else if (g_reporte.TIPO_DOCUMENTO == "Reporte Proyecto Facturado") {
                 $("#div_tipo_r").css("display", "block");
                 $("#Facturado").attr('checked', true).trigger('click');
                 $("#R_Proyecto").attr('checked', true).trigger('click');
@@ -1252,7 +1252,7 @@ function edita_r(id) {
                 beforeSend: function () {
                 },
                 success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                    
+
                 },
                 failure: function (response) {
                     alert("failure");
@@ -1364,7 +1364,7 @@ function buscar_detalle_reporte() {
                     } else if (g_reporte.TIPO_DOCUMENTO == "Reporte Proyecto Garantía") {
                         $("#horas_consumidas").val(0).trigger('change');
                     }
-                    
+
                 }
 
             },

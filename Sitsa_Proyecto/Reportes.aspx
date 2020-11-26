@@ -241,6 +241,64 @@
             </div>
             <!--Fin Tabla-->
 
+             <hr class="mb-4 hr-estilo-linea">
+             <div class="input-group-append" > <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
+
+
+            <div  style="display: none;"   id="div_t_servicios2">
+               
+
+                            <br>
+                            <label>Seleccionar servicio:</label>
+                            <input class="form-control" id="servicios_l2" list="lista_servicios">
+                            <datalist id="lista_servicios2">
+                                <%
+                                   
+
+                                    foreach (var servicio in list_servicios)
+                                    {
+                                %>
+                                <option value="<%=servicio.ID_SERVICIO%>-<%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
+
+                                <%}%>
+                            </datalist>
+
+                            <br>
+                       
+                <h5 class="mb-3">Servicios extra:</h5>
+
+
+                <table id="t_servicios2" class="table table-striped table-bordered" style="width: 100%;">
+                    <!--Tabla-->
+
+                    <thead class="estilo-thead">
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Horas</th>
+                            <th>Costo por Hora</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    </tbody>
+
+                    <tfoot class="estilo-thead">
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Horas</th>
+                            <th>Costo por Hora</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
             <br>
 
                       <%if (Permisos.CREAR == true)

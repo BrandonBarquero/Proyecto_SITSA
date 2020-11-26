@@ -104,7 +104,7 @@
                
               <div class="form-group">
                 <label> Nombre:</label>
-                <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" maxlength="100" type="text" class="form-control" id="nombre">
+                <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" maxlength="50" type="text" class="form-control" id="nombre">
               </div>
 
               <div class="form-group">
@@ -236,8 +236,8 @@
       });
 
       $('#nombre').on('input', function (e) {
-          if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-              this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+          if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+              this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
           }
       });
 

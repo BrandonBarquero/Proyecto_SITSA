@@ -136,7 +136,7 @@ namespace Sitsa_Proyecto.Controllers
 
             result = dao_reporte.AgregarDetalleReporteProyecto(detalle_Reporte);
 
-            //mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte, detalle_Reporte, nombre_cliente, vector_correo);
+            mail.Enviar_Resporte_Correo_Proyecto(encryption.Encrypt(id.ToString()), reporte, detalle_Reporte, nombre_cliente, vector_correo);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

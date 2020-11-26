@@ -65,7 +65,7 @@
 
                     <div class="form-group">
                         <label>Encargado:</label>
-                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="encargado" name="encargado" required>
+                        <input onchange="actualizarRespuesta()"  maxlength="50" onblur="Validar_Campo()" type="text" class="form-control" id="encargado" name="encargado" required>
                     </div>
 
                     <div class="form-group">
@@ -75,12 +75,12 @@
 
                     <div class="form-group">
                         <label>Correo:</label>
-                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="email" class="form-control" id="correo" name="correo">
+                        <input onchange="actualizarRespuesta()"  maxlength="100" onblur="Validar_Campo()" type="email" class="form-control" id="correo" name="correo">
                     </div>
 
                     <div class="form-group">
                         <label>Tipo de encargado:</label>
-                        <input onchange="actualizarRespuesta()"  maxlength="25" onblur="Validar_Campo()" type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
+                        <input onchange="actualizarRespuesta()"  maxlength="50" onblur="Validar_Campo()" type="text" class="form-control" id="tipo_encargado" name="tipo_encargado">
                     </div>
 
                     <div id="boton_agregar" style="display: block; text-align: center">
@@ -179,8 +179,8 @@
           /*Validaciones*/
 
           $('#encargado').on('input', function (e) {
-              if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-                  this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+              if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
               }
           });
 
@@ -197,8 +197,8 @@
           });
 
           $('#tipo_encargado').on('input', function (e) {
-              if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-                  this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+              if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                  this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
               }
           });
       </script>
