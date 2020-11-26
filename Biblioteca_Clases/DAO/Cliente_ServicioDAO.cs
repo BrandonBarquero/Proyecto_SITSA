@@ -26,7 +26,7 @@ namespace Biblioteca_Clases.DAO
 
             comando.Connection = conexion;
             comando.CommandText = "execute PA_MAN_AGREGAR_CLIENTE_SERVICIO @TARIFA_HORA, @ESTADO, @USUARIO_CREACION, @FECHA_CREACION,@FK_ID_CLIENTE, @FK_ID_SERVICIO";
-            comando.Parameters.AddWithValue("@TARIFA_HORA", cliente.TARIFA_HORA); ;
+            comando.Parameters.AddWithValue("@TARIFA_HORA", cliente.TARIFA_HORA); 
             comando.Parameters.AddWithValue("@ESTADO", cliente.ESTADO);
             comando.Parameters.AddWithValue("@USUARIO_CREACION", cliente.USUARIO_CREACION);
             comando.Parameters.AddWithValue("@FECHA_CREACION", cliente.FECHA_CREACION);

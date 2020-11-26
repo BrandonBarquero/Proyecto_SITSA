@@ -13,6 +13,7 @@ namespace Sitsa_Proyecto.Controllers
 {
     public class Cierre_MesController : Controller
     {
+        PerfilDAO dao = new PerfilDAO();
         Fecha fecha = new Fecha();
         ReporteDAO daoreporte = new ReporteDAO();
         Cierre_MesDAO dao_cierre = new Cierre_MesDAO();
@@ -23,11 +24,38 @@ namespace Sitsa_Proyecto.Controllers
         {
             return View();
         }
-       
-     
 
-     
-      
+        public JsonResult Permisos()
+        {
+
+            string perfil = (string)(Session["User"]);
+
+            bool permiso = dao.PERMISO_APROBAR(perfil);
+            int permisos = 0;
+            if (permiso == true) {
+                permisos = 1;
+            }
+
+
+            return Json(permisos, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Permisos_Reenvio()
+        {
+
+            string perfil = (string)(Session["User"]);
+
+            bool permiso = dao.PERMISO_APROBAR_R(perfil);
+            int permisos = 0;
+            if (permiso == true)
+            {
+                permisos = 1;
+            }
+
+
+            return Json(permisos, JsonRequestBehavior.AllowGet);
+        }
+
+
         public JsonResult AceptarReporte(string dato)
         {
 

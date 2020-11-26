@@ -15,7 +15,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-   
+
     $('.js-example-responsive').select2();
 });
 
@@ -683,6 +683,12 @@ function pinta_servicios(data) {
 
 function actualiza(id) {
 
+
+
+
+
+
+
     if ($('input:text[id=' + id + ']').val() >= 0) {
         if ($('input:text[id=' + id + ']').val() == "") {
             $('input:text[id=' + id + ']').val(0)
@@ -691,12 +697,10 @@ function actualiza(id) {
         for (var i = 0; i < g_servicios.length; i++) {
             if (g_servicios[i].ID_SERVICIO == id) {
                 var horas = $('input:text[id=' + id + ']').val();
-<<<<<<< HEAD
-=======
 
 
-            
-            
+
+
                 //let Cantidad_L = disponible - horas;
 
                 //if (Cantidad_L <= 0) {
@@ -704,7 +708,6 @@ function actualiza(id) {
                 //    return;
                 //}
 
->>>>>>> d16c86343f3b470e3bd71d25ca6f75c24fe2c50a
                 g_servicios[i].HORAS = (parseInt(horas));
                 suma_total();
                 //if (g_contrato.MONTO > 0) {
@@ -718,16 +721,18 @@ function actualiza(id) {
 }
 
 function suma_total() {
-    var suma = 0;
+    let suma = 0;
     for (var i = 0; i < g_servicios.length; i++) {
         suma += g_servicios[i].HORAS;
     }
     let disponible = parseInt(g_contrato.HORAS_POR_CONSUMIR);
-    $("#horas_consumidas").val(suma);
 
-    var horas_disponibles = (parseInt($("#total_horas").val()) - parseInt($("#horas_consumidas").val()));
+
+    let horas_disponibles = (parseInt($("#total_horas").val()) - parseInt($("#horas_consumidas").val()));
+
+
     $("#horas_disponibles").val(disponible - suma);
-
+    $("#horas_consumidas").val(suma);
 }
 
 function limpia_tabla_Servicios() {
@@ -898,7 +903,7 @@ function guardar(opc) {
     var correo_final = g_correos2.toString();
 
 
- 
+
 
 
 
@@ -1038,7 +1043,8 @@ function guardar(opc) {
                 url: url,
                 data: JSON.stringify({
                     reporte: Reporte,
-                    detalle_reporte: Detalle_Reporte
+                    detalle_reporte: Detalle_Reporte,
+                    correos: correo_final
                 }),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

@@ -102,10 +102,10 @@
                         <th>Doumento</th>
                         <th>Cantidad horas</th>
                         <th>Tipo de documento</th>
-                        <th id="estado2">Aprobar</th>
+                        <th id="aprobar1">Aprobar</th>
 
-                        <th>Reenviar</th>
-                        <th>Detalle</th>
+                        <th id="reenvio1">Reenviar</th>
+                        <th >Detalle</th>
                     </tr>
                 </thead>
 
@@ -117,9 +117,9 @@
                         <th>Documento</th>
                         <th>Cantidad horas</th>
                         <th>Tipo de documento</th>
-                        <th id="estado">Aprobar</th>
+                        <th  id="aprobar2">Aprobar</th>
 
-                        <th>Reenviar</th>
+                        <th id="reenvio2" >Reenviar</th>
                         <th>Detalle</th>
                     </tr>
                 </tfoot>

@@ -39,6 +39,47 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public bool PERMISO_APROBAR(string dato)
+        {
+            bool result = false;
+            SqlCommand comando = new SqlCommand();
 
+            comando.Connection = conexion;
+            comando.CommandText = "EXEC [PA_CTRL_CON_PERMISO_CLIENTES] @DATO";
+            comando.Parameters.AddWithValue("@DATO", dato); 
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+
+                result = list.GetBoolean(0);
+             
+            }
+            list.Dispose();
+            comando.Dispose();
+            return result;
+
+        }
+        public bool PERMISO_APROBAR_R(string dato)
+        {
+            bool result = false;
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "EXEC [PA_CTRL_CON_PERMISO_REENVIO] @DATO";
+            comando.Parameters.AddWithValue("@DATO", dato);
+
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+
+                result = list.GetBoolean(0);
+
+            }
+            list.Dispose();
+            comando.Dispose();
+            return result;
+
+        }
     }
 }
