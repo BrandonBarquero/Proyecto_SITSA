@@ -701,12 +701,12 @@ function actualiza(id) {
 
             
             
-                let Cantidad_L = disponible - horas;
+                //let Cantidad_L = disponible - horas;
 
-                if (Cantidad_L <= 0) {
-                    alert("limite");
-                    return;
-                }
+                //if (Cantidad_L <= 0) {
+                //    alert("limite");
+                //    return;
+                //}
 
                 g_servicios[i].HORAS = (parseInt(horas));
                 suma_total();

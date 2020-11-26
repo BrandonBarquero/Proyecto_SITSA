@@ -412,7 +412,7 @@
 
         $('#rango_contrato').on('input', function (e) {
             if (!/^[ a-záéíóúüñ]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ a-záéíóúüñ]+/ig, "");
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
             }
         });
 
