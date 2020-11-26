@@ -36,8 +36,8 @@ namespace Biblioteca_Clases.DAO
 
 
 
-            result = comando.ExecuteNonQuery();
-
+            //result = comando.ExecuteNonQuery();
+            result = Convert.ToInt32(comando.ExecuteScalar());
             return result;
 
         }
@@ -58,6 +58,7 @@ namespace Biblioteca_Clases.DAO
                 client.PK_CLIENTE_SERVICIO = list.GetInt32(0);
                 client.TARIFA_HORA = list.GetDouble(1);
                 client.USAURIO_MODIFICACION = list.GetString(2);        //arreglar esto
+                client.FK_ID_SERVICIO = list.GetInt32(3);
                 listaServicios.Add(client);
             }
             list.Dispose();
