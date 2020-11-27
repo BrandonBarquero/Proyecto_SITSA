@@ -245,7 +245,7 @@
              <div class="input-group-append" > <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
 
 
-            <div  style="display: none;"   id="div_t_servicios2">
+            <div    id="div_t_servicios2">
                
 
                             <br>

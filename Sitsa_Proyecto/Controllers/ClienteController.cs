@@ -36,13 +36,12 @@ namespace WebApplication2.Controllers
 
             int result = dao_cliente.AgregarCliente_Servicio(cliente_Servicio);
 
-            if (result != 0)
-            {
+            
 
                 string sJSONResponse = JsonConvert.SerializeObject(result, Formatting.Indented);
                 return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-            }
-            return Json(validacion, JsonRequestBehavior.AllowGet);
+         
+           
         }
 
         [HttpPost]

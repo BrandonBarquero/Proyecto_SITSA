@@ -70,8 +70,8 @@ function Borrar(dato) {
         })
 }
 
-function Borrar_Servicios(dato) {
-
+function Borrar_Servicios(dato, dato2) {
+    console.table(Llaves_Servicios);
     swal({
         title: "\u00BFDesea continuar?",
         type: "warning",
@@ -93,9 +93,9 @@ function Borrar_Servicios(dato) {
                     data: { dato: dato },
                     success: function (result) {
 
-                        for (let i = 0; i < Contactos_A.length; i++) {
+                        for (let i = 0; i < Llaves_Servicios.length; i++) {
 
-                            if (Llaves_Servicios[i] == dato) {
+                            if (Llaves_Servicios[i] == dato2) {
 
                                 Llaves_Servicios.splice(i, 1);
 
@@ -205,22 +205,22 @@ function Agregar() {
                     dataType: "json",
 
                     success: function (data) {
-                        if (data == "fail") {
-                            window.alert("fail");
-                        }
-                        else {
-                            Llaves_Servicios.push($('#Servicio option:selected').html());
+                       
+
+                           let val4=  $('#Servicio option:selected').html()
+                       
+
+                            Llaves_Servicios.push(val4);
                             var htmlTags = '<tr id=' + $('#tabla-mant2').val() + '>' +
                                 '<td>' + data + '</td>' +
                                 '<td>' + $('#Servicio option:selected').html() + '</td>' +
                                 '<td>' + $('#Tarifa').val() + '</td>' +
-                                '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + $('#Servicio option:selected' + ')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+                                '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + data + ',' + val4+')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
                                 '</tr>';
 
                             $('#tabla-mant1 tbody').append(htmlTags);
 
-                        }
-
+                        
                         swal({
                             title: "Hecho",
                             text: "Se ha asignado correctamente",
@@ -315,13 +315,15 @@ function Cliente(dato) {
 
 
             for (var i = 0; i < currentValue1; i++) {
+               let val4 = json_obj1[i].USAURIO_MODIFICACION;
+             
                 servicios2.push($('#tabla-mant1234').val());
-                Llaves_Servicios.push(json_obj1[i].USAURIO_MODIFICACION);
+                Llaves_Servicios.push(val4);
                 var htmlTags1 = `<tr id=Servi${json_obj1[i].PK_CLIENTE_SERVICIO}> 
                     <td>${json_obj1[i].PK_CLIENTE_SERVICIO}</td>
                     <td>${json_obj1[i].USAURIO_MODIFICACION}</td>
                     <td>${json_obj1[i].TARIFA_HORA}</td>
-                    <td style="text-align: center;"><a onclick="Borrar_Servicios(${json_obj1[i].USAURIO_MODIFICACION})"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+                    <td style="text-align: center;"><a onclick="Borrar_Servicios(${json_obj1[i].PK_CLIENTE_SERVICIO} ,'${val4}')"><i class="fas fa-trash color-icono" aria-hidden="true"></td>
                     </tr>`;
 
                 $('#tabla-mant1 tbody').append(htmlTags1);
