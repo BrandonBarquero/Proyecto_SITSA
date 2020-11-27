@@ -25,15 +25,15 @@ namespace Biblioteca_Clases.DAO
             comando.Connection = conexion;
             if (condicion == "Activo")
             {
-                comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO_ACTIVO";
+                comando.CommandText = "exec PA_CON_LISTAR_CONTRATO_ACTIVO";
             }
             else if (condicion == "Inactivo")
             {
-                comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO_INACTIVO";
+                comando.CommandText = "exec PA_CON_LISTAR_CONTRATO_INACTIVO";
             }
             else
             {
-                comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO";
+                comando.CommandText = "exec PA_CON_LISTAR_CONTRATO";
             }
 
             SqlDataReader list = comando.ExecuteReader();
@@ -80,7 +80,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_CTRL_MAN_REBAJAR_HORAS_CONTRATO @PK_ID_CONTRATO, @HORAS, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_MAN_REBAJAR_HORAS_CONTRATO @PK_ID_CONTRATO, @HORAS, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_CONTRATO", id);
             comando.Parameters.AddWithValue("@HORAS", cANTIDAD_HORAS);
             comando.Parameters.AddWithValue("@USUARIO", USER);
@@ -99,9 +99,9 @@ namespace Biblioteca_Clases.DAO
             comando.Connection = conexion;
             comando.CommandText = "";
             if (opc == 1) {
-                comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO_CLIENTE @CLIENTE";
+                comando.CommandText = "exec PA_CON_LISTAR_CONTRATO_CLIENTE @CLIENTE";
             } else if (opc == 2){
-                comando.CommandText = "exec PA_CTRL_LISTAR_MAN_CONTRATO_CLIENTE_GARANTIA @CLIENTE";
+                comando.CommandText = "exec PA_CON_LISTAR_CONTRATO_CLIENTE_GARANTIA @CLIENTE";
             }
             comando.Parameters.AddWithValue("@CLIENTE", cliente);
             SqlDataReader list = comando.ExecuteReader();
@@ -173,7 +173,7 @@ namespace Biblioteca_Clases.DAO
 
             List<Servicio> servicios = new List<Servicio>();
 
-            comando.CommandText = "exec PA_MAN_LISTAR_SERVICIOS_CONTRATO @ID_CONTRATO";
+            comando.CommandText = "exec PA_CON_LISTAR_SERVICIOS_CONTRATO @ID_CONTRATO";
             comando.Parameters.AddWithValue("@ID_CONTRATO", id);
 
             SqlDataReader list = comando.ExecuteReader();

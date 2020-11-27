@@ -18,7 +18,7 @@
                 <i class="far fa-file color-icono"></i>&nbsp; Generar Reporte
             </h3>
             <p class="text-justify txt5">
-             Generación y envió de los reportes de contrato y proyecto para los clientes.
+                Generación y envió de los reportes de contrato y proyecto para los clientes.
             </p>
         </div>
 
@@ -26,6 +26,10 @@
 
         <!-- Contenido -->
         <div class="container txt2">
+
+            <div style="display: none; text-align: center;" id="error_campos_vacios" class="alert alert-warning">
+                <strong>¡Cuidado!</strong> Campos sin completar en el reporte.
+            </div>
 
             <div class="row">
                 <div class="col-md-4 order-md-2 mb-4">
@@ -160,19 +164,12 @@
                     <br>
                     <div class="mb-3 ">
                         <label for="email">Correos</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico">
+                        <input type="email" onchange="actualizarRespuesta()" onblur="Validar_Campo()" class="form-control" id="email" name="email" placeholder="Correo Electrónico">
                     </div>
-                    <%--<div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="firstName">Cantidad Disponible</label>
-                            <div class="input-group">
-                                <input type="text" id="cantidad_disponible" name="cantidad_disponible" class="form-control" placeholder="###">
-                            </div>
-                        </div>
-                    </div>--%>
+
                     <div class="mb-3 form-group">
                         <label>Observación:</label>
-                        <textarea maxlength="100" id="observacion_reporte" class="md-textarea form-control" rows="3"></textarea>
+                        <textarea maxlength="100" onchange="actualizarRespuesta()" onblur="Validar_Campo()" id="observacion_reporte" class="md-textarea form-control" rows="3"></textarea>
                     </div>
 
                     <div class="row" id="row_servicios" style="display: none;">
@@ -241,30 +238,31 @@
             </div>
             <!--Fin Tabla-->
 
-             <hr class="mb-4 hr-estilo-linea">
-             <div class="input-group-append" > <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
+            <hr class="mb-4 hr-estilo-linea">
+            <div class="input-group-append">
+                <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
 
 
-            <div  style="display: none;"   id="div_t_servicios2">
-               
+            <div style="display: none;" id="div_t_servicios2">
 
-                            <br>
-                            <label>Seleccionar servicio:</label>
-                            <input class="form-control" id="servicios_l2" list="lista_servicios">
-                            <datalist id="lista_servicios2">
-                                <%
-                                   
 
-                                    foreach (var servicio in list_servicios)
-                                    {
-                                %>
-                                <option value="<%=servicio.ID_SERVICIO%>-<%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
+                <br>
+                <label>Seleccionar servicio:</label>
+                <input class="form-control" id="servicios_l2" list="lista_servicios">
+                <datalist id="lista_servicios2">
+                    <%
 
-                                <%}%>
-                            </datalist>
 
-                            <br>
-                       
+                        foreach (var servicio in list_servicios)
+                        {
+                    %>
+                    <option value="<%=servicio.ID_SERVICIO%>-<%=servicio.DESCRIPCION%>"><%=servicio.DESCRIPCION%></option>
+
+                    <%}%>
+                </datalist>
+
+                <br>
+
                 <h5 class="mb-3">Servicios extra:</h5>
 
 
@@ -301,16 +299,16 @@
 
             <br>
 
-                      <%if (Permisos.CREAR == true)
-                          { %>
+            <%if (Permisos.CREAR == true)
+                { %>
             <div class="col text-center" style="display: block" id="div_btn_agregar">
-                <button type="button" class="guardar-btn-reporte" onclick="guardar(1);">Guardar</button>
+                <button type="button" class="guardar-btn-reporte" onclick="guardar(1);" id="btn_agregar">Guardar</button>
             </div>
             <br>
             <div class="col text-center" style="display: none" id="div_btn_modificar">
-                <button type="button" class="guardar-btn-reporte" onclick="guardar(2);">Modificar</button>
+                <button type="button" class="guardar-btn-reporte" onclick="guardar(2);" id="btn_modificar">Modificar</button>
             </div>
-              <%} %>
+            <%} %>
             <br>
             <br>
         </div>
@@ -318,9 +316,47 @@
     </div>
     <!--Container Repo-->
 
+    <!--Script Tabla-->
     <script type="text/javascript">
 
-        
+        function actualizarRespuesta() {
+            $("#btn_modificar").css("display", "block");
+            document.getElementById("btn_modificar").disabled = false;
+
+            document.getElementById("div_btn_agregar").disabled = false;
+        }
+
+        /*Validaciones*/
+
+        //$('#email').on('input', function (e) {
+        //    if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
+        //        this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
+        //    }
+        //});
+
+        $('#observacion_reporte').on('input', function (e) {
+            if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ a-z0-9áéíóúüñ]+/ig, "");
+            }
+        });
+
+        $('#total_horas').on('input', function (e) {
+            if (!/^[ 0-9]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
+            }
+        });
+
+        $('#horas_consumidas').on('input', function (e) {
+            if (!/^[ 0-9]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
+            }
+        });
+
+        $('#horas_disponibles').on('input', function (e) {
+            if (!/^[ 0-9]*$/i.test(this.value)) {
+                this.value = this.value.replace(/[^ 0-9]+/ig, "");
+            }
+        });
 
     </script>
 

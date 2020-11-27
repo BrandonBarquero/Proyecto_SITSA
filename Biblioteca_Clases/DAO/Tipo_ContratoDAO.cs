@@ -21,7 +21,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO";
+            comando.CommandText = "exec [PA_CON_LISTAR_TIPO_CONTRATO]";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -48,7 +48,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO_ACTIVO";
+            comando.CommandText = "exec PA_CON_LISTAR_TIPO_CONTRATO_ACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -76,7 +76,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_TIPO_CONTRATO_INACTIVO";
+            comando.CommandText = "exec PA_CON_LISTAR_TIPO_CONTRATO_INACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();

@@ -15,7 +15,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-
     $('.js-example-responsive').select2();
 });
 
@@ -1377,6 +1376,23 @@ function buscar_detalle_reporte() {
                 alert(response.responseText);
             }
         });
+    }
+
+}
+
+function Validar_Campo() {
+
+    if (document.getElementById("total_horas").value.trim() == "" || document.getElementById("horas_consumidas").value.trim() == "" || document.getElementById("horas_disponibles").value.trim() == "" || document.getElementById("cliente").value.trim() == "" || document.getElementById("contacto_encargado").value.trim() == "" || document.getElementById("correo_encargado").value.trim() == "" || document.getElementById("email").value.trim() == "" || document.getElementById("observacion_reporte").value.trim() == "") {
+
+        document.getElementById("btn_agregar").disabled = true;
+        document.getElementById("btn_modificar").disabled = true;
+        document.getElementById("error_campos_vacios").style.display = "block";
+        return false;
+    } else {
+        document.getElementById("btn_agregar").disabled = false;
+        document.getElementById("btn_agregar").disabled = false;
+        document.getElementById("error_campos_vacios").style.display = "none";
+        return true;
     }
 
 }
