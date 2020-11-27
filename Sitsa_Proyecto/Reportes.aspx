@@ -243,7 +243,12 @@
                 <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
 
 
+<<<<<<< HEAD
             <div style="display: none;" id="div_t_servicios2">
+=======
+            <div    id="div_t_servicios2">
+               
+>>>>>>> 4d12bd780ab86984c4494fd9f8aebb4e3a37544d
 
 
                 <br>
