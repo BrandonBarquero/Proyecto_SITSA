@@ -240,17 +240,10 @@
 
             <hr class="mb-4 hr-estilo-linea">
             <div class="input-group-append">
-                <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button></div>
+                <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button>
+            </div>
 
-
-<<<<<<< HEAD
             <div style="display: none;" id="div_t_servicios2">
-=======
-            <div    id="div_t_servicios2">
-               
->>>>>>> 4d12bd780ab86984c4494fd9f8aebb4e3a37544d
-
-
                 <br>
                 <label>Seleccionar servicio:</label>
                 <input class="form-control" id="servicios_l2" list="lista_servicios">
@@ -306,18 +299,18 @@
 
             <%if (Permisos.CREAR == true)
                 { %>
-            <div class="col text-center" style="display: block" id="div_btn_agregar">
-                <button type="button" class="guardar-btn-reporte" onclick="guardar(1);" id="btn_agregar">Guardar</button>
+            <div class="col text-center" style="display: block; text-align: center" id="div_btn_agregar">
+                <button type="button" disabled class="guardar-btn-reporte" onclick="guardar(1);" id="btn_agregar">Guardar</button>
             </div>
             <br>
-            <div class="col text-center" style="display: none" id="div_btn_modificar">
-                <button type="button" class="guardar-btn-reporte" onclick="guardar(2);" id="btn_modificar">Modificar</button>
+            <div class="col text-center" style="display: none; text-align: center" id="div_btn_modificar">
+                <button type="button" disabled class="guardar-btn-reporte" onclick="guardar(2);" id="btn_modificar">Modificar</button>
             </div>
             <%} %>
             <br>
             <br>
-        </div>
-        <!--Container-->
+    </div>
+    <!--Container-->
     </div>
     <!--Container Repo-->
 
@@ -346,21 +339,15 @@
         });
 
         $('#total_horas').on('input', function (e) {
-            if (!/^[ 0-9]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ 0-9]+/ig, "");
-            }
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
         });
 
         $('#horas_consumidas').on('input', function (e) {
-            if (!/^[ 0-9]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ 0-9]+/ig, "");
-            }
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
         });
 
         $('#horas_disponibles').on('input', function (e) {
-            if (!/^[ 0-9]*$/i.test(this.value)) {
-                this.value = this.value.replace(/[^ 0-9]+/ig, "");
-            }
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
         });
 
     </script>

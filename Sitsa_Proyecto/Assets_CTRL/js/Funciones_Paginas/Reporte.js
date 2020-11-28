@@ -7,7 +7,7 @@ $(document).ready(function () {
     if (g_id != null) {
         g_edita = true;
         edita_r(g_id);
-        $("#div_btn_modificar").css("display", "block");
+        //$("#div_btn_modificar").css("display", "block");
         $("#div_btn_guardar").css("display", "none");
     } else {
         return;
@@ -337,7 +337,10 @@ $(document).ready(function () {
 
 function datos_tipo() {
 
-    $('#div_btn_agregar').css('display', 'block');
+    if (g_id == null) {
+        $('#div_btn_agregar').css('display', 'block');
+    }
+    
     habilita_campos_horas();
 
     limpia_tabla_Servicios();
@@ -668,7 +671,7 @@ function pinta_servicios(data) {
 
     var htmlTags = '<tr id=' + data.ID_SERVICIO + ' class="txt2">' +
         '<td><input class="form-control" type="text" id="desc' + data.ID_SERVICIO + '" name="" value="' + data.DESCRIPCION + '" readonly></td>' +
-        '<td><input class="form-control" type="text" id="ob' + data.ID_SERVICIO + '" name="" value=""></td>';
+        '<td><input class="form-control" type="text" id="ob' + data.ID_SERVICIO + '" name="" value="" onblur="Validar_Campo()"></td>';
     if (select == "garantia") {
         htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
             '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
@@ -679,17 +682,17 @@ function pinta_servicios(data) {
     else {
 
         if (monto == "") {
-            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '" name="" value="' + monto + '" readonly></td>' +
-                '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="0" onchange="actualiza(' + data.ID_SERVICIO + ');"></td>';
+            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '" name="" value="' + monto + '" readonly onkeypress="valida();"></td>' +
+                '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="0" onchange="actualiza(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
         } else {
-            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '"  name="" value="0" onchange=actualiza_monto(' + data.ID_SERVICIO + ');></td>' +
-                '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="0" onchange="actualiza_hora_monto(' + data.ID_SERVICIO + ');"></td>';
+            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '"  name="" value="0" onchange=actualiza_monto(' + data.ID_SERVICIO + '); onkeypress="valida();"></td>' +
+                '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="0" onchange="actualiza_hora_monto(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
         }
         //htmlTags = htmlTags + '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="" onchange="actualiza(' + data.ID_SERVICIO + ');"></td>';
         if (monto == "") {
-            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph' + data.ID_SERVICIO + '" name="" value="0" onchange="precios_por_hora(' + data.ID_SERVICIO + ');"></td>';
+            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph' + data.ID_SERVICIO + '" name="" value="0" onchange="precios_por_hora(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
         } else {
-            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph' + data.ID_SERVICIO + '" name="" value="0" onchange="precios(' + data.ID_SERVICIO + ');"></td>';
+            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph' + data.ID_SERVICIO + '" name="" value="0" onchange="precios(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
         }
         htmlTags = htmlTags + '<td style="text-align: center;"><a onclick="elimina(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
             '</tr>';
@@ -700,12 +703,6 @@ function pinta_servicios(data) {
 
 function actualiza(id) {
 
-
-
-
-
-
-
     if ($('input:text[id=' + id + ']').val() >= 0) {
         if ($('input:text[id=' + id + ']').val() == "") {
             $('input:text[id=' + id + ']').val(0)
@@ -715,9 +712,6 @@ function actualiza(id) {
             if (g_servicios[i].ID_SERVICIO == id) {
                 var horas = $('input:text[id=' + id + ']').val();
 
-
-
-
                 //let Cantidad_L = disponible - horas;
 
                 //if (Cantidad_L <= 0) {
@@ -725,8 +719,8 @@ function actualiza(id) {
                 //    return;
                 //}
 
-                g_servicios[i].HORAS = (parseInt(horas));
-                suma_total();
+                g_servicios[i].HORAS = (parseFloat(horas));
+                suma_total(id);
                 //if (g_contrato.MONTO > 0) {
                 precios_por_hora(id);
                 //}
@@ -737,19 +731,31 @@ function actualiza(id) {
     }
 }
 
-function suma_total() {
+function suma_total(id) {
     let suma = 0;
     for (var i = 0; i < g_servicios.length; i++) {
         suma += g_servicios[i].HORAS;
     }
-    let disponible = parseInt(g_contrato.HORAS_POR_CONSUMIR);
+    let disponible = parseFloat(g_contrato.HORAS_POR_CONSUMIR);
 
 
-    let horas_disponibles = (parseInt($("#total_horas").val()) - parseInt($("#horas_consumidas").val()));
+    let horas_disponibles = (parseFloat($("#total_horas").val()) - parseFloat($("#horas_consumidas").val()));
 
 
     $("#horas_disponibles").val(disponible - suma);
-    $("#horas_consumidas").val(suma);
+    if (suma > disponible) {
+        swal({
+            title: "Error",
+            text: "Se ha superaso el total de horas consumidas",
+            type: "error",
+            showConfirmButton: true
+        })
+        $('input:text[id=' + id + ']').val(0).trigger('change');
+        
+    } else if (suma <= disponible) {
+        $("#horas_consumidas").val(suma);
+    }
+    
 }
 
 function limpia_tabla_Servicios() {
@@ -809,11 +815,11 @@ function actualiza_monto(id) {
         for (var i = 0; i < g_servicios.length; i++) {
             if (g_servicios[i].ID_SERVICIO == id) {
                 var monto = $('input:text[id=m' + id + ']').val();
-                g_servicios[i].MONTO = (parseInt(monto));
-                suma_total_monto();
+                g_servicios[i].MONTO = (parseFloat(monto));
+                suma_total_monto(id);
 
                 var horas = $('input:text[id=' + id + ']').val();
-                g_servicios[i].HORAS = (parseInt(horas));
+                g_servicios[i].HORAS = (parseFloat(horas));
 
                 return;
             }
@@ -822,15 +828,27 @@ function actualiza_monto(id) {
     }
 }
 
-function suma_total_monto() {
+function suma_total_monto(id) {
     let suma = 0;
     for (let i = 0; i < g_servicios.length; i++) {
         suma += g_servicios[i].MONTO;
     }
     $("#horas_consumidas").val(suma);
 
-    let horas_disponibles = (parseInt($("#total_horas").val()) - parseInt($("#horas_consumidas").val()));
-    $("#horas_disponibles").val(horas_disponibles);
+    let horas_disponibles = (parseFloat($("#total_horas").val()) - parseFloat($("#horas_consumidas").val()));
+    ///
+    if (horas_disponibles < 0) {
+        swal({
+            title: "Error",
+            text: "El monto consumido supera el monto disponible",
+            type: "error",
+            showConfirmButton: true
+        });
+        $('#m' + id).val(0).trigger('change');
+    } else {
+        $("#horas_disponibles").val(horas_disponibles);
+        actualiza_hora_monto(id);
+    }
 }
 
 function actualiza_hora_monto(id) {
@@ -844,12 +862,12 @@ function actualiza_hora_monto(id) {
 
     for (let i = 0; i < g_servicios.length; i++) {
         if (g_servicios[i].ID_SERVICIO == id) {
-            g_servicios[i].HORAS = parseInt($('input:text[id=' + id + ']').val());
+            g_servicios[i].HORAS = parseFloat($('input:text[id=' + id + ']').val());
         }
     }
 
-    monto_servicio = parseInt($("#m" + id).val());
-    horas_servicio = parseInt($('input:text[id=' + id + ']').val());
+    monto_servicio = parseFloat($("#m" + id).val());
+    horas_servicio = parseFloat($('input:text[id=' + id + ']').val());
     if (horas_servicio == 0) {
         $("#ph" + id).val(0);
     } else if (horas_servicio > 0) {
@@ -868,9 +886,9 @@ function precios_por_hora(id) {
     let monto = 0;
 
     //monto = $("#m" + id).val();
-    costo_hora = parseInt($("#ph" + id).val());
+    costo_hora = parseFloat($("#ph" + id).val());
 
-    horas_servicio = parseInt($('input:text[id=' + id + ']').val());
+    horas_servicio = parseFloat($('input:text[id=' + id + ']').val());
     //horas = (monto / costo_hora);
 
     for (let i = 0; i < g_servicios.length; i++) {
@@ -1188,8 +1206,6 @@ $(document).ready(function () {
 
 function edita_r(id) {
 
-    $("#div_btn_agregar").css("display", "none");
-    $("#div_btn_modificar").css("display", "block");
     document.getElementById("n_reporte").innerHTML = "Reporte: " + id;
 
     $.ajax({
@@ -1251,7 +1267,8 @@ function edita_r(id) {
                 beforeSend: function () {
                 },
                 success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-
+                    $("#div_btn_agregar").css("display", "none");
+                    //$("#div_btn_modificar").css("display", "block");
                 },
                 failure: function (response) {
                     alert("failure");
@@ -1388,11 +1405,42 @@ function Validar_Campo() {
         document.getElementById("btn_modificar").disabled = true;
         document.getElementById("error_campos_vacios").style.display = "block";
         return false;
+
     } else {
+        let condicion = false;
+        for (let i = 0; i < g_servicios.length; i++) {
+            let val = $('#ob' + g_servicios[i].ID_SERVICIO).val();
+            if (val == "") {
+                condicion = true;
+                document.getElementById("btn_agregar").disabled = true;
+                document.getElementById("btn_modificar").disabled = true;
+                document.getElementById("error_campos_vacios").style.display = "block";
+                return false;
+            }
+        }
         document.getElementById("btn_agregar").disabled = false;
         document.getElementById("btn_agregar").disabled = false;
         document.getElementById("error_campos_vacios").style.display = "none";
+
+        if (g_id != null) {
+            $("#div_btn_modificar").css("display", "block");
+        }
         return true;
     }
 
 }
+
+function valida() {
+    for (let i = 0; i < g_servicios.length; i++) {
+        $('#m' + g_servicios[i].ID_SERVICIO).on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+        $('#ph' + g_servicios[i].ID_SERVICIO).on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+        $('input:text[id=' + g_servicios[i].ID_SERVICIO + ']').on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+    }
+}
+

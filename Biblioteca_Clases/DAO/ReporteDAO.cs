@@ -251,7 +251,7 @@ namespace Biblioteca_Clases.DAO
             comando.Parameters.AddWithValue("@FACTURADO", reporte.FACTURADO);
             comando.Parameters.AddWithValue("@CANTIDAD_HORAS", reporte.CANTIDAD_HORAS);
             comando.Parameters.AddWithValue("@OBSERVACION", reporte.OBSERVACION);
-            comando.Parameters.AddWithValue("@FECHA", reporte.FECHA);
+            comando.Parameters.AddWithValue("@FECHA", reporte.FECHA_CREACION);
             comando.Parameters.AddWithValue("@USUARIO", reporte.USUARIO_CREACION);
             comando.Parameters.AddWithValue("@FECHA_C", reporte.FECHA_CREACION);
             comando.Parameters.AddWithValue("@CONTACTO", reporte.FK_ID_CONTACTO);

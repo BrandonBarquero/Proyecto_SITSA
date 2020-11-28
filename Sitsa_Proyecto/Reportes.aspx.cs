@@ -26,6 +26,11 @@ namespace WebApplication2
 
             int perfil = (int)(Session["perfil"]);
             Permisos = dao_contrato.ControlPaginas("Reportes", perfil.ToString());
+            
+            if (Permisos.VER == false || Permisos.CREAR == false)
+            {
+                Response.Write("<script language='javascript'> alert('No posee los permisos necesarios'); window.location.href = 'Home.aspx'; </script>");
+            }
 
         }
 
