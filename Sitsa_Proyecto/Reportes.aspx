@@ -239,18 +239,17 @@
             <!--Fin Tabla-->
 
             <hr class="mb-4 hr-estilo-linea">
-            <div class="input-group-append">
-                <button type="button" onclick="Abrir()" class="cliente-btn-search">Agregar extras</button>
+            
+            <div class="col text-center" style="display: none; text-align: center" id="div_btn_agregar_extras">
+                <button type="button" class="guardar-btn-reporte" onclick="Abrir();" id="btn_agregar_extras">Agregar extras</button>
             </div>
 
-            <div style="display: none;" id="div_t_servicios2">
+            <div style="display: none;" id="div_t_servicios_extras">
                 <br>
                 <label>Seleccionar servicio:</label>
                 <input class="form-control" id="servicios_l2" list="lista_servicios">
                 <datalist id="lista_servicios2">
                     <%
-
-
                         foreach (var servicio in list_servicios)
                         {
                     %>
@@ -262,7 +261,6 @@
                 <br>
 
                 <h5 class="mb-3">Servicios extra:</h5>
-
 
                 <table id="t_servicios2" class="table table-striped table-bordered" style="width: 100%;">
                     <!--Tabla-->
@@ -318,19 +316,13 @@
     <script type="text/javascript">
 
         function actualizarRespuesta() {
-            $("#btn_modificar").css("display", "block");
+            //$("#div_btn_modificar").css("display", "block");
             document.getElementById("btn_modificar").disabled = false;
 
-            document.getElementById("div_btn_agregar").disabled = false;
+            document.getElementById("btn_agregar").disabled = false;
         }
 
         /*Validaciones*/
-
-        //$('#email').on('input', function (e) {
-        //    if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
-        //        this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
-        //    }
-        //});
 
         $('#observacion_reporte').on('input', function (e) {
             if (!/^[ a-z0-9áéíóúüñ]*$/i.test(this.value)) {

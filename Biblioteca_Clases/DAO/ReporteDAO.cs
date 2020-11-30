@@ -94,6 +94,33 @@ namespace Biblioteca_Clases.DAO
             return result;
         }
 
+        public int AgregarDetallesReporteExtra(List<Detalle_Reporte> detalle_reporte_extra)
+        {
+            int result = 0;
+            SqlCommand comando = new SqlCommand();
+
+            //QuitarDetallesReporte(servicios[0].ID_CONTRATO);
+
+            foreach (Detalle_Reporte dato in detalle_reporte_extra)
+            {
+                comando = new SqlCommand();
+                comando.Connection = conexion;
+                comando.CommandText = "execute PA_MAN_AGREGAR_DETALLES_REPORTE_CONTRATO_EXTRA @HORAS, @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION, @ID_SERVICIO";
+                comando.Parameters.AddWithValue("@HORAS", dato.HORAS);
+                comando.Parameters.AddWithValue("@TARIFA", dato.TARIFA);
+                comando.Parameters.AddWithValue("@USUARIO", dato.USUARIO_CREACION);
+                comando.Parameters.AddWithValue("@FECHA", dato.FECHA_CREACION);
+                comando.Parameters.AddWithValue("@ID_REPORTE", dato.FK_ID_REPORTE);
+                if (dato.OBSERVACION != null) { comando.Parameters.AddWithValue("@OBSERVACION", dato.OBSERVACION); } else { comando.Parameters.AddWithValue("@OBSERVACION", " "); }
+                comando.Parameters.AddWithValue("@ID_SERVICIO", dato.ID_SERVICIO);
+
+                result = comando.ExecuteNonQuery();
+                //result = Convert.ToInt32(comando.ExecuteScalar());
+            }
+
+            return result;
+        }
+
         public int aceptar_reporte(string dato)
         {
             int result = 0;
@@ -147,10 +174,14 @@ namespace Biblioteca_Clases.DAO
 
             comando.Connection = conexion;
             comando.CommandText = "";
-            if (opc == 1) {
+            if (opc == 1)            {
                 comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_CONTRATO @ID";
-            } else if (opc == 2) {
+            }
+            else if (opc == 2)            {
                 comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_PROYECTO @ID";
+            }
+            else if (opc == 3) {
+                comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_CONTRATO_EXTRA @ID";
             }
             comando.Parameters.AddWithValue("@ID", id);
             SqlDataReader list = comando.ExecuteReader();

@@ -68,7 +68,7 @@ namespace Sitsa_Proyecto.Controllers
 
 
 
-        public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles, string correos) {
+        public JsonResult agregar_reporte(Reporte reporte, List<Detalle_Reporte> detalles_reporte, List<Detalle_Reporte> detalles_reporte_extra, string horas_disponibles, string correos) {
             int result = 0;
 
             string[] vector_correo = correos.Split(',');           
@@ -92,7 +92,19 @@ namespace Sitsa_Proyecto.Controllers
 
                 result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
             }
-            
+
+            if (detalles_reporte_extra != null)
+            {
+                for (int i = 0; i < detalles_reporte_extra.Count; i++)
+                {
+                    detalles_reporte_extra[i].USUARIO_CREACION = (string)(Session["User"]);
+                    detalles_reporte_extra[i].FECHA_CREACION = fecha_asignar;
+                    detalles_reporte_extra[i].FK_ID_REPORTE = id;
+                }
+
+                result = dao_reporte.AgregarDetallesReporteExtra(detalles_reporte_extra);
+            }
+
             if (horas_disponibles != "f" && reporte.TIPO_DOCUMENTO != "Reporte Contrato Garantía")
             {
                 double hor = Double.Parse(horas_disponibles);
@@ -186,7 +198,7 @@ namespace Sitsa_Proyecto.Controllers
 
         }
 
-        public JsonResult actualizar_reporte_contrato(Reporte reporte, List<Detalle_Reporte> detalles_reporte, string horas_disponibles)
+        public JsonResult actualizar_reporte_contrato(Reporte reporte, List<Detalle_Reporte> detalles_reporte, List<Detalle_Reporte> detalles_reporte_extra, string horas_disponibles)
         {
             int result = 0;
 
@@ -208,6 +220,18 @@ namespace Sitsa_Proyecto.Controllers
             }
 
             result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
+
+            if (detalles_reporte_extra != null)
+            {
+                for (int i = 0; i < detalles_reporte_extra.Count; i++)
+                {
+                    detalles_reporte_extra[i].USUARIO_CREACION = (string)(Session["User"]);
+                    detalles_reporte_extra[i].FECHA_CREACION = fecha_asignar;
+                    detalles_reporte_extra[i].FK_ID_REPORTE = reporte.PK_ID_REPORTE;
+                }
+
+                result = dao_reporte.AgregarDetallesReporteExtra(detalles_reporte_extra);
+            }
 
             if (horas_disponibles != "f" && reporte.TIPO_DOCUMENTO != "Reporte Contrato Garantía")
             {

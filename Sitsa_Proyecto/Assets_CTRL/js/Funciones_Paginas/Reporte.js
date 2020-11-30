@@ -28,6 +28,10 @@ var g_contactos = [];
 var g_proyectos = [];
 var g_correos = [];
 
+//Servicios extras
+var g_servicios_extras = [];
+var g_detalles_reporte_extra = [];
+
 var g_reporte = new Object();
 
 var g_detalles_reporte = [];
@@ -58,7 +62,7 @@ $(document).ready(function () {
         g_contratos = [];
 
         limpia_tabla_Servicios();
-        $("#row_servicios").css("display", "none");
+        $("#row_servicios").css("display", "none");        
 
         var val_select = $('input:radio[name=grupo_tipo]:checked').val();
 
@@ -71,7 +75,7 @@ $(document).ready(function () {
 
         if (val_select == "contrato" && cliente != "") {
             $("#div_t_servicios").css("display", "block");
-            buscar_contratos(arrelgo_cliente[0]);
+            buscar_contratos(arrelgo_cliente[0]);          
         }
         else if (val_select == "proyecto" && cliente != "") {
             $("#div_t_servicios").css("display", "none");
@@ -454,6 +458,7 @@ function prepara_campos(data) {
         if (data.RANGO != -1) {
             deshabilita_campos_horas();
             $("#div_t_servicios").css("display", "none");
+            $("#div_btn_agregar_extras").css("display", "none"); 
             //$("#row_servicios").css("display", "none");
         }
     }
@@ -702,7 +707,7 @@ function pinta_servicios(data) {
 }
 
 function actualiza(id) {
-
+    actualizarRespuesta();
     if ($('input:text[id=' + id + ']').val() >= 0) {
         if ($('input:text[id=' + id + ']').val() == "") {
             $('input:text[id=' + id + ']').val(0)
@@ -751,6 +756,8 @@ function suma_total(id) {
             showConfirmButton: true
         })
         $('input:text[id=' + id + ']').val(0).trigger('change');
+
+        $("#div_btn_agregar_extras").css("display", "block"); 
         
     } else if (suma <= disponible) {
         $("#horas_consumidas").val(suma);
@@ -761,6 +768,8 @@ function suma_total(id) {
 function limpia_tabla_Servicios() {
     g_servicios = [];
     $('#t_servicios tbody').empty();
+    $("#div_btn_agregar_extras").css("display", "none");  
+    $("#div_t_servicios_extras").css("display", "none");  
 }
 
 function elimina(id) {
@@ -845,6 +854,7 @@ function suma_total_monto(id) {
             showConfirmButton: true
         });
         $('#m' + id).val(0).trigger('change');
+        $("#div_btn_agregar_extras").css("display", "block"); 
     } else {
         $("#horas_disponibles").val(horas_disponibles);
         actualiza_hora_monto(id);
@@ -881,7 +891,7 @@ function precios_por_hora(id) {
     if ($('input:text[id=ph' + id + ']').val() == "") {
         $('input:text[id=ph' + id + ']').val(0);
     }
-
+    
     let horas_servicio = 0;
     let monto = 0;
 
@@ -917,6 +927,7 @@ function suma_monto_por_hora() {
 function guardar(opc) {
     var Reporte = new Object();
     g_detalles_reporte = [];
+    g_detalles_reporte_extra = [];
     var val_select = $('input:radio[name=grupo_tipo]:checked').val();
     var cliente = $('#cliente').val();
     var horas_disponibles = $("#horas_disponibles").val();
@@ -984,6 +995,25 @@ function guardar(opc) {
                 }
             }
 
+            //**---------------------Detalle reporte extra----------------------------**//
+            if (g_contrato.RANGO == -1) {
+                for (let i = 0; i < g_servicios_extras.length; i++) {
+                    var Detalle_Reporte_extra = new Object();
+                    Detalle_Reporte_extra.HORAS = $('input:text[id=ex' + g_servicios_extras[i].ID_SERVICIO + ']').val();
+
+                    Detalle_Reporte_extra.TARIFA = g_servicios_extras[i].MONTO;
+
+                    var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
+                    Detalle_Reporte_extra.FK_ID_REPORTE = arreglo_id_reporte[1];
+
+                    Detalle_Reporte_extra.OBSERVACION = $("#ob_ex" + g_servicios_extras[i].ID_SERVICIO).val();
+
+                    Detalle_Reporte_extra.ID_SERVICIO = g_servicios_extras[i].ID_SERVICIO;
+
+                    g_detalles_reporte_extra.push(Detalle_Reporte_extra);
+                }
+            }
+
             if (Reporte != null) {
 
                 if (g_contrato.HORAS == "-1") {
@@ -1003,6 +1033,7 @@ function guardar(opc) {
                     data: JSON.stringify({
                         reporte: Reporte,
                         detalles_reporte: g_detalles_reporte,
+                        detalles_reporte_extra: g_detalles_reporte_extra,
                         horas_disponibles: horas_disponibles,
                         correos: correo_final
                     }),
@@ -1365,6 +1396,7 @@ function buscar_detalle_reporte() {
                 let l_id = 0;
                 if (g_reporte.ID_CONTRATO != 0) {
                     l_id = g_reporte.ID_CONTRATO
+                    buscar_detalle_reporte_extra();
                     c = true;
                 } else if (g_reporte.ID_PROYECTO != 0) {
                     l_id = g_reporte.ID_PROYECTO;
@@ -1394,7 +1426,70 @@ function buscar_detalle_reporte() {
             }
         });
     }
+}
 
+function buscar_detalle_reporte_extra() {
+    $.ajax({
+        type: "POST",
+        url: "Reporte/buscar_detalle_reporte",
+        data: JSON.stringify({
+            id: g_reporte.PK_ID_REPORTE,
+            opc: 3,
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: function () {
+        },
+        success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+            //response.forEach(pinta_servicios);
+            g_detalles_reporte_extra = response;
+
+            if (g_detalles_reporte_extra != null) {
+                Abrir();
+                response.forEach(pinta_servicios_extras);
+                $.ajax({
+                    type: "POST",
+                    url: "/Reporte/devuelve_servicios",
+                    data: {},
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                    },
+                    success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        response.forEach(carga_datos_extra);
+                    },
+                    failure: function (response) {
+                        alert("failure");
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert("Error");
+                        alert(response.responseText);
+                    }
+                });
+            }
+
+        },
+        failure: function (response) {
+            alert("failure");
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert("Error");
+            alert(response.responseText);
+        }
+    });
+}
+
+function carga_datos_extra(data) {
+    for (let i = 0; i < g_detalles_reporte_extra.length; i++) {
+        if (g_detalles_reporte_extra[i].ID_SERVICIO == data.ID_SERVICIO) {
+            $("#m_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA).trigger('change');
+            $("#ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].HORAS).trigger('change');
+            $("#desc_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(data.DESCRIPCION);
+            $("#ob_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].OBSERVACION);
+        }
+    }
 }
 
 function Validar_Campo() {
@@ -1409,7 +1504,7 @@ function Validar_Campo() {
     } else {
         let condicion = false;
         for (let i = 0; i < g_servicios.length; i++) {
-            let val = $('#ob' + g_servicios[i].ID_SERVICIO).val();
+            let val = $('#ob' + g_servicios[i].ID_SERVICIO).val();            
             if (val == "") {
                 condicion = true;
                 document.getElementById("btn_agregar").disabled = true;
@@ -1418,12 +1513,24 @@ function Validar_Campo() {
                 return false;
             }
         }
+
+        for (let i = 0; i < g_servicios_extras.length; i++) {
+            let val = $('#ob_ex' + g_servicios_extras[i].ID_SERVICIO).val();
+            if (val == "") {
+                condicion = true;
+                document.getElementById("btn_agregar").disabled = true;
+                document.getElementById("btn_modificar").disabled = true;
+                document.getElementById("error_campos_vacios").style.display = "block";
+                return false;
+            }
+        }
+
         document.getElementById("btn_agregar").disabled = false;
-        document.getElementById("btn_agregar").disabled = false;
+        document.getElementById("btn_modificar").disabled = false;
         document.getElementById("error_campos_vacios").style.display = "none";
 
         if (g_id != null) {
-            $("#div_btn_modificar").css("display", "block");
+            $("#div_btn_modificar").css("display", "block");                      
         }
         return true;
     }
@@ -1431,6 +1538,7 @@ function Validar_Campo() {
 }
 
 function valida() {
+    actualizarRespuesta();
     for (let i = 0; i < g_servicios.length; i++) {
         $('#m' + g_servicios[i].ID_SERVICIO).on('input', function () {
             this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
@@ -1444,3 +1552,250 @@ function valida() {
     }
 }
 
+function valida_extra() {
+    actualizarRespuesta();
+    for (let i = 0; i < g_servicios_extras.length; i++) {
+        $('#m_ex' + g_servicios_extras[i].ID_SERVICIO).on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+        $('#ph_ex' + g_servicios_extras[i].ID_SERVICIO).on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+        $('input:text[id=ex' + g_servicios_extras[i].ID_SERVICIO + ']').on('input', function () {
+            this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
+        });
+    }
+}
+
+//Servicios extras//
+function Abrir() {
+    $("#div_t_servicios_extras").css("display", "block");
+}
+
+$(document).ready(function () {
+    $('#servicios_l2').change(function () {
+        var val_select = $('#servicios_l2').val();
+
+        if (val_select == "") {
+            return;
+        } else {
+            var arreglo_servicio = val_select.split('-');
+
+            for (let i = 0; i < g_servicios_extras.length; i++) {
+                if (g_servicios_extras[i].ID_SERVICIO == arreglo_servicio[0]) {
+                    swal({
+                        title: "Error",
+                        text: "El servicio ya se encuentra agregado",
+                        type: "error",
+                        showConfirmButton: true
+                    });
+                    $('#servicios_l2').val("");
+                    return;
+                }
+            }
+            var g_servicio = new Object();
+            g_servicio.ID_SERVICIO = arreglo_servicio[0];
+            g_servicio.DESCRIPCION = arreglo_servicio[1];
+            g_servicio.HORAS = 0;
+            //g_servicios.push(g_servicio);
+            pinta_servicios_extras(g_servicio);
+
+            $('#servicios_l2').val("");
+        }
+    });
+});
+
+function pinta_servicios_extras(data) {
+    let monto;
+    let rango;
+
+    if (g_contrato.MONTO > 0) {
+        monto = g_contrato.MONTO;
+    } else {
+        monto = "";
+        if (g_id == null) {
+            data.TARIFA = 0;
+            data.MONTO = 0;
+            data.HORAS = 0;
+        }        
+    }
+    if (g_contrato.RANGO > 0) {
+        rango = g_contrato.RANGO;
+    } else {
+        rango = "";
+    }
+    if (g_id == null) {
+        data.HORAS = 0;
+        data.MONTO = 0;
+    }
+    
+    g_servicios_extras.push(data);
+
+    var select = $('input:radio[name=grupo_tipo]:checked').val();
+
+    var htmlTags = '<tr id=' + data.ID_SERVICIO + ' class="txt2">' +
+        '<td><input class="form-control" type="text" id="desc_ex' + data.ID_SERVICIO + '" name="" value="' + data.DESCRIPCION + '" readonly></td>' +
+        '<td><input class="form-control" type="text" id="ob_ex' + data.ID_SERVICIO + '" name="" value="" onblur="Validar_Campo()"></td>';
+    if (select == "garantia") {
+        htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
+            '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="'+data.HORAS+'" readonly></td>' +
+            '<td><input class="form-control" type="text" id="ph_ex' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
+            '<td style="text-align: center;"><a onclick="elimina_extra(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true" readonly></td>' +
+            '</tr>';
+    }
+    else {
+        
+        if (monto == "") {
+            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '" name="" value="' + monto + '" readonly onkeypress="valida_extra();"></td>' +
+                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="'+data.HORAS+'" onchange="actualiza_extra(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
+        } else {
+            htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '"  name="" value="0" onchange=actualiza_monto_extra(' + data.ID_SERVICIO + '); onkeypress="valida_extra();"></td>' +
+                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS +'" onchange="actualiza_hora_monto_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
+        }
+        //htmlTags = htmlTags + '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="" onchange="actualiza(' + data.ID_SERVICIO + ');"></td>';
+        if (monto == "") {
+            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph_ex' + data.ID_SERVICIO + '" name="" value="0" onchange="precios_por_hora_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
+        } else {
+            htmlTags = htmlTags + '<td><input class="form-control" type="text" id="ph_ex' + data.ID_SERVICIO + '" name="" value="0" onchange="precios_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
+        }
+        htmlTags = htmlTags + '<td style="text-align: center;"><a onclick="elimina_extra(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+            '</tr>';
+    }
+    $('#t_servicios2 tbody').append(htmlTags);
+}
+
+function elimina_extra(id) {
+    $("#" + id).remove();
+    for (let i = 0; i < g_servicios.length; i++) {
+        if (g_servicios[i].ID_SERVICIO == id) {
+            if (i == 0) {
+                g_servicios.shift();
+            } else {
+                g_servicios.splice(i, 1);
+            }
+        }
+    }
+    //if (g_contrato.HORAS !== -1) {
+    //    suma_total();
+    //    suma_monto_por_hora();
+    //} else if (g_contrato.MONTO !== -1) {
+    //    suma_total_monto();
+    //}
+
+}
+
+function actualiza_extra(id) {
+
+    if ($('input:text[id_ex=' + id + ']').val() >= 0) {
+        if ($('input:text[id_ex=' + id + ']').val() == "") {
+            $('input:text[id_ex=' + id + ']').val(0)
+        }
+        var resta;
+        for (var i = 0; i < g_servicios_extras.length; i++) {
+            if (g_servicios_extras[i].ID_SERVICIO == id) {
+                var horas = $('input:text[id_ex=' + id + ']').val();
+
+                g_servicios_extras[i].HORAS = (parseFloat(horas));
+                //suma_total(id);
+                //if (g_contrato.MONTO > 0) {
+                precios_por_hora_extra(id);
+                //}
+                return;
+            }
+        }
+
+    }
+}
+
+function precios_por_hora_extra(id) {
+
+    if ($('input:text[id=ph_ex' + id + ']').val() == "") {
+        $('input:text[id=ph_ex' + id + ']').val(0);
+    }
+
+    let horas_servicio = 0;
+    let monto = 0;
+
+    //monto = $("#m" + id).val();
+    costo_hora = parseFloat($("#ph_ex" + id).val());
+
+    horas_servicio = parseFloat($('input:text[id=ex' + id + ']').val());
+    //horas = (monto / costo_hora);
+
+    for (let i = 0; i < g_servicios_extras.length; i++) {
+        if (g_servicios_extras[i].ID_SERVICIO == id) {
+            g_servicios_extras[i].TARIFA = costo_hora;
+            g_servicios_extras[i].MONTO = (costo_hora * horas_servicio);
+            $("#m_ex" + id).val(g_servicios_extras[i].MONTO);
+            //suma_monto_por_hora();
+        }
+    }
+
+    $("#ex" + String(id)).val(horas_servicio);
+    $('input:text[id=ex' + id + ']').val(horas_servicio);
+}
+
+function actualiza_monto_extra(id) {
+    if ($('input:text[id=m_ex' + id + ']').val() >= 0) {
+        if ($('input:text[id=m_ex' + id + ']').val() == "") {
+            $('input:text[id=m_ex' + id + ']').val(0);
+        }
+
+        var resta;
+        for (var i = 0; i < g_servicios_extras.length; i++) {
+            if (g_servicios_extras[i].ID_SERVICIO == id) {
+                var monto = $('input:text[id=m_ex' + id + ']').val();
+                g_servicios_extras[i].MONTO = (parseFloat(monto));
+                //suma_total_monto(id);
+                var horas = $('input:text[id=ex' + id + ']').val();
+                g_servicios_extras[i].HORAS = (parseFloat(horas));
+
+                return;
+            }
+        }
+    }
+}
+
+function actualiza_hora_monto_extra(id) {
+
+    if ($('input:text[id=ex' + id + ']').val() == "") {
+        $('input:text[id=ex' + id + ']').val(0);
+    }
+
+    let monto_servicio = 0;
+    let horas_servicio = 0;
+
+    for (let i = 0; i < g_servicios_extras.length; i++) {
+        if (g_servicios_extras[i].ID_SERVICIO == id) {
+            g_servicios_extras[i].HORAS = parseFloat($('input:text[id=ex' + id + ']').val());
+        }
+    }
+
+    monto_servicio = parseFloat($("#m_ex" + id).val());
+    horas_servicio = parseFloat($('input:text[id=ex' + id + ']').val());
+    if (horas_servicio == 0) {
+        $("#ph_ex" + id).val(0);
+    } else if (horas_servicio > 0) {
+        $("#ph_ex" + id).val(monto_servicio / horas_servicio);
+    }
+}
+
+function precios_extra(id) {
+    if ($("#ph_ex" + id).val() == "") {
+        $("#ph_ex" + id).val(0);
+    }
+
+    let horas = 0;
+    let monto = 0;
+
+    monto = $("#m_ex" + id).val();
+    costo_hora = $("#ph_ex" + id).val();
+
+    if (costo_hora == 0) {
+        $('input:text[id=ex' + id + ']').val(0);
+    } else if (costo_hora > 0) {
+        horas = (monto / costo_hora);
+        $("#ex" + String(id)).val(horas);
+        $('input:text[id=' + id + ']').val(horas);
+    }
+}
