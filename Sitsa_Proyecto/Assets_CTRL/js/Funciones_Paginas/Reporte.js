@@ -1382,6 +1382,7 @@ function buscar_detalle_reporte() {
     if (g_reporte.PK_ID_REPORTE != null) {
         $.ajax({
             type: "POST",
+            //async: false,
             url: "Reporte/buscar_detalle_reporte",
             data: JSON.stringify({
                 id: g_reporte.PK_ID_REPORTE,
@@ -1447,11 +1448,12 @@ function buscar_detalle_reporte_extra() {
             //response.forEach(pinta_servicios);
             g_detalles_reporte_extra = response;
 
-            if (g_detalles_reporte_extra != null) {
+            if (g_detalles_reporte_extra.length > 0) {
                 Abrir();
                 response.forEach(pinta_servicios_extras);
                 $.ajax({
                     type: "POST",
+                    async: false,
                     url: "/Reporte/devuelve_servicios",
                     data: {},
                     contentType: "application/json; charset=utf-8",
@@ -1487,10 +1489,13 @@ function buscar_detalle_reporte_extra() {
 function carga_datos_extra(data) {
     for (let i = 0; i < g_detalles_reporte_extra.length; i++) {
         if (g_detalles_reporte_extra[i].ID_SERVICIO == data.ID_SERVICIO) {
-            $("#m_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA).trigger('change');
-            $("#ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].HORAS).trigger('change');
+            $("#ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].HORAS);
+            $("#ph_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA / g_detalles_reporte_extra[i].HORAS);
+
+            $("#m_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA).trigger('change');            
             $("#desc_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(data.DESCRIPCION);
             $("#ob_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].OBSERVACION);
+            
         }
     }
 }
@@ -1541,7 +1546,8 @@ function Validar_Campo() {
 }
 
 function valida() {
-    actualizarRespuesta();
+    //actualizarRespuesta();
+    Validar_Campo();
     for (let i = 0; i < g_servicios.length; i++) {
         $('#m' + g_servicios[i].ID_SERVICIO).on('input', function () {
             this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
@@ -1556,7 +1562,8 @@ function valida() {
 }
 
 function valida_extra() {
-    actualizarRespuesta();
+    //actualizarRespuesta();
+    Validar_Campo();
     for (let i = 0; i < g_servicios_extras.length; i++) {
         $('#m_ex' + g_servicios_extras[i].ID_SERVICIO).on('input', function () {
             this.value = this.value.replace(/[^0-9,.]/g, '').replace(/,/g, '.');
@@ -1650,7 +1657,7 @@ function pinta_servicios_extras(data) {
         
         if (monto == "") {
             htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '" name="" value="' + monto + '" readonly onkeypress="valida_extra();"></td>' +
-                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="'+data.HORAS+'" onchange="actualiza_extra(' + data.ID_SERVICIO + ');" onkeypress="valida();"></td>';
+                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS + '" onchange="actualiza_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
         } else {
             htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '"  name="" value="0" onchange=actualiza_monto_extra(' + data.ID_SERVICIO + '); onkeypress="valida_extra();"></td>' +
                 '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS +'" onchange="actualiza_hora_monto_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
@@ -1688,15 +1695,15 @@ function elimina_extra(id) {
 }
 
 function actualiza_extra(id) {
-
-    if ($('input:text[id_ex=' + id + ']').val() >= 0) {
-        if ($('input:text[id_ex=' + id + ']').val() == "") {
-            $('input:text[id_ex=' + id + ']').val(0)
+    //valida_extra();
+    if ($('input:text[id=ex' + id + ']').val() >= 0) {
+        if ($('input:text[id=ex' + id + ']').val() == "") {
+            $('input:text[id=ex' + id + ']').val(0)
         }
         var resta;
         for (var i = 0; i < g_servicios_extras.length; i++) {
             if (g_servicios_extras[i].ID_SERVICIO == id) {
-                var horas = $('input:text[id_ex=' + id + ']').val();
+                var horas = $('input:text[id=ex' + id + ']').val();
 
                 g_servicios_extras[i].HORAS = (parseFloat(horas));
                 //suma_total(id);
@@ -1711,7 +1718,7 @@ function actualiza_extra(id) {
 }
 
 function precios_por_hora_extra(id) {
-
+    //valida_extra();
     if ($('input:text[id=ph_ex' + id + ']').val() == "") {
         $('input:text[id=ph_ex' + id + ']').val(0);
     }
@@ -1739,6 +1746,7 @@ function precios_por_hora_extra(id) {
 }
 
 function actualiza_monto_extra(id) {
+    //valida_extra();
     if ($('input:text[id=m_ex' + id + ']').val() >= 0) {
         if ($('input:text[id=m_ex' + id + ']').val() == "") {
             $('input:text[id=m_ex' + id + ']').val(0);
@@ -1752,6 +1760,7 @@ function actualiza_monto_extra(id) {
                 //suma_total_monto(id);
                 var horas = $('input:text[id=ex' + id + ']').val();
                 g_servicios_extras[i].HORAS = (parseFloat(horas));
+                $('input:text[id=ph_ex' + id + ']').val(parseFloat(monto) / parseFloat(horas));
 
                 return;
             }
@@ -1760,7 +1769,7 @@ function actualiza_monto_extra(id) {
 }
 
 function actualiza_hora_monto_extra(id) {
-
+    //valida_extra();
     if ($('input:text[id=ex' + id + ']').val() == "") {
         $('input:text[id=ex' + id + ']').val(0);
     }
@@ -1784,6 +1793,7 @@ function actualiza_hora_monto_extra(id) {
 }
 
 function precios_extra(id) {
+    //valida_extra();
     if ($("#ph_ex" + id).val() == "") {
         $("#ph_ex" + id).val(0);
     }
