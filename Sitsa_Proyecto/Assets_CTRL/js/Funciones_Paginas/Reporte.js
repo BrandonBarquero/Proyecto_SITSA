@@ -768,8 +768,11 @@ function suma_total(id) {
 function limpia_tabla_Servicios() {
     g_servicios = [];
     $('#t_servicios tbody').empty();
+    $('#t_servicios2 tbody').empty();    
     $("#div_btn_agregar_extras").css("display", "none");  
-    $("#div_t_servicios_extras").css("display", "none");  
+    $("#div_t_servicios_extras").css("display", "none");
+    g_servicios_extras = [];
+    g_detalles_reporte_extra = [];
 }
 
 function elimina(id) {
@@ -1633,7 +1636,7 @@ function pinta_servicios_extras(data) {
 
     var select = $('input:radio[name=grupo_tipo]:checked').val();
 
-    var htmlTags = '<tr id=' + data.ID_SERVICIO + ' class="txt2">' +
+    var htmlTags = '<tr id=ext' + data.ID_SERVICIO + ' class="txt2">' +
         '<td><input class="form-control" type="text" id="desc_ex' + data.ID_SERVICIO + '" name="" value="' + data.DESCRIPCION + '" readonly></td>' +
         '<td><input class="form-control" type="text" id="ob_ex' + data.ID_SERVICIO + '" name="" value="" onblur="Validar_Campo()"></td>';
     if (select == "garantia") {
@@ -1665,13 +1668,13 @@ function pinta_servicios_extras(data) {
 }
 
 function elimina_extra(id) {
-    $("#" + id).remove();
+    $("#ext" + id).remove();
     for (let i = 0; i < g_servicios.length; i++) {
         if (g_servicios[i].ID_SERVICIO == id) {
             if (i == 0) {
-                g_servicios.shift();
+                g_servicios_extra.shift();
             } else {
-                g_servicios.splice(i, 1);
+                g_servicios_extra.splice(i, 1);
             }
         }
     }
