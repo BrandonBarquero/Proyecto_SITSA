@@ -36,12 +36,12 @@ namespace WebApplication2.Controllers
 
             int result = dao_cliente.AgregarCliente_Servicio(cliente_Servicio);
 
-            
 
-                string sJSONResponse = JsonConvert.SerializeObject(result, Formatting.Indented);
-                return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
-         
-           
+
+            string sJSONResponse = JsonConvert.SerializeObject(result, Formatting.Indented);
+            return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
+
+
         }
 
         [HttpPost]
@@ -49,7 +49,7 @@ namespace WebApplication2.Controllers
         {
 
             var t = cont;
-       
+
 
 
             string validacion = "fail";
@@ -97,7 +97,7 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public JsonResult SesionCLeinte(string dato1)
         {
-            List<Contrato> list = dao.listaContratosCliente(dato1,1);
+            List<Contrato> list = dao.listaContratosCliente(dato1, 1);
 
 
             string sJSONResponse = JsonConvert.SerializeObject(list, Formatting.Indented);

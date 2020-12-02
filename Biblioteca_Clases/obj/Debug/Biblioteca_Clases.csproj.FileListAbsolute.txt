@@ -10,7 +10,6 @@ C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\Newtonso
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\Pechkin.dll
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\Pechkin.Synchronized.dll
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\Newtonsoft.Json.xml
-C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CoreCompileInputs.cache
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll

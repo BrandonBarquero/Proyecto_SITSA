@@ -100,11 +100,14 @@
          <div id="boton_enviar" style="display: block; text-align: center">
 
        <button disabled id="boton_enviar_serv"  onclick="Agregar()"  type="button" class="popup-btn">Asignar</button>
+
+               <button id="boton_cancelar" type="submit" class="popup-btn">Cancelar</button>
              </div>
 
 
       <br> 
 
+      <hr style="height:1px;border:none;color:#1B252F;background-color:#1B252F;"/>
 
         <p>Servicios del cliente</p>
            <table id="tabla-mant1" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->
@@ -126,6 +129,8 @@
 
                  </table><!--Fin Tabla-->
 
+      <hr style="height:1px;border:none;color:#1B252F;background-color:#1B252F;"/>
+
                   <p>Contratos del cliente</p>
 
                   <table id="tabla-mant2" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->
@@ -146,6 +151,7 @@
 
                  </table><!--Fin Tabla-->
 
+      <hr style="height:1px;border:none;color:#1B252F;background-color:#1B252F;"/>
 
                <p>Proyectos del cliente</p>
            <table id="tabla-mant3" class="table table-striped table-bordered" style="width:100%;"><!--Tabla-->

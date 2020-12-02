@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
     $('.js-example-responsive').select2();
 
 });
@@ -100,15 +100,15 @@ function Borrar_Servicios(dato, dato2) {
                                 Llaves_Servicios.splice(i, 1);
 
 
-                              
-                             
+
+
 
                             }
                         }
                         $("#Servi" + dato).remove();
 
-                               
-                         
+
+
                     },
                 })
 
@@ -205,22 +205,22 @@ function Agregar() {
                     dataType: "json",
 
                     success: function (data) {
-                       
 
-                           let val4=  $('#Servicio option:selected').html()
-                       
 
-                            Llaves_Servicios.push(val4);
-                            var htmlTags = '<tr id=' + $('#tabla-mant2').val() + '>' +
-                                '<td>' + data + '</td>' +
-                                '<td>' + $('#Servicio option:selected').html() + '</td>' +
-                                '<td>' + $('#Tarifa').val() + '</td>' +
-                                '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + data + ',' + val4+')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
-                                '</tr>';
+                        let val4 = $('#Servicio option:selected').html()
 
-                            $('#tabla-mant1 tbody').append(htmlTags);
 
-                        
+                        Llaves_Servicios.push(val4);
+                        var htmlTags = '<tr id=' + $('#tabla-mant2').val() + '>' +
+                            '<td>' + data + '</td>' +
+                            '<td>' + $('#Servicio option:selected').html() + '</td>' +
+                            '<td>' + $('#Tarifa').val() + '</td>' +
+                            '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + data + ',' + val4 + ')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
+                            '</tr>';
+
+                        $('#tabla-mant1 tbody').append(htmlTags);
+
+
                         swal({
                             title: "Hecho",
                             text: "Se ha asignado correctamente",
@@ -315,8 +315,8 @@ function Cliente(dato) {
 
 
             for (var i = 0; i < currentValue1; i++) {
-               let val4 = json_obj1[i].USAURIO_MODIFICACION;
-             
+                let val4 = json_obj1[i].USAURIO_MODIFICACION;
+
                 servicios2.push($('#tabla-mant1234').val());
                 Llaves_Servicios.push(val4);
                 var htmlTags1 = `<tr id=Servi${json_obj1[i].PK_CLIENTE_SERVICIO}> 
@@ -412,9 +412,9 @@ function Agregar_Contacto() {
                     data: JSON.stringify(contacto),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                 
-                      
-                 
+
+
+
                     success: function (result) {
 
                         swal({
@@ -451,7 +451,7 @@ function Agregar_Contacto() {
                             $('#tabla-mant6 tbody').append(htmlTags6);
                         }
 
-                      
+
 
 
 

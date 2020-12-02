@@ -96,12 +96,15 @@ namespace Biblioteca_Clases.DAO
 
             comando.Connection = conexion;
             comando.CommandText = "";
-            if (opc == 1) {
+            if (opc == 1)
+            {
                 comando.CommandText = "exec DEVUELVE_CLIENTE_CONTRATO @ID";
-            } else if (opc == 2) {
+            }
+            else if (opc == 2)
+            {
                 comando.CommandText = "exec DEVUELVE_CLIENTE_PROYECTO @ID";
             }
-            
+
             comando.Parameters.AddWithValue("@ID", id);
 
             SqlDataReader list = comando.ExecuteReader();
