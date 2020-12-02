@@ -15,9 +15,9 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        public JsonResult agregar_servicio(string formCollection)
+        public JsonResult agregar_servicio(string descripcion)
         {
-            string validacion = servicio_modelo.agregar_servicio(formCollection, (string)(Session["User"]));
+            string validacion = servicio_modelo.agregar_servicio(descripcion, (string)(Session["User"]));
             return Json(validacion, JsonRequestBehavior.AllowGet);
         }
 

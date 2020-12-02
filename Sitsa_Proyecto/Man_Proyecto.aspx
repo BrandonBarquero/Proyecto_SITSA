@@ -41,7 +41,6 @@
 
             <% if (Permisos.CREAR == false)
                 {
-
             %>
 
             <div style="display: none;" id="divvalida">
@@ -55,7 +54,6 @@
 
                 <% if (Permisos.CREAR == false)
                     {
-
                 %>
             </div>
             <%  }%>
@@ -86,22 +84,16 @@
                         <div class="form-group">
                             <label>Seleccionar cliente:</label>
                            <%-- <input onchange="actualizarRespuesta()" onblur="Validar_Campo()" id="cliente_proyecto" class="form-control" list="lista_clientes">
-
-
                             <datalist id="lista_clientes">
                                 <%
                                     Biblioteca_Clases.DAO.ClienteDAO cliente_dao = new Biblioteca_Clases.DAO.ClienteDAO();
                                     List<Biblioteca_Clases.Models.Cliente> list_clientes = cliente_dao.listaClientes();
-
-
                                     int autoincrement_cliente = 0;
-
                                     foreach (var dato in list_clientes)
                                     {
                                         autoincrement_cliente = autoincrement_cliente + 1;
                                 %>
                                 <option value="<%=dato.ID_CLIENTE%>"><%=dato.NOMBRE%></option>
-
                                 <%}%>
                             </datalist>
                             <br>--%>
@@ -111,10 +103,7 @@
                                  <%
                                     Biblioteca_Clases.DAO.ClienteDAO cliente_dao = new Biblioteca_Clases.DAO.ClienteDAO();
                                     List<Biblioteca_Clases.Models.Cliente> list_clientes = cliente_dao.listaClientes();
-
-
                                     int autoincrement_cliente = 0;
-
                                     foreach (var dato in list_clientes)
                                     {
                                         autoincrement_cliente = autoincrement_cliente + 1;
@@ -244,7 +233,6 @@
                         string valor = Convert.ToString(Request.QueryString["Estado"]);
                         list = ListaProyectos(valor);
                         int autoincrement = 0;
-
                         foreach (var dato in list)
                         {
                             autoincrement = autoincrement + 1;
@@ -260,12 +248,9 @@
                             <div class="custom-control custom-switch">
                                 <% if (dato.ESTADO == 1)
                                     {
-
-
                                 %>
                                 <input onclick="estado(<%=dato.ID_PROYECTO%>)" type="checkbox" checked class="custom-control-input" id="<%=dato.ID_PROYECTO%>">
                                 <%}
-
                                     else if (dato.ESTADO == 0)
                                     {
                                 %>
@@ -280,7 +265,6 @@
                     </tr>
 
                     <%}
-
                     %>
                 </tbody>
                 
@@ -311,39 +295,32 @@
 
 
     <script type="text/javascript">
-
         function actualizarRespuesta() {
             $("#boton_modificar2").css("display", "block");
             $("#boton_cancelar2").css("display", "block");
             document.getElementById("boton_modificar").disabled = false;
         }
-
         /*Validaciones*/
-
         $('#precio').on('input', function (e) {
             if (!/^[ 0-9]*$/i.test(this.value)) {
                 this.value = this.value.replace(/[^ 0-9]+/ig, "");
             }
         });
-
         $('#cliente_proyecto').on('input', function (e) {
             if (!/^[ 0-9]*$/i.test(this.value)) {
                 this.value = this.value.replace(/[^ 0-9]+/ig, "");
             }
         });
-
         $('#nombre_proyecto').on('input', function (e) {
             if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
                 this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
             }
         });
-
         $('#desc_proyecto').on('input', function (e) {
             if (!/^[ a-z0-9áéíóúüñ@._]*$/i.test(this.value)) {
                 this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
             }
         });
-
         $('#tiempo_proyecto').on('input', function (e) {
             if (!/^[ 0-9]*$/i.test(this.value)) {
                 this.value = this.value.replace(/[^ 0-9]+/ig, "");
@@ -354,7 +331,6 @@
                 this.value = this.value.replace(/[^ a-z0-9áéíóúüñ@._]+/ig, "");
             }
         });
-
     </script>
 
 

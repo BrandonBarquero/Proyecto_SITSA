@@ -1,4 +1,5 @@
 ﻿using Biblioteca_Clases.DAO;
+using Biblioteca_Clases.Modelos;
 using Biblioteca_Clases.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -26,7 +27,6 @@ namespace WebApplication2.Controllers
 
             string validacion = "fail";
             Fecha fecha = new Fecha();
-            //List<Fases> fases2 = fases; 
 
             Proyecto proyect = new Proyecto();
             proyect.NOMBRE = pro.NOMBRE;
@@ -142,7 +142,8 @@ namespace WebApplication2.Controllers
 
 
 
-        public JsonResult Eliminar_Fases(int id){
+        public JsonResult Eliminar_Fases(int id)
+        {
 
             int result = dao_fase.EliminarFase(id);
 

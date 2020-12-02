@@ -209,12 +209,15 @@ namespace Biblioteca_Clases.DAO
 
             comando.Connection = conexion;
             comando.CommandText = "";
-            if (opc == 1) {
+            if (opc == 1)
+            {
                 comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_CLIENTE @ID";
-            } else if (opc == 2) {
+            }
+            else if (opc == 2)
+            {
                 comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_CLIENTE_GARANTIA @ID";
             }
-            
+
             comando.Parameters.AddWithValue("@ID", id);
 
             SqlDataReader list = comando.ExecuteReader();
