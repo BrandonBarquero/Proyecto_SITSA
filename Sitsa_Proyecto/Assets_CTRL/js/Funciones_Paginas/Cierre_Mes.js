@@ -4,7 +4,7 @@ let val = 0;
 let val2 = 0;
 
 
-    
+
 
 
 
@@ -20,9 +20,9 @@ $(document).ready(function () {
         success: function (result) {
 
             val = result;
-         
+
         }
-       
+
     })
 
 
@@ -55,8 +55,8 @@ $(document).ready(function () {
 
                 servicios2.push($('#tabla-mant').val());
 
-              
-             
+
+
                 let td_tabla;
 
                 if (val == 1) {
@@ -86,7 +86,7 @@ $(document).ready(function () {
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
+                        <td>${json_obj6[i].OBSERVACION}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         ${td_tabla} 
                         ${td_tabla2} 
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
         }
     })
-   
+
 });
 
 
@@ -177,7 +177,7 @@ function Buscar() {
                     var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
+                        <td>${json_obj6[i].OBSERVACION}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         ${td_tabla} 
                         ${td_tabla2} 
@@ -230,7 +230,7 @@ function Buscar() {
                     var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
+                        <td>${json_obj6[i].OBSERVACION}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         ${td_tabla} 
                         ${td_tabla2} 
@@ -324,12 +324,12 @@ function Reenviar(dato) {
                 option.text = json_obj6[i].ENCARGADO;
                 option.value = json_obj6[i].CORREO;
                 x.add(option, x[0]);
-       
+
                 //$("#correo option[value='nulo']").attr("selected", true);
                 //$('#correo').val('nulo').trigger('change');
             }
 
-           
+
         }
     })
 
@@ -380,7 +380,7 @@ function Facturados() {
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
+                        <td>${json_obj6[i].OBSERVACION}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                          ${td_tabla} 
                         ${td_tabla2} 
@@ -439,7 +439,7 @@ function Generales() {
                 var htmlTags6 = `
                         <tr id=${i} class="txt2">
                         <td>${json_obj6[i].PK_ID_REPORTE}</td>
-                        <td>${json_obj6[i].CANTIDAD_HORAS}</td>
+                        <td>${json_obj6[i].OBSERVACION}</td>
                         <td>${json_obj6[i].TIPO_DOCUMENTO}</td>
                         ${td_tabla} 
                         ${td_tabla2} 

@@ -100,7 +100,7 @@
                 <thead class="estilo-thead">
                     <tr>
                         <th>Doumento</th>
-                        <th>Cantidad horas</th>
+                        <th>Cliente</th>
                         <th>Tipo de documento</th>
                         <th id="aprobar1">Aprobación</th>
 
@@ -115,7 +115,7 @@
                 <tfoot class="estilo-thead">
                     <tr>
                         <th>Documento</th>
-                        <th>Cantidad horas</th>
+                        <th>Cliente</th>
                         <th>Tipo de documento</th>
                         <th  id="aprobar2">Aprobación</th>
 
@@ -191,10 +191,10 @@
 
 
     <script>
-      
 
 
-    </script>
+
+</script>
 
 
 </asp:Content>

@@ -32,7 +32,8 @@ namespace Sitsa_Proyecto.Controllers
 
             bool permiso = dao.PERMISO_APROBAR(perfil);
             int permisos = 0;
-            if (permiso == true) {
+            if (permiso == true)
+            {
                 permisos = 1;
             }
 
@@ -66,10 +67,10 @@ namespace Sitsa_Proyecto.Controllers
             dao_cierre.AgregarCierreMes(fk_id_reporte, user, fecha.fecha());
 
 
-          int result = daoreporte.aceptarreporte(dato, user, fecha.fecha());
+            int result = daoreporte.aceptarreporte(dato, user, fecha.fecha());
 
 
-           
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         public JsonResult RechazarReporte(string dato)
@@ -96,16 +97,17 @@ namespace Sitsa_Proyecto.Controllers
             return Json(sJSONResponse, JsonRequestBehavior.AllowGet);
 
 
-          
+
         }
         public JsonResult Buscar(string reporte, string cliente, string horas_convertidas, string horas_convertidas2)
         {
 
-            if (horas_convertidas.Equals("") && horas_convertidas2.Equals("")) {
+            if (horas_convertidas.Equals("") && horas_convertidas2.Equals(""))
+            {
                 horas_convertidas = "1999-10-10";
                 horas_convertidas2 = "2040-10-10";
             }
-            if ( horas_convertidas2.Equals(""))
+            if (horas_convertidas2.Equals(""))
             {
                 horas_convertidas = "1999-10-10";
                 horas_convertidas2 = "2040-10-10";
@@ -209,9 +211,9 @@ namespace Sitsa_Proyecto.Controllers
             else if (Reporte_Obj.ID_PROYECTO != 0)
             {
                 opc = 2;
-          }
+            }
 
-  
+
 
             List<Detalle_Reporte> Detalle_Obj = new List<Detalle_Reporte>();
 
