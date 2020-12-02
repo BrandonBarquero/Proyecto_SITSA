@@ -439,9 +439,9 @@ namespace Biblioteca_Clases.DAO
             {
                 Reporte serv = new Reporte();
                 serv.PK_ID_REPORTE = list.GetInt32(0);
-                serv.TIPO_DOCUMENTO = list.GetString(1);
-                serv.CANTIDAD_HORAS = list.GetDouble(2);
-            
+                serv.CANTIDAD_HORAS = list.GetDouble(1);
+                serv.TIPO_DOCUMENTO = list.GetString(2);
+                serv.OBSERVACION = list.GetString(3);
                 listareportes.Add(serv);
 
             }
@@ -466,10 +466,11 @@ namespace Biblioteca_Clases.DAO
             {
                 Reporte serv = new Reporte();
                 serv.PK_ID_REPORTE = list.GetInt32(0);
-                serv.TIPO_DOCUMENTO = list.GetString(1);
-                serv.CANTIDAD_HORAS = list.GetDouble(2);
-
+                serv.CANTIDAD_HORAS = list.GetDouble(1);
+                serv.TIPO_DOCUMENTO = list.GetString(2);
+                serv.OBSERVACION = list.GetString(3);
                 listareportes.Add(serv);
+
 
             }
             list.Dispose();
@@ -601,7 +602,7 @@ namespace Biblioteca_Clases.DAO
                     serv.CANTIDAD_HORAS = list.GetDouble(1);
                 }
                 serv.TIPO_DOCUMENTO = list.GetString(2);
-              
+                serv.OBSERVACION = list.GetString(3);
                 listareportes.Add(serv);
             }
             list.Dispose();
@@ -627,7 +628,7 @@ namespace Biblioteca_Clases.DAO
                     serv.CANTIDAD_HORAS = list.GetDouble(1);
                 }
                 serv.TIPO_DOCUMENTO = list.GetString(2);
-
+                serv.OBSERVACION = list.GetString(3);
                 listareportes.Add(serv);
             }
             list.Dispose();
