@@ -62,7 +62,7 @@ $(document).ready(function () {
         g_contratos = [];
 
         limpia_tabla_Servicios();
-        $("#row_servicios").css("display", "none");        
+        $("#row_servicios").css("display", "none");
 
         var val_select = $('input:radio[name=grupo_tipo]:checked').val();
 
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
         if (val_select == "contrato" && cliente != "") {
             $("#div_t_servicios").css("display", "block");
-            buscar_contratos(arrelgo_cliente[0]);          
+            buscar_contratos(arrelgo_cliente[0]);
         }
         else if (val_select == "proyecto" && cliente != "") {
             $("#div_t_servicios").css("display", "none");
@@ -265,7 +265,7 @@ function buscar_proyecto(id) {
     var select = $('input:radio[name=grupo_tipo]:checked').val();
     vaciar_options();
     g_proyectos = [];
-    
+
     if (select == "proyecto" || select == "facturado") {
         $.ajax({
             type: "POST",
@@ -344,7 +344,7 @@ function datos_tipo() {
     if (g_id == null) {
         $('#div_btn_agregar').css('display', 'block');
     }
-    
+
     habilita_campos_horas();
 
     limpia_tabla_Servicios();
@@ -365,7 +365,7 @@ function datos_tipo() {
                 prepara_campos(g_contrato);
                 if (g_contrato.RANGO == -1) {
                     busca_servicios_contrato(g_contrato.ID_CONTRATO);
-                }                
+                }
                 return;
             }
         }
@@ -388,7 +388,7 @@ function datos_tipo() {
                     prepara_campos(g_contrato);
                     if (g_contrato.RANGO == -1) {
                         busca_servicios_contrato(g_contrato.ID_CONTRATO);
-                    } 
+                    }
                     return;
                 }
             }
@@ -411,7 +411,7 @@ function datos_tipo() {
                     prepara_campos(g_contrato);
                     if (g_contrato.RANGO == -1) {
                         busca_servicios_contrato(g_contrato.ID_CONTRATO);
-                    } 
+                    }
                     return;
                 }
             }
@@ -458,7 +458,7 @@ function prepara_campos(data) {
         if (data.RANGO != -1) {
             deshabilita_campos_horas();
             $("#div_t_servicios").css("display", "none");
-            $("#div_btn_agregar_extras").css("display", "none"); 
+            $("#div_btn_agregar_extras").css("display", "none");
             //$("#row_servicios").css("display", "none");
         }
     }
@@ -466,7 +466,7 @@ function prepara_campos(data) {
         deshabilita_campos_horas();
         if (g_contrato.RANGO != -1) {
             $("#div_t_servicios").css("display", "none");
-        }        
+        }
     }
 
 }
@@ -477,7 +477,7 @@ function prepara_campos_proyecto() {
 
     if (select != "garantia") {
         $("#div_monto_total").css("display", "none");
-        $("#observacion_reporte").val(g_proyecto.DESCRIPCION);
+        //$("#observacion_reporte").val(g_proyecto.DESCRIPCION);
 
         $('#label_total').text("Monto total");
         $('#label_consumido').text("Monto consumido");
@@ -591,7 +591,7 @@ function busca_servicios_contrato(id) {
                                 g_servicios[i].MONTO = g_detalles_reporte[i].TARIFA;
 
                                 //1$('input:text[id=' + g_detalles_reporte[i].ID_SERVICIO + ']').val(g_detalles_reporte[i].HORAS);
-                                $("#m" + g_detalles_reporte[i].ID_SERVICIO).val(g_detalles_reporte[i].TARIFA);
+                                $("#m" + g_detalles_reporte[i].ID_SERVICIO).val(g_detalles_reporte[i].TARIFA).trigger('change');
                                 $("#ob" + g_detalles_reporte[i].ID_SERVICIO).val(g_detalles_reporte[i].OBSERVACION);
                                 //$("#ph" + g_detalles_reporte[i].ID_SERVICIO).val(g_detalles_reporte[i].TARIFA / g_detalles_reporte[i].HORAS);
 
@@ -757,19 +757,20 @@ function suma_total(id) {
         })
         $('input:text[id=' + id + ']').val(0).trigger('change');
 
-        $("#div_btn_agregar_extras").css("display", "block"); 
-        
+        $("#div_btn_agregar_extras").css("display", "block");
+        $("#hr_extras").css("display", "block");        
+
     } else if (suma <= disponible) {
         $("#horas_consumidas").val(suma);
     }
-    
+
 }
 
 function limpia_tabla_Servicios() {
     g_servicios = [];
     $('#t_servicios tbody').empty();
-    $('#t_servicios2 tbody').empty();    
-    $("#div_btn_agregar_extras").css("display", "none");  
+    $('#t_servicios2 tbody').empty();
+    $("#div_btn_agregar_extras").css("display", "none");
     $("#div_t_servicios_extras").css("display", "none");
     g_servicios_extras = [];
     g_detalles_reporte_extra = [];
@@ -857,7 +858,8 @@ function suma_total_monto(id) {
             showConfirmButton: true
         });
         $('#m' + id).val(0).trigger('change');
-        $("#div_btn_agregar_extras").css("display", "block"); 
+        $("#div_btn_agregar_extras").css("display", "block");
+        $("#hr_extras").css("display", "block"); 
     } else {
         $("#horas_disponibles").val(horas_disponibles);
         actualiza_hora_monto(id);
@@ -894,7 +896,7 @@ function precios_por_hora(id) {
     if ($('input:text[id=ph' + id + ']').val() == "") {
         $('input:text[id=ph' + id + ']').val(0);
     }
-    
+
     let horas_servicio = 0;
     let monto = 0;
 
@@ -928,215 +930,245 @@ function suma_monto_por_hora() {
 
 //Funcion que guarda los datos generados en la tabla de reporte y detalle del reporte
 function guardar(opc) {
-    var Reporte = new Object();
-    g_detalles_reporte = [];
-    g_detalles_reporte_extra = [];
-    var val_select = $('input:radio[name=grupo_tipo]:checked').val();
-    var cliente = $('#cliente').val();
-    var horas_disponibles = $("#horas_disponibles").val();
-
-    var correos = $("#email").val();
-
-    var ultimoCaracter = correos.charAt(correos.length - 1);
-
-    if (ultimoCaracter != ";") {
-        correos = correos + ";";
+    let accion_mostrar = "\u00BFEst\u00E1 seguro de realizar los cambios?";
+    let accion_final = "Si, modificar";
+    if (opc == 1) {
+        accion_mostrar = "\u00BFAgregar Reporte?";
+        accion_final = "Si, agregar";
     }
 
-    var g_correos2 = [];
+    swal({
+        title: accion_mostrar,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: accion_final,
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
 
-    g_correos2 = correos.split(";");
+                var Reporte = new Object();
+                g_detalles_reporte = [];
+                g_detalles_reporte_extra = [];
+                var val_select = $('input:radio[name=grupo_tipo]:checked').val();
+                var cliente = $('#cliente').val();
+                var horas_disponibles = $("#horas_disponibles").val();
 
-    var correo_final = g_correos2.toString();
+                var correos = $("#email").val();
 
-    var val_r_select = $('input:radio[name=grupo_r]:checked').val();
+                var ultimoCaracter = correos.charAt(correos.length - 1);
 
-    if (val_select == "contrato" || (val_r_select == "contrato" && (val_select == "facturado" || val_select == "garantia")) && cliente != "") {
-        if (g_contrato != null) {
-            if (g_contrato.HORAS != -1) {
-                Reporte.CANTIDAD_HORAS = $("#horas_consumidas").val();
-            } else {
-                let h_total = 0;
-                for (let i = 0; i < g_servicios.length; i++) {
-                    h_total += g_servicios[i].HORAS;
-                }
-                Reporte.CANTIDAD_HORAS = h_total;
-            }
-
-            Reporte.OBSERVACION = $("#observacion_reporte").val();
-
-            var arreglo_fecha = ($('#fecha').text()).split(": ");
-
-            Reporte.FECHA = arreglo_fecha[1];
-            Reporte.FK_ID_CONTACTO = g_contacto.ID_CONTACTO;
-            Reporte.ID_CONTRATO = g_contrato.ID_CONTRATO;
-            if (val_select == "contrato") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Contrato";
-            } else if (val_select == "facturado") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Contrato Facturado";
-            }
-            else if (val_select == "garantia") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Contrato Garantía";
-            }
-
-            //**--------Detalle de reporte correspondiente a los servicios del contrato-----------**//
-            if (g_contrato.RANGO == -1) {
-                for (let i = 0; i < g_servicios.length; i++) {
-                    var Detalle_Reporte = new Object();
-                    Detalle_Reporte.HORAS = $('input:text[id=' + g_servicios[i].ID_SERVICIO + ']').val();
-
-                    Detalle_Reporte.TARIFA = g_servicios[i].MONTO;
-
-                    var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
-                    Detalle_Reporte.FK_ID_REPORTE = arreglo_id_reporte[1];
-
-                    Detalle_Reporte.OBSERVACION = $("#ob" + g_servicios[i].ID_SERVICIO).val();
-
-                    Detalle_Reporte.ID_SERVICIO = g_servicios[i].ID_SERVICIO;
-
-                    g_detalles_reporte.push(Detalle_Reporte);
-                }
-            }
-
-            //**---------------------Detalle reporte extra----------------------------**//
-            if (g_contrato.RANGO == -1) {
-                for (let i = 0; i < g_servicios_extras.length; i++) {
-                    var Detalle_Reporte_extra = new Object();
-                    Detalle_Reporte_extra.HORAS = $('input:text[id=ex' + g_servicios_extras[i].ID_SERVICIO + ']').val();
-
-                    Detalle_Reporte_extra.TARIFA = g_servicios_extras[i].MONTO;
-
-                    var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
-                    Detalle_Reporte_extra.FK_ID_REPORTE = arreglo_id_reporte[1];
-
-                    Detalle_Reporte_extra.OBSERVACION = $("#ob_ex" + g_servicios_extras[i].ID_SERVICIO).val();
-
-                    Detalle_Reporte_extra.ID_SERVICIO = g_servicios_extras[i].ID_SERVICIO;
-
-                    g_detalles_reporte_extra.push(Detalle_Reporte_extra);
-                }
-            }
-
-            if (Reporte != null) {
-
-                if (g_contrato.HORAS == "-1") {
-                    horas_disponibles = "f"
-                }
-                var url = "";
-                if (opc == 1) {
-                    url = "/Reporte/agregar_reporte";
-                } else if (opc == 2) {
-                    url = "/Reporte/actualizar_reporte_contrato";
-                    Reporte.PK_ID_REPORTE = g_id;
+                if (ultimoCaracter != ";") {
+                    correos = correos + ";";
                 }
 
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: JSON.stringify({
-                        reporte: Reporte,
-                        detalles_reporte: g_detalles_reporte,
-                        detalles_reporte_extra: g_detalles_reporte_extra,
-                        horas_disponibles: horas_disponibles,
-                        correos: correo_final
-                    }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        swal({
-                            title: "Hecho",
-                            text: "Se ha registrado el reporte correctamente",
-                            type: "success",
-                            showConfirmButton: false
-                        })
+                var g_correos2 = [];
 
-                        setTimeout('location.reload()', 2000);
+                g_correos2 = correos.split(";");
 
-                        servicios = [];
-                        if (opc == 2) {
-                            location.href = "Cierre_Mes.aspx";
+                var correo_final = g_correos2.toString();
+
+                var val_r_select = $('input:radio[name=grupo_r]:checked').val();
+
+                if (val_select == "contrato" || (val_r_select == "contrato" && (val_select == "facturado" || val_select == "garantia")) && cliente != "") {
+                    if (g_contrato != null) {
+                        if (g_contrato.HORAS != -1) {
+                            Reporte.CANTIDAD_HORAS = $("#horas_consumidas").val();
+                        } else {
+                            let h_total = 0;
+                            for (let i = 0; i < g_servicios.length; i++) {
+                                h_total += g_servicios[i].HORAS;
+                            }
+                            Reporte.CANTIDAD_HORAS = h_total;
                         }
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
+
+                        Reporte.OBSERVACION = $("#observacion_reporte").val();
+
+                        var arreglo_fecha = ($('#fecha').text()).split(": ");
+
+                        Reporte.FECHA = arreglo_fecha[1];
+                        Reporte.FK_ID_CONTACTO = g_contacto.ID_CONTACTO;
+                        Reporte.ID_CONTRATO = g_contrato.ID_CONTRATO;
+                        if (val_select == "contrato") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Contrato";
+                        } else if (val_select == "facturado") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Contrato Facturado";
+                        }
+                        else if (val_select == "garantia") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Contrato Garantía";
+                        }
+
+                        //**--------Detalle de reporte correspondiente a los servicios del contrato-----------**//
+                        if (g_contrato.RANGO == -1) {
+                            for (let i = 0; i < g_servicios.length; i++) {
+                                var Detalle_Reporte = new Object();
+                                Detalle_Reporte.HORAS = $('input:text[id=' + g_servicios[i].ID_SERVICIO + ']').val();
+
+                                Detalle_Reporte.TARIFA = g_servicios[i].MONTO;
+
+                                var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
+                                Detalle_Reporte.FK_ID_REPORTE = arreglo_id_reporte[1];
+
+                                Detalle_Reporte.OBSERVACION = $("#ob" + g_servicios[i].ID_SERVICIO).val();
+
+                                Detalle_Reporte.ID_SERVICIO = g_servicios[i].ID_SERVICIO;
+
+                                g_detalles_reporte.push(Detalle_Reporte);
+                            }
+                        }
+
+                        //**---------------------Detalle reporte extra----------------------------**//
+                        if (g_contrato.RANGO == -1) {
+                            for (let i = 0; i < g_servicios_extras.length; i++) {
+                                var Detalle_Reporte_extra = new Object();
+                                Detalle_Reporte_extra.HORAS = $('input:text[id=ex' + g_servicios_extras[i].ID_SERVICIO + ']').val();
+
+                                Detalle_Reporte_extra.TARIFA = g_servicios_extras[i].MONTO;
+
+                                var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
+                                Detalle_Reporte_extra.FK_ID_REPORTE = arreglo_id_reporte[1];
+
+                                Detalle_Reporte_extra.OBSERVACION = $("#ob_ex" + g_servicios_extras[i].ID_SERVICIO).val();
+
+                                Detalle_Reporte_extra.ID_SERVICIO = g_servicios_extras[i].ID_SERVICIO;
+
+                                g_detalles_reporte_extra.push(Detalle_Reporte_extra);
+                            }
+                        }
+
+                        if (Reporte != null) {
+
+                            if (g_contrato.HORAS == "-1") {
+                                horas_disponibles = "f"
+                            }
+                            var url = "";
+                            if (opc == 1) {
+                                url = "/Reporte/agregar_reporte";
+                            } else if (opc == 2) {
+                                url = "/Reporte/actualizar_reporte_contrato";
+                                Reporte.PK_ID_REPORTE = g_id;
+                            }
+
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                data: JSON.stringify({
+                                    reporte: Reporte,
+                                    detalles_reporte: g_detalles_reporte,
+                                    detalles_reporte_extra: g_detalles_reporte_extra,
+                                    horas_disponibles: horas_disponibles,
+                                    correos: correo_final
+                                }),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    swal({
+                                        title: "Hecho",
+                                        text: "Se ha registrado el reporte correctamente",
+                                        type: "success",
+                                        showConfirmButton: false
+                                    })
+
+                                    setTimeout('location.reload()', 2000);
+
+                                    servicios = [];
+                                    if (opc == 2) {
+                                        location.href = "Cierre_Mes.aspx";
+                                    }
+                                },
+                                failure: function (response) {
+                                    alert(response.responseText);
+                                },
+                                error: function (response) {
+                                    alert(response.responseText);
+                                }
+                            });
+                        }
                     }
-                });
-            }
-        }
-    }
-    else if ((val_select == "proyecto" || (val_r_select == "proyecto" && (val_select == "facturado" || val_select == "garantia"))) && cliente != "") {
-        if (g_proyecto != null) {
-            Reporte.OBSERVACION = $("#observacion_reporte").val();
-            var arreglo_fecha = ($('#fecha').text()).split(": ");
-
-            Reporte.FECHA = arreglo_fecha[1];
-            Reporte.FK_ID_CONTACTO = g_contacto.ID_CONTACTO;
-            Reporte.ID_PROYECTO = g_proyecto.ID_PROYECTO;
-
-            if (val_select == "proyecto") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Proyecto";
-            } else if (val_select == "facturado") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Proyecto Facturado";
-            } else if (val_select == "garantia") {
-                Reporte.TIPO_DOCUMENTO = "Reporte Proyecto Garantía";
-            }
-
-            /**CREACION DETALLE REPORTE**/
-            var Detalle_Reporte = new Object();
-            Detalle_Reporte.TARIFA = parseFloat($("#horas_consumidas").val());
-
-            var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
-            Detalle_Reporte.FK_ID_REPORTE = arreglo_id_reporte[1];
-            Detalle_Reporte.OBSERVACION = $("#observacion_reporte").val();
-
-            var url = "";
-            if (opc == 1) {
-                url = "/Reporte/agregar_reporte_proyecto";
-            } else if (opc == 2) {
-                url = "/Reporte/actualizar_reporte_proyecto";
-                Reporte.PK_ID_REPORTE = g_id;
-            }
-
-            /**PETICION AJAX**/
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: JSON.stringify({
-                    reporte: Reporte,
-                    detalle_reporte: Detalle_Reporte,
-                    correos: correo_final
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    swal({
-                        title: "Hecho",
-                        text: "Se ha registrado el reporte correctamente",
-                        type: "success",
-                        showConfirmButton: false
-                    })
-
-                    setTimeout('location.reload()', 2000);
-
-                    servicios = [];
-
-                    if (opc == 2) {
-                        location.href = "Cierre_Mes.aspx";
-                    }
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
                 }
-            });
+                else if ((val_select == "proyecto" || (val_r_select == "proyecto" && (val_select == "facturado" || val_select == "garantia"))) && cliente != "") {
+                    if (g_proyecto != null) {
+                        Reporte.OBSERVACION = $("#observacion_reporte").val();
+                        var arreglo_fecha = ($('#fecha').text()).split(": ");
 
-        }
-    }
+                        Reporte.FECHA = arreglo_fecha[1];
+                        Reporte.FK_ID_CONTACTO = g_contacto.ID_CONTACTO;
+                        Reporte.ID_PROYECTO = g_proyecto.ID_PROYECTO;
+
+                        if (val_select == "proyecto") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Proyecto";
+                        } else if (val_select == "facturado") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Proyecto Facturado";
+                        } else if (val_select == "garantia") {
+                            Reporte.TIPO_DOCUMENTO = "Reporte Proyecto Garantía";
+                        }
+
+                        /**CREACION DETALLE REPORTE**/
+                        var Detalle_Reporte = new Object();
+                        Detalle_Reporte.TARIFA = parseFloat($("#horas_consumidas").val());
+
+                        var arreglo_id_reporte = ($('#n_reporte').text()).split(": ");
+                        Detalle_Reporte.FK_ID_REPORTE = arreglo_id_reporte[1];
+                        Detalle_Reporte.OBSERVACION = $("#observacion_reporte").val();
+
+                        var url = "";
+                        if (opc == 1) {
+                            url = "/Reporte/agregar_reporte_proyecto";
+                        } else if (opc == 2) {
+                            url = "/Reporte/actualizar_reporte_proyecto";
+                            Reporte.PK_ID_REPORTE = g_id;
+                        }
+
+                        /**PETICION AJAX**/
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: JSON.stringify({
+                                reporte: Reporte,
+                                detalle_reporte: Detalle_Reporte,
+                                correos: correo_final
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                swal({
+                                    title: "Hecho",
+                                    text: "Se ha registrado el reporte correctamente",
+                                    type: "success",
+                                    showConfirmButton: false
+                                })
+
+                                setTimeout('location.reload()', 2000);
+
+                                servicios = [];
+
+                                if (opc == 2) {
+                                    location.href = "Cierre_Mes.aspx";
+                                }
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+
+                    }
+                }
+            } else {
+                swal({
+                    title: "Error",
+                    text: "Se ha producido un problema",
+                    type: "error",
+                    showConfirmButton: false
+                })
+            }
+        })
+
+
 }
 
 function monto_consumido() {
@@ -1393,7 +1425,7 @@ function buscar_detalle_reporte() {
             beforeSend: function () {
             },
             success: function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                //response.forEach(pinta_servicios);
+                //response.forEach(pinta_servicios);                
                 g_detalles_reporte = response;
 
                 let c = false;
@@ -1492,10 +1524,10 @@ function carga_datos_extra(data) {
             $("#ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].HORAS);
             $("#ph_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA / g_detalles_reporte_extra[i].HORAS);
 
-            $("#m_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA).trigger('change');            
+            $("#m_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].TARIFA).trigger('change');
             $("#desc_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(data.DESCRIPCION);
             $("#ob_ex" + g_detalles_reporte_extra[i].ID_SERVICIO).val(g_detalles_reporte_extra[i].OBSERVACION);
-            
+
         }
     }
 }
@@ -1512,7 +1544,7 @@ function Validar_Campo() {
     } else {
         let condicion = false;
         for (let i = 0; i < g_servicios.length; i++) {
-            let val = $('#ob' + g_servicios[i].ID_SERVICIO).val();            
+            let val = $('#ob' + g_servicios[i].ID_SERVICIO).val();
             if (val == "") {
                 condicion = true;
                 document.getElementById("btn_agregar").disabled = true;
@@ -1538,7 +1570,7 @@ function Validar_Campo() {
         document.getElementById("error_campos_vacios").style.display = "none";
 
         if (g_id != null) {
-            $("#div_btn_modificar").css("display", "block");                      
+            $("#div_btn_modificar").css("display", "block");
         }
         return true;
     }
@@ -1627,7 +1659,7 @@ function pinta_servicios_extras(data) {
             data.TARIFA = 0;
             data.MONTO = 0;
             data.HORAS = 0;
-        }        
+        }
     }
     if (g_contrato.RANGO > 0) {
         rango = g_contrato.RANGO;
@@ -1638,7 +1670,7 @@ function pinta_servicios_extras(data) {
         data.HORAS = 0;
         data.MONTO = 0;
     }
-    
+
     g_servicios_extras.push(data);
 
     var select = $('input:radio[name=grupo_tipo]:checked').val();
@@ -1648,19 +1680,19 @@ function pinta_servicios_extras(data) {
         '<td><input class="form-control" type="text" id="ob_ex' + data.ID_SERVICIO + '" name="" value="" onblur="Validar_Campo()"></td>';
     if (select == "garantia") {
         htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
-            '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="'+data.HORAS+'" readonly></td>' +
+            '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS + '" readonly></td>' +
             '<td><input class="form-control" type="text" id="ph_ex' + data.ID_SERVICIO + '" name="" value="0" readonly></td>' +
             '<td style="text-align: center;"><a onclick="elimina_extra(' + data.ID_SERVICIO + ');"><i class="fas fa-trash color-icono" aria-hidden="true" readonly></td>' +
             '</tr>';
     }
     else {
-        
+
         if (monto == "") {
             htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '" name="" value="' + monto + '" readonly onkeypress="valida_extra();"></td>' +
                 '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS + '" onchange="actualiza_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
         } else {
             htmlTags = htmlTags + ' <td><input class="form-control" type="text" id="m_ex' + data.ID_SERVICIO + '"  name="" value="0" onchange=actualiza_monto_extra(' + data.ID_SERVICIO + '); onkeypress="valida_extra();"></td>' +
-                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS +'" onchange="actualiza_hora_monto_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
+                '<td><input class="form-control" type="text" id="ex' + data.ID_SERVICIO + '" name="" value="' + data.HORAS + '" onchange="actualiza_hora_monto_extra(' + data.ID_SERVICIO + ');" onkeypress="valida_extra();"></td>';
         }
         //htmlTags = htmlTags + '<td><input class="form-control" type="text" id="' + data.ID_SERVICIO + '" name="" value="" onchange="actualiza(' + data.ID_SERVICIO + ');"></td>';
         if (monto == "") {

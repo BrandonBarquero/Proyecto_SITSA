@@ -213,14 +213,18 @@ namespace Biblioteca_Clases.Modelos
 
             dao_reporte.EliminarDetallesReporte(reporte.PK_ID_REPORTE);
 
-            for (int i = 0; i < detalles_reporte.Count; i++)
-            {
-                detalles_reporte[i].USUARIO_CREACION = user;
-                detalles_reporte[i].FECHA_CREACION = fecha_asignar;
-                detalles_reporte[i].FK_ID_REPORTE = reporte.PK_ID_REPORTE;
-            }
+            if (detalles_reporte != null) {
+                for (int i = 0; i < detalles_reporte.Count; i++)
+                {
+                    detalles_reporte[i].USUARIO_CREACION = user;
+                    detalles_reporte[i].FECHA_CREACION = fecha_asignar;
+                    detalles_reporte[i].FK_ID_REPORTE = reporte.PK_ID_REPORTE;
+                }
 
-            result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
+                result = dao_reporte.AgregarDetallesReporte(detalles_reporte);
+            }
+            
+            
 
             if (detalles_reporte_extra != null)
             {
