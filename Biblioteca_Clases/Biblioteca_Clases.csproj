@@ -76,6 +76,7 @@
     <Compile Include="Modelos\ContactoModelo.cs" />
     <Compile Include="Modelos\ContratoModelo.cs" />
     <Compile Include="Modelos\Fases_Modelo.cs" />
+    <Compile Include="Modelos\ProyectoModelo.cs" />
     <Compile Include="Modelos\ReporteModelo.cs" />
     <Compile Include="Modelos\ServicioModelo.cs" />
     <Compile Include="Modelos\Tabla_ConfiguracionModelo.cs" />
