@@ -1,27 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Biblioteca_Clases.DAO;
 using Biblioteca_Clases.Models;
 using Biblioteca_Clases.Modelos;
-using Biblioteca_Clases.Seguridad;
 namespace Sitsa_Proyecto.Controllers
 {
     public class ReporteController : Controller
-    {
-        ContratoDAO dao_contrato = new ContratoDAO();
-        ProyectoDAO dao_proyecto = new ProyectoDAO();
-        ContactoDAO dao_contacto = new ContactoDAO();
-        ReporteDAO dao_reporte = new ReporteDAO();
-        ClienteDAO dao_cliente = new ClienteDAO();
-        ServicioDAO dao_servicio = new ServicioDAO();
-
-        Mail mail = new Mail();
-        Encryption encryption = new Encryption();
-        Contacto contacto = new Contacto();
-
+    {        
         ReporteModelo ReporteModelo = new ReporteModelo();
 
         // GET: Reporte

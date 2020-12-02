@@ -238,7 +238,7 @@
             </div>
             <!--Fin Tabla-->
 
-            <hr class="mb-4 hr-estilo-linea">
+            <hr class="mb-4 hr-estilo-linea" style="display: none;" id="hr_extras">
             
             <div class="col text-center" style="display: none; text-align: center" id="div_btn_agregar_extras">
                 <button type="button" class="guardar-btn-reporte" onclick="Abrir();" id="btn_agregar_extras">Agregar extras</button>

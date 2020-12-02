@@ -341,7 +341,7 @@ namespace Biblioteca_Clases.DAO
             //QuitarDetallesReporte(servicios[0].ID_CONTRATO);
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_CTRL_AGREGAR_DETALLES_REPORTE_PROYECTO @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION";
+            comando.CommandText = "execute [PA_MAN_AGREGAR_DETALLES_REPORTE_PROYECTO] @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION";
             comando.Parameters.AddWithValue("@TARIFA", detalle_Reporte.TARIFA);
             comando.Parameters.AddWithValue("@USUARIO", detalle_Reporte.USUARIO_CREACION);
             comando.Parameters.AddWithValue("@FECHA", detalle_Reporte.FECHA_CREACION);
@@ -360,7 +360,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_DETALLES_REPORTE_PROYECTO @ID, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_MAN_CAMBIAR_ESTADO_REPORTE_PROYECTO @ID, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@ID", id_proyecto);
             comando.Parameters.AddWithValue("@USUARIO", usuario);
             comando.Parameters.AddWithValue("@FECHA", fecha);

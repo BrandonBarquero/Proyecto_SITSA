@@ -98,4 +98,8 @@ C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Bibliotec
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+<<<<<<< HEAD
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
+=======
+C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
+>>>>>>> c6c8e4f500fd6b61993a267f160be2bef71bd0de
