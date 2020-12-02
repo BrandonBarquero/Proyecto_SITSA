@@ -73,6 +73,7 @@
     <Compile Include="DAO\Tabla_ConfiguracionDAO.cs" />
     <Compile Include="DAO\Tipo_ContratoDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="Modelos\Cierre_MesModelo.cs" />
     <Compile Include="Modelos\ContactoModelo.cs" />
     <Compile Include="Modelos\ContratoModelo.cs" />
     <Compile Include="Modelos\Fases_Modelo.cs" />
