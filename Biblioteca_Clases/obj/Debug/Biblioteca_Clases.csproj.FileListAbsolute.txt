@@ -82,7 +82,6 @@ C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Bibliote
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
-C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\libeay32.dll
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\libgcc_s_dw2-1.dll
 C:\Users\eduar\source\repos\Proyecto_SITSA\Biblioteca_Clases\bin\Debug\mingwm10.dll
