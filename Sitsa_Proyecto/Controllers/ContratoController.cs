@@ -83,5 +83,13 @@ namespace WebApplication2.Controllers
             return Json(contactos, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult devuelve_contrato(int id)
+        {
+            Contrato contrato = new Contrato();
+            contrato = ContratoModelo.devuelve_contrato(id);
+
+            return Json(contrato, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

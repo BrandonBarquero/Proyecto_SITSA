@@ -77,6 +77,14 @@ namespace WebApplication2.Controllers
 
         }
 
+        public JsonResult devuelve_proyecto(int id)
+        {
+            Proyecto proyecto = new Proyecto();
+            proyecto = proyecto_modelo.devuelve_proyecto(id);
+
+            return Json(proyecto, JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

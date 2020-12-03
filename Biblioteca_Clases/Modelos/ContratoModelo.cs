@@ -166,5 +166,13 @@ namespace Biblioteca_Clases.Modelos
 
             return contactos;
         }
+
+        public Contrato devuelve_contrato(int id)
+        {
+            Contrato contrato = new Contrato();
+            contrato = dao_contrato.devuelve_contrato(id);
+
+            return contrato;
+        }
     }
 }

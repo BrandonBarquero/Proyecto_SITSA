@@ -13,6 +13,93 @@ $(document).ready(function () {
     $('#tabla-mant').DataTable();
 });
 
+let g_id = null;
+
+$(document).ready(function () {
+    let params = new URLSearchParams(location.search);
+    g_id = params.get('id');
+    if (g_id != null) {
+        $('#boton_multiple').text("Detalles del Proyecto");
+        $('#parrafo_proyecto').text("Detalles del proyecto actual");
+        $("#boton_agregar").css("display", "none");
+        $("#botones").css("display", "block");
+        $("#consecutivo_proyecto_div").css("display", "block");
+        $("#consecutivo_proyecto").attr("readonly", "true");
+
+        devolver_proyecto(g_id);
+    
+    } else {
+        return;
+    }
+});
+
+var g_proyecto = new Object();
+
+function devolver_proyecto(id) {
+
+
+
+    $.ajax({
+        type: "POST",
+        url: "/Proyecto/devuelve_proyecto",
+        data: JSON.stringify({
+            id: id,
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: function () {
+        },
+        success: function (response) {
+
+            g_proyecto = response;
+
+            $("#consecutivo_proyecto").val(g_proyecto.ID_PROYECTO);
+            $("#nombre_proyecto").val(g_proyecto.NOMBRE);
+            $("#desc_proyecto").val(g_proyecto.DESCRIPCION);
+            $("#precio").val(g_proyecto.PRECIO);
+            $("#cliente_proyecto option[value='nulo'").attr("selected", false);
+            $("#cliente_proyecto option[value=" + g_proyecto.FK_ID_CLIENTE + "]").attr("selected", true);
+            $('#cliente_proyecto').val(g_proyecto.FK_ID_CLIENTE).trigger('change');
+
+        }
+    })
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Fase_Tiempo/Listar_Fases_Proyecto",
+                data: JSON.stringify({
+                    id: id,
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                },
+                success: function (response) {
+
+            let json_obj6 = $.parseJSON(response);
+            let cantidadDeClaves6 = Object.keys(json_obj6).length;
+
+
+            $("#t_fase > tbody").empty();
+
+
+            for (let i = 0; i < cantidadDeClaves6; i++) {
+                servicios3.push($('#t_fase').val());
+
+                let htmlTags6 = `<tr id=${json_obj6[i].ID_FASE}>
+                            <td>${json_obj6[i].TIEMPO}</td> 
+                            <td>${json_obj6[i].DESCRIPCION}</td>
+                            <td style="text-align: center;"><a onclick='Eliminar_Fase(${json_obj6[i].ID_FASE});actualizarRespuesta()'><i class="fas fa-trash color-icono" aria-hidden="true"></td> </tr>`;
+
+                $('#t_fase tbody').append(htmlTags6);
+            }
+
+        }
+    })
+
+}
+
 
 var valor_id_fase;
 var servicios = [];

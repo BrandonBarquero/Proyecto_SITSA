@@ -334,5 +334,34 @@ namespace Biblioteca_Clases.DAO
 
         }
 
+        public Contrato devuelve_contrato(int id)
+        {
+            Contrato contrato = new Contrato();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_CON_DEVUELVE_CONTRATO @ID";
+            comando.Parameters.AddWithValue("@ID", id);
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                contrato = new Contrato();
+                contrato.ID_CONTRATO = list.GetInt32(0);
+                contrato.CLIENTE = list.GetInt32(1);
+                contrato.NOMBRE_CONTRATO = list.GetString(2);
+                contrato.DESCRIPCION = list.GetString(3);
+                contrato.CONTACTO = list.GetInt32(4);
+                contrato.FECHA_INICIO = list.GetDateTime(5);
+                contrato.FECHA_VENCE = list.GetDateTime(6);
+                contrato.TIPO_CONTRATO = list.GetInt32(7);
+                contrato.HORAS = list.GetDouble(8);
+                contrato.MONTO = list.GetInt32(9);
+                contrato.RANGO = list.GetInt32(10);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return contrato;
+        }
+
     }
 }

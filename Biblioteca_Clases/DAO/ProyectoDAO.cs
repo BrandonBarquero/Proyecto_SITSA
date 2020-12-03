@@ -237,5 +237,28 @@ namespace Biblioteca_Clases.DAO
             return listaProyectos;
         }
 
+        public Proyecto devuelve_proyecto(int id)
+        {
+            Proyecto proyecto = new Proyecto();
+            SqlCommand comando = new SqlCommand();
+
+            comando.Connection = conexion;
+            comando.CommandText = "exec PA_CTRL_CON_DEVUELVE_PROYECTO @ID";
+            comando.Parameters.AddWithValue("@ID", id);
+            SqlDataReader list = comando.ExecuteReader();
+            while (list.Read())
+            {
+                proyecto = new Proyecto();
+                proyecto.ID_PROYECTO = list.GetInt32(0);
+                proyecto.FK_ID_CLIENTE = list.GetInt32(1);
+                proyecto.NOMBRE = list.GetString(2);
+                proyecto.DESCRIPCION = list.GetString(3);
+                proyecto.PRECIO = list.GetDouble(4);
+            }
+            list.Dispose();
+            comando.Dispose();
+            return proyecto;
+        }
+
     }
 }

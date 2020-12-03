@@ -75,7 +75,7 @@
                             <strong>¡Cuidado!</strong> La fecha de vencimiento es menor a la fecha de inicio.
                         </div>
 
-                        <p>Ingresar un nuevo contrato</p>
+                        <p id="parrafo_servicio">Ingresar un nuevo contrato</p>
 
                         <div class="row">
 

@@ -130,5 +130,13 @@ namespace Biblioteca_Clases.Modelos
             return result;
 
         }
+
+        public Proyecto devuelve_proyecto(int id)
+        {
+            Proyecto proyecto = new Proyecto();
+            proyecto = dao_proyecto.devuelve_proyecto(id);
+
+            return proyecto;
+        }
     }
 }

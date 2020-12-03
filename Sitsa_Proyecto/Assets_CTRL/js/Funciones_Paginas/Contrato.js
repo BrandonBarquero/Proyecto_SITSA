@@ -8,6 +8,91 @@ $(document).ready(function () {
 
 });
 
+let g_id = null;
+
+$(document).ready(function () {
+    let params = new URLSearchParams(location.search);
+    g_id = params.get('id');
+    if (g_id != null) {
+
+        devolver_contrato(g_id);
+
+    } else {
+        return;
+    }
+});
+
+var g_contrato= new Object();
+
+function devolver_contrato(id) {
+
+
+
+    $.ajax({
+        type: "POST",
+        url: "/Contrato/devuelve_contrato",
+        data: JSON.stringify({
+            id: id,
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        beforeSend: function () {
+        },
+        success: function (response) {
+
+            g_contrato = response;
+
+            devuelve_tipo_contrato(g_contrato.TIPO_CONTRATO);
+
+            $("#nombre_contrato").val(g_contrato.NOMBRE_CONTRATO);
+            $("#descripcion_contrato").val(g_contrato.DESCRIPCION);
+
+            $("#cliente_contrato option[value='nulo'").attr("selected", false);
+            $("#cliente_contrato option[value=" + g_contrato.CLIENTE + "]").attr("selected", true);
+            $('#cliente_contrato').val(g_contrato.CLIENTE ).trigger('change');
+
+            $("#contacto_contrato option[value='nulo'").attr("selected", false);
+            $("#contacto_contrato option[value=" + g_contrato.CONTACTO + "]").attr("selected", true);
+            $('#contacto_contrato').val(g_contrato.CONTACTO).trigger('change');
+
+            $("#fecha_inicio").val(g_contrato.FECHA_INICIO);
+            $("#fecha_vencimiento").val(g_contrato.FECHA_VENCE);
+
+            $("#tipo_contrato option[value='nulo'").attr("selected", false);
+            $("#tipo_contrato option[value=" + g_contrato.TIPO_CONTRATO + "]").attr("selected", true);
+
+            var fecha_i = formatea_fecha(g_contrato.FECHA_INICIO);
+            var fecha_v = formatea_fecha(g_contrato.FECHA_VENCE);
+
+            $('#fecha_inicio').val(fecha_i);
+            $('#fecha_vencimiento').val(fecha_v);
+
+            lista_tipo_contrato(g_contrato.TIPO_CONTRATO, g_contrato.HORAS, g_contrato.MONTO, g_contrato.RANGO, 1);
+
+            $("#boton_agregar").css("display", "none");
+            $("#boton_cancelar1").css("display", "none");
+            $("#botones").css("display", "block");
+            $("#consecutivo").css("display", "block");
+            $("#aux").css("display", "block");
+            $("#consecutivo_contrato").val(g_contrato.ID_CONTRATO);
+
+            $('#boton_multiple').text("Detalles del Contrato");
+            $('#parrafo_servicio').text("Detalles del contrato actual");
+
+            $('#t_servicios tbody').empty();
+
+            Lista_servicios(g_contrato.ID_CONTRATO);  
+
+        }
+    })
+
+
+    
+
+
+
+}
+
 var servicios = [];
 var opc = 0;
 var g_tipo_cambio = false;

@@ -284,7 +284,7 @@ function Cliente(dato) {
                 var htmlTags = '<tr id=i' + i + '>' +
                     '<td>' + json_obj[i].ID_CONTRATO + '</td>' +
                     '<td>' + json_obj[i].NOMBRE_CONTRATO + '</td>' +
-                    '<td style="text-align: center;"><a href="#"><i class="fas fa-file-alt color-icono" aria-hidden="true"></td>' +
+                    '<td style="text-align: center;"><a  onclick="detalle_contrato(' + json_obj[i].ID_CONTRATO + ')"><i class="fas fa-file-alt color-icono" aria-hidden="true"></td>' +
                     '</tr>';
 
                 $('#tabla-mant2 tbody').append(htmlTags);
@@ -365,7 +365,7 @@ function Cliente(dato) {
                     '<td>' + json_obj1[i].ID_PROYECTO + '</td>' +
                     '<td>' + json_obj1[i].NOMBRE + '</td>' +
 
-                    '<td style="text-align: center;"><a href="#"><i class="fas fa-file-alt color-icono" aria-hidden="true"></td>' +
+                    '<td style="text-align: center;"><a  onclick="detalle_proyecto(' + json_obj1[i].ID_PROYECTO + ')"><i class="fas fa-file-alt color-icono" aria-hidden="true"></td>' +
                     '</tr>';
 
                 $('#tabla-mant3 tbody').append(htmlTags1);
@@ -507,4 +507,12 @@ function Validar_Campo_Servicio() {
         document.getElementById("error_campos_vacios_servicios").style.display = "none";
         return true;
     }
+}
+
+function detalle_proyecto(id) {
+    location.href = "Man_Proyecto.aspx?id=" + id;
+}
+
+function detalle_contrato(id) {
+    location.href = "Man_Contrato.aspx?id=" + id;
 }
