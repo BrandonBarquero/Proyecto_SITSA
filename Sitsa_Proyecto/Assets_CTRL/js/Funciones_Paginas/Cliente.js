@@ -175,7 +175,12 @@ function Agregar() {
     for (var i = 0; i < Llaves_Servicios.length; i++) {
 
         if (Llaves_Servicios[i] == $('#Servicio option:selected').html()) {
-            alert("ya existe");
+            swal({
+                title: "Error",
+                text: "El servicio ya se encuentra registrado",
+                type: "error",
+                showConfirmButton: true
+            })
             return;
         }
     }
@@ -217,6 +222,8 @@ function Agregar() {
                             '<td>' + $('#Tarifa').val() + '</td>' +
                             '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + data + ',' + val4 + ')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
                             '</tr>';
+
+                        console.log(val4);
 
                         $('#tabla-mant1 tbody').append(htmlTags);
 

@@ -160,7 +160,11 @@
 
               </form>
 
+                <div style="text-align: center;">
+
                <button id="boton"  onclick="Login1()" type="submit" class="popup-btn">Recuperar</button>
+
+                    </div>
 
           </div>
           </div>

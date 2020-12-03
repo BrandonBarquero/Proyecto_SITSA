@@ -45,17 +45,9 @@
   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
   </asp:ContentPlaceHolder>
 
-  <link rel='shortcut icon' type='image/x-icon' href='Assets/img/Camion.ico' />
-
-  <link href="Assets/css/notificacionPedidos.css" rel="stylesheet" />
- 
-
   <asp:ContentPlaceHolder ID="styles" runat="server">
   </asp:ContentPlaceHolder>
 
-  <link rel='shortcut icon' type='image/x-icon' href='Assets/img/Camion.ico' />
-
-  <link href="Assets/css/notificacionPedidos.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -204,7 +196,6 @@
 
     <form  id="form1" runat="server">
      <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="3600"></asp:ScriptManager>
-    <script src="Assets/js/bootstrap/bootstrap.js"></script>
        
     <asp:UpdatePanel ID="UpdatePanel11" runat="server">
       <ContentTemplate>

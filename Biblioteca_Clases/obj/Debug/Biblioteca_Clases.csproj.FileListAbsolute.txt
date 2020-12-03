@@ -14,3 +14,4 @@ C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Bibliote
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csproj.CopyComplete
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.dll
 C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.pdb
+C:\Users\barqu\Desktop\SITSA\Proyecto_SITSA\Biblioteca_Clases\obj\Debug\Biblioteca_Clases.csprojAssemblyReference.cache
