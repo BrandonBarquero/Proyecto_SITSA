@@ -22,7 +22,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_CONTACTO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_CONTACTO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -73,7 +73,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_CONTACTO @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_CONTACTO @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@ENCARGADO", cont.ENCARGADO);
             comando.Parameters.AddWithValue("@TELEFONO", cont.TELEFONO);
             comando.Parameters.AddWithValue("@CORREO", cont.CORREO);
@@ -94,7 +94,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_CONTACTO @PK_ID_CONTACTO, @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_CONTACTO @PK_ID_CONTACTO, @ENCARGADO, @TELEFONO,@CORREO, @TIPO_ENCARGADO, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_CONTACTO", cont.ID_CONTACTO);
             comando.Parameters.AddWithValue("@ENCARGADO", cont.ENCARGADO);
             comando.Parameters.AddWithValue("@TELEFONO", cont.TELEFONO);
@@ -121,7 +121,7 @@ namespace Biblioteca_Clases.DAO
                 SqlCommand comando = new SqlCommand();
 
                 comando.Connection = conexion;
-                comando.CommandText = "execute PA_MAN_ELIMINAR_CONTACTO @PK_ID_CONTACTO";
+                comando.CommandText = "execute PA_CTRL_MAN_ELIMINAR_CONTACTO @PK_ID_CONTACTO";
                 comando.Parameters.AddWithValue("@PK_ID_CONTACTO", cont.ID_CONTACTO);
 
                 result = comando.ExecuteNonQuery();
@@ -141,7 +141,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_MAN_ELIMINAR_CLIENTE_CONTACTO] @PK_ID_CONTACTO";
+            comando.CommandText = "execute [PA_CTRL_MAN_ELIMINAR_CLIENTE_CONTACTO] @PK_ID_CONTACTO";
             comando.Parameters.AddWithValue("@PK_ID_CONTACTO", dato);
 
             result = comando.ExecuteNonQuery();
@@ -156,7 +156,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.CommandText = "EXEC PA_CTRL_MAN_CONTROL_PAGINAS @dato1,@dato2";
             comando.Parameters.AddWithValue("@dato1", dato1);
             comando.Parameters.AddWithValue("@dato2", dato2);
 
@@ -182,7 +182,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec [PA_CON_LISTAR_MAN_CONTACTO_CLIENTE] @CLIENTE";
+            comando.CommandText = "exec [PA_CTRL_CON_LISTAR_MAN_CONTACTO_CLIENTE] @CLIENTE";
             comando.Parameters.AddWithValue("@CLIENTE", cliente);
 
             SqlDataReader list = comando.ExecuteReader();

@@ -25,7 +25,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_CLIENTE_SERVICIO @TARIFA_HORA, @ESTADO, @USUARIO_CREACION, @FECHA_CREACION,@FK_ID_CLIENTE, @FK_ID_SERVICIO";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_CLIENTE_SERVICIO @TARIFA_HORA, @ESTADO, @USUARIO_CREACION, @FECHA_CREACION,@FK_ID_CLIENTE, @FK_ID_SERVICIO";
             comando.Parameters.AddWithValue("@TARIFA_HORA", cliente.TARIFA_HORA); 
             comando.Parameters.AddWithValue("@ESTADO", cliente.ESTADO);
             comando.Parameters.AddWithValue("@USUARIO_CREACION", cliente.USUARIO_CREACION);
@@ -48,7 +48,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC [PA_CON_LISTAR_MAN_SERVICIO_CLIENTE_FILTRADO] @CLIENTE";
+            comando.CommandText = "EXEC [PA_CTRL_CON_LISTAR_MAN_SERVICIO_CLIENTE_FILTRADO] @CLIENTE";
             comando.Parameters.AddWithValue("@CLIENTE", dato);
 
             SqlDataReader list = comando.ExecuteReader();
@@ -72,7 +72,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC [PA_CON_LISTAR_MAN_SERVICIO_CLIENTE_FILTRADO_CONTRATO] @CLIENTE";
+            comando.CommandText = "EXEC [PA_CTRL_CON_LISTAR_MAN_SERVICIO_CLIENTE_FILTRADO_CONTRATO] @CLIENTE";
             comando.Parameters.AddWithValue("@CLIENTE", dato);
 
             SqlDataReader list = comando.ExecuteReader();

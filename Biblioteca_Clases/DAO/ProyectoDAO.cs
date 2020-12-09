@@ -23,7 +23,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_ACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_PROYECTO_ACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -49,7 +49,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_INACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_PROYECTO_INACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -75,7 +75,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_PROYECTO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -103,7 +103,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.CommandText = "EXEC PA_CTRL_MAN_CONTROL_PAGINAS @dato1,@dato2";
             comando.Parameters.AddWithValue("@dato1", dato1);
             comando.Parameters.AddWithValue("@dato2", dato2);
 
@@ -129,7 +129,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_PROYECTO @NOMBRE, @DESCRIPCION, @PRECIO, @ESTADO,@USUARIO, @FECHA, @FK_ID_CLIENTE";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_PROYECTO @NOMBRE, @DESCRIPCION, @PRECIO, @ESTADO,@USUARIO, @FECHA, @FK_ID_CLIENTE";
             comando.Parameters.AddWithValue("@NOMBRE", proy.NOMBRE);
             comando.Parameters.AddWithValue("@DESCRIPCION", proy.DESCRIPCION);
             comando.Parameters.AddWithValue("@PRECIO", proy.PRECIO);
@@ -150,7 +150,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_PROYECTO @PK_ID_PROYECTO, @NOMBRE, @DESCRIPCION, @PRECIO,@USUARIO, @FECHA, @FK_ID_CLIENTE";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_PROYECTO @PK_ID_PROYECTO, @NOMBRE, @DESCRIPCION, @PRECIO,@USUARIO, @FECHA, @FK_ID_CLIENTE";
             comando.Parameters.AddWithValue("@PK_ID_PROYECTO", proy.ID_PROYECTO);
             comando.Parameters.AddWithValue("@NOMBRE", proy.NOMBRE);
             comando.Parameters.AddWithValue("@DESCRIPCION", proy.DESCRIPCION);
@@ -172,7 +172,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_DESHABILITAR_PROYECTO @PK_ID_PROYECTO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_DESHABILITAR_PROYECTO @PK_ID_PROYECTO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_PROYECTO", proy.ID_PROYECTO);
             comando.Parameters.AddWithValue("@USUARIO", proy.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", proy.FECHA_MODIFICACION);
@@ -190,7 +190,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_HABILITAR_PROYECTO @PK_ID_PROYECTO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_HABILITAR_PROYECTO @PK_ID_PROYECTO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_PROYECTO", proy.ID_PROYECTO);
             comando.Parameters.AddWithValue("@USUARIO", proy.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", proy.FECHA_MODIFICACION);
@@ -211,11 +211,11 @@ namespace Biblioteca_Clases.DAO
             comando.CommandText = "";
             if (opc == 1)
             {
-                comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_CLIENTE @ID";
+                comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_PROYECTO_CLIENTE @ID";
             }
             else if (opc == 2)
             {
-                comando.CommandText = "exec PA_CON_LISTAR_MAN_PROYECTO_CLIENTE_GARANTIA @ID";
+                comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_PROYECTO_CLIENTE_GARANTIA @ID";
             }
 
             comando.Parameters.AddWithValue("@ID", id);

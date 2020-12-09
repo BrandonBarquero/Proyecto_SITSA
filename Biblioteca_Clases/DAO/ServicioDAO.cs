@@ -23,7 +23,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_ACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_SERVICIO_ACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -46,7 +46,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_INACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_SERVICIO_INACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -69,7 +69,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_SERVICIO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -92,7 +92,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_SERVICIO_INACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_SERVICIO_INACTIVO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -116,7 +116,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_SERVICIO @DESCRIPCION, @ESTADO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_SERVICIO @DESCRIPCION, @ESTADO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@DESCRIPCION", serv.DESCRIPCION);
             comando.Parameters.AddWithValue("@ESTADO", 1);
             comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_CREACION);
@@ -136,7 +136,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_SERVICIO @PK_ID_SERVICIO, @DESCRIPCION,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_SERVICIO @PK_ID_SERVICIO, @DESCRIPCION,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_SERVICIO", serv.ID_SERVICIO);
             comando.Parameters.AddWithValue("@DESCRIPCION", serv.DESCRIPCION);
             comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_MODIFICACION);
@@ -155,7 +155,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_DESHABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_DESHABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_SERVICIO", serv.ID_SERVICIO);
             comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", serv.FECHA_MODIFICACION);
@@ -173,7 +173,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_HABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_HABILITAR_SERVICIO @PK_ID_SERVICIO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_SERVICIO", serv.ID_SERVICIO);
             comando.Parameters.AddWithValue("@USUARIO", serv.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", serv.FECHA_MODIFICACION);
@@ -191,7 +191,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.CommandText = "EXEC PA_CTRL_MAN_CONTROL_PAGINAS @dato1,@dato2";
             comando.Parameters.AddWithValue("@dato1", dato1);
             comando.Parameters.AddWithValue("@dato2", dato2);
 
@@ -218,7 +218,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_MAN_ELIMINAR_CLIENTE_SERVICIO] @PK_ID_SERVICIO";
+            comando.CommandText = "execute [PA_CTRL_MAN_ELIMINAR_CLIENTE_SERVICIO] @PK_ID_SERVICIO";
             comando.Parameters.AddWithValue("@PK_ID_SERVICIO", dato);
 
             result = comando.ExecuteNonQuery();

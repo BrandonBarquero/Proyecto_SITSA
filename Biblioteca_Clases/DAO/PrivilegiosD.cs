@@ -22,7 +22,7 @@ namespace Biblioteca_Clases.DAO
                 string valor = "";
                 SqlCommand comando = new SqlCommand();
                 comando.Connection = conexion;
-                comando.CommandText = "execute PA_MAN_TBL_CTRL_SEG_PERMISOS @OPCION,@USUARIO,@FK_ID_PERFIL,@LISTA_MENUS,@LISTA_PERMISOS";
+                comando.CommandText = "execute PA_CTRL_MAN_TBL_CTRL_SEG_PERMISOS @OPCION,@USUARIO,@FK_ID_PERFIL,@LISTA_MENUS,@LISTA_PERMISOS";
                 comando.Parameters.AddWithValue("@OPCION ", privilegios.OPCION);
                 comando.Parameters.AddWithValue("@USUARIO", privilegios.USUARIO);
                 comando.Parameters.AddWithValue("@FK_ID_PERFIL", privilegios.FK_TBL_CRM_SEG_PERFIL);

@@ -22,7 +22,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_CLIENTE_CONTACTO @ESTADO, @USUARIO_CREACION, @FECHA_CREACION,@FK_ID_CLIENTE, @FK_ID_CONTACTO";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_CLIENTE_CONTACTO @ESTADO, @USUARIO_CREACION, @FECHA_CREACION,@FK_ID_CLIENTE, @FK_ID_CONTACTO";
             comando.Parameters.AddWithValue("@ESTADO", cliente.ESTADO); ;
             comando.Parameters.AddWithValue("@USUARIO_CREACION", cliente.USUARIO_CREACION);
             comando.Parameters.AddWithValue("@FECHA_CREACION", cliente.FECHA_CREACION);

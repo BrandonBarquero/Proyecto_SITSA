@@ -21,7 +21,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC [PA_CON_TBL_CRM_SEG_PERFIL]";
+            comando.CommandText = "EXEC [PA_CTRL_CON_TBL_CRM_SEG_PERFIL]";
 
 
             SqlDataReader list = comando.ExecuteReader();

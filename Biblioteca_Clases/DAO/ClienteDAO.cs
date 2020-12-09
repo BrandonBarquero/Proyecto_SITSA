@@ -68,7 +68,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "EXEC PA_MAN_CONTROL_PAGINAS @dato1,@dato2";
+            comando.CommandText = "EXEC PA_CTRL_MAN_CONTROL_PAGINAS @dato1,@dato2";
             comando.Parameters.AddWithValue("@dato1", dato1);
             comando.Parameters.AddWithValue("@dato2", dato2);
 
@@ -98,11 +98,11 @@ namespace Biblioteca_Clases.DAO
             comando.CommandText = "";
             if (opc == 1)
             {
-                comando.CommandText = "exec DEVUELVE_CLIENTE_CONTRATO @ID";
+                comando.CommandText = "exec PA_CTRL_MAN_DEVUELVE_CLIENTE_CONTRATO @ID";
             }
             else if (opc == 2)
             {
-                comando.CommandText = "exec DEVUELVE_CLIENTE_PROYECTO @ID";
+                comando.CommandText = "exec PA_CTRL_MAN_DEVUELVE_CLIENTE_PROYECTO @ID";
             }
 
             comando.Parameters.AddWithValue("@ID", id);

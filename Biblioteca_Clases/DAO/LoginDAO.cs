@@ -41,7 +41,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_MAN_CONTRASENNA @Correo, @Contrasena";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_MAN_CONTRASENNA @Correo, @Contrasena";
             comando.Parameters.AddWithValue("@Correo", user.CEDULA);
             comando.Parameters.AddWithValue("@Contrasena", user.CONTRASENNA);
             try
@@ -62,7 +62,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_MAN_CONTRASENNA_CAMBIO @CEDULA, @Contrasena";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_MAN_CONTRASENNA_CAMBIO @CEDULA, @Contrasena";
             comando.Parameters.AddWithValue("@CEDULA", user.CEDULA);
             comando.Parameters.AddWithValue("@Contrasena", user.CONTRASENNA);
 
@@ -78,7 +78,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_MAN_CONTRASENNA_CORREO @CORREO, @Contrasena";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_MAN_CONTRASENNA_CORREO @CORREO, @Contrasena";
             comando.Parameters.AddWithValue("@CORREO", user.CEDULA);
             comando.Parameters.AddWithValue("@Contrasena", user.CONTRASENNA);
             result = comando.ExecuteNonQuery();
@@ -92,7 +92,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_CORREOS";
+            comando.CommandText = "execute PA_CTRL_MAN_CORREOS";
             SqlDataReader list = comando.ExecuteReader();
 
             while (list.Read())

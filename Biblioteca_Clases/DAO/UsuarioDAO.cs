@@ -22,7 +22,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_USUARIO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_USUARIO";
 
 
             SqlDataReader list = comando.ExecuteReader();
@@ -48,7 +48,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_USUARIO @cedula";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_USUARIO @cedula";
             comando.Parameters.AddWithValue("@cedula", cedula);
 
             SqlDataReader list = comando.ExecuteReader();
@@ -115,7 +115,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_MAN_USUARIO @CEDULA, @NOMBRE,@CORREO, @CONTRASENNA,@FECHA, @USUARIO, @FK_PERFIL";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_MAN_USUARIO @CEDULA, @NOMBRE,@CORREO, @CONTRASENNA,@FECHA, @USUARIO, @FK_PERFIL";
             comando.Parameters.AddWithValue("@CEDULA", user.CEDULA);
             comando.Parameters.AddWithValue("@NOMBRE", user.NOMBRE);
             comando.Parameters.AddWithValue("@CORREO", user.CORREO);
@@ -137,7 +137,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTUALIZAR_MAN_USUARIO @CEDULA, @NOMBRE,@CORREO,@FK_PERFIL,@FECHA,@USUARIO";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTUALIZAR_MAN_USUARIO @CEDULA, @NOMBRE,@CORREO,@FK_PERFIL,@FECHA,@USUARIO";
             comando.Parameters.AddWithValue("@CEDULA", user.CEDULA);
             comando.Parameters.AddWithValue("@NOMBRE", user.NOMBRE);
             comando.Parameters.AddWithValue("@CORREO", user.CORREO);
@@ -157,7 +157,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_USUARIO_ACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_USUARIO_ACTIVO";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -183,7 +183,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_USUARIO_INACTIVO";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_USUARIO_INACTIVO";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -209,7 +209,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_LISTAR_MAN_USUARIO_GENERAL";
+            comando.CommandText = "exec PA_CTRL_CON_LISTAR_MAN_USUARIO_GENERAL";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -236,7 +236,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_HABILITAR_USUARIO @PK_ID_USUARIO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_HABILITAR_USUARIO @PK_ID_USUARIO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_USUARIO", usuario.ID_USUARIO);
             comando.Parameters.AddWithValue("@USUARIO", usuario.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", usuario.FECHA_MODIFICACION);
@@ -253,7 +253,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_DESHABILITAR_USUARIO @PK_ID_USUARIO,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_DESHABILITAR_USUARIO @PK_ID_USUARIO,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_USUARIO", usuario.ID_USUARIO);
             comando.Parameters.AddWithValue("@USUARIO", usuario.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", usuario.FECHA_MODIFICACION);

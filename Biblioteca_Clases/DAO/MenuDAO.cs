@@ -22,7 +22,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_CON_CRM_SEG_MENU @dato,@dato2";
+            comando.CommandText = "execute PA_CTRL_CON_CRM_SEG_MENU @dato,@dato2";
             comando.Parameters.AddWithValue("@dato", dato);
             comando.Parameters.AddWithValue("@dato2", dato);
             SqlDataReader list = comando.ExecuteReader();
@@ -59,7 +59,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_CRM_SEG_MENU12 @dato,@dato2";
+            comando.CommandText = "exec PA_CTRL_CON_CRM_SEG_MENU12 @dato,@dato2";
             comando.Parameters.AddWithValue("@dato", dato);
             comando.Parameters.AddWithValue("@dato2", dato2);
             SqlDataReader list2 = comando.ExecuteReader();

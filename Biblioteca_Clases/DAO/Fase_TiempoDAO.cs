@@ -23,7 +23,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_FASE_TIEMPO @DESCRIPCION, @TIEMPO,@USUARIO, @FECHA, @FK_ID_PROYECTO, @ESTADO";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_FASE_TIEMPO @DESCRIPCION, @TIEMPO,@USUARIO, @FECHA, @FK_ID_PROYECTO, @ESTADO";
 
             comando.Parameters.AddWithValue("@DESCRIPCION", fase.DESCRIPCION);
             comando.Parameters.AddWithValue("@TIEMPO", fase.TIEMPO);
@@ -70,7 +70,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_DESHABILITAR_FASE_TIEMPO @PK_ID_FASE,@USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_DESHABILITAR_FASE_TIEMPO @PK_ID_FASE,@USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@PK_ID_FASE", fase.ID_FASE);
             comando.Parameters.AddWithValue("@USUARIO", fase.USUARIO_MODIFICACION);
             comando.Parameters.AddWithValue("@FECHA", fase.FECHA_MODIFICACION);

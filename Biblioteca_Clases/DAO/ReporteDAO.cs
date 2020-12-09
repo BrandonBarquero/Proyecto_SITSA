@@ -23,7 +23,7 @@ namespace Biblioteca_Clases.DAO
         {
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_EXTRAER_NUMERO_REPORTE";
+            comando.CommandText = "exec PA_CTRL_CON_EXTRAER_NUMERO_REPORTE";
             SqlDataReader list = comando.ExecuteReader();
 
             string num = "";
@@ -51,7 +51,7 @@ namespace Biblioteca_Clases.DAO
             }
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_REPORTE_CONTRATO @TIPO_DOCUMENTO, @FACTURADO, @CANTIDAD_HORAS, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @CONTRATO";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_REPORTE_CONTRATO @TIPO_DOCUMENTO, @FACTURADO, @CANTIDAD_HORAS, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @CONTRATO";
             comando.Parameters.AddWithValue("@TIPO_DOCUMENTO", reporte.TIPO_DOCUMENTO);
             comando.Parameters.AddWithValue("@FACTURADO", reporte.FACTURADO);
             comando.Parameters.AddWithValue("@CANTIDAD_HORAS", reporte.CANTIDAD_HORAS);
@@ -78,7 +78,7 @@ namespace Biblioteca_Clases.DAO
             {
                 comando = new SqlCommand();
                 comando.Connection = conexion;
-                comando.CommandText = "execute PA_MAN_AGREGAR_DETALLES_REPORTE_CONTRATO @HORAS, @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION, @ID_SERVICIO";
+                comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_DETALLES_REPORTE_CONTRATO @HORAS, @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION, @ID_SERVICIO";
                 comando.Parameters.AddWithValue("@HORAS", dato.HORAS);
                 comando.Parameters.AddWithValue("@TARIFA", dato.TARIFA);
                 comando.Parameters.AddWithValue("@USUARIO", dato.USUARIO_CREACION);
@@ -105,7 +105,7 @@ namespace Biblioteca_Clases.DAO
             {
                 comando = new SqlCommand();
                 comando.Connection = conexion;
-                comando.CommandText = "execute PA_MAN_AGREGAR_DETALLES_REPORTE_CONTRATO_EXTRA @HORAS, @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION, @ID_SERVICIO";
+                comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_DETALLES_REPORTE_CONTRATO_EXTRA @HORAS, @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION, @ID_SERVICIO";
                 comando.Parameters.AddWithValue("@HORAS", dato.HORAS);
                 comando.Parameters.AddWithValue("@TARIFA", dato.TARIFA);
                 comando.Parameters.AddWithValue("@USUARIO", dato.USUARIO_CREACION);
@@ -127,7 +127,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_MAN_ACEPTAR_REPORTE] @P_PK_ID_REPORTE";
+            comando.CommandText = "execute [PA_CTRL_MAN_ACEPTAR_REPORTE] @P_PK_ID_REPORTE";
             comando.Parameters.AddWithValue("@P_PK_ID_REPORTE", dato);
 
             result = comando.ExecuteNonQuery();
@@ -151,7 +151,7 @@ namespace Biblioteca_Clases.DAO
             }
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_AGREGAR_REPORTE_PROYECTO @TIPO_DOCUMENTO, @FACTURADO, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @PROYECTO";
+            comando.CommandText = "execute PA_CTRL_MAN_AGREGAR_REPORTE_PROYECTO @TIPO_DOCUMENTO, @FACTURADO, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @PROYECTO";
             comando.Parameters.AddWithValue("@TIPO_DOCUMENTO", reporte.TIPO_DOCUMENTO);
             comando.Parameters.AddWithValue("@FACTURADO", reporte.FACTURADO);
             if (reporte.OBSERVACION != null) { comando.Parameters.AddWithValue("@OBSERVACION", reporte.OBSERVACION); } else { comando.Parameters.AddWithValue("@OBSERVACION", " "); }
@@ -175,13 +175,13 @@ namespace Biblioteca_Clases.DAO
             comando.Connection = conexion;
             comando.CommandText = "";
             if (opc == 1)            {
-                comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_CONTRATO @ID";
+                comando.CommandText = "PA_CTRL_CON_BUSCAR_DETALLE_REPORTE_CONTRATO @ID";
             }
             else if (opc == 2)            {
-                comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_PROYECTO @ID";
+                comando.CommandText = "PA_CTRL_CON_BUSCAR_DETALLE_REPORTE_PROYECTO @ID";
             }
             else if (opc == 3) {
-                comando.CommandText = "PA_CON_BUSCAR_DETALLE_REPORTE_CONTRATO_EXTRA @ID";
+                comando.CommandText = "PA_CTRL_CON_BUSCAR_DETALLE_REPORTE_CONTRATO_EXTRA @ID";
             }
             comando.Parameters.AddWithValue("@ID", id);
             SqlDataReader list = comando.ExecuteReader();
@@ -210,7 +210,7 @@ namespace Biblioteca_Clases.DAO
         {
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ELIMINAR_DETALLES_REPORTE @ID";
+            comando.CommandText = "execute PA_CTRL_MAN_ELIMINAR_DETALLES_REPORTE @ID";
             comando.Parameters.AddWithValue("@ID", id);
 
             comando.ExecuteNonQuery();
@@ -231,7 +231,7 @@ namespace Biblioteca_Clases.DAO
             }
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_MODIFICAR_REPORTE_PROYECTO @ID, @TIPO_DOCUMENTO, @FACTURADO, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @PROYECTO";
+            comando.CommandText = "execute PA_CTRL_MAN_MODIFICAR_REPORTE_PROYECTO @ID, @TIPO_DOCUMENTO, @FACTURADO, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @PROYECTO";
             comando.Parameters.AddWithValue("@ID", reporte.PK_ID_REPORTE);
             comando.Parameters.AddWithValue("@TIPO_DOCUMENTO", reporte.TIPO_DOCUMENTO);
             comando.Parameters.AddWithValue("@FACTURADO", reporte.FACTURADO);
@@ -252,7 +252,7 @@ namespace Biblioteca_Clases.DAO
             int result = 0;
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_ACTIVAR_CONTRATO_PROYECTO @ID, @OPC";
+            comando.CommandText = "execute PA_CTRL_MAN_ACTIVAR_CONTRATO_PROYECTO @ID, @OPC";
             comando.Parameters.AddWithValue("@ID", id);
             comando.Parameters.AddWithValue("@OPC", opc);
             result = comando.ExecuteNonQuery();
@@ -276,7 +276,7 @@ namespace Biblioteca_Clases.DAO
             }
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_MODIFICAR_REPORTE_CONTRATO @ID, @TIPO_DOCUMENTO, @FACTURADO, @CANTIDAD_HORAS, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @CONTRATO";
+            comando.CommandText = "execute PA_CTRL_MAN_MODIFICAR_REPORTE_CONTRATO @ID, @TIPO_DOCUMENTO, @FACTURADO, @CANTIDAD_HORAS, @OBSERVACION, @FECHA, @USUARIO, @FECHA_C, @CONTACTO, @CONTRATO";
             comando.Parameters.AddWithValue("@ID", reporte.PK_ID_REPORTE);
             comando.Parameters.AddWithValue("@TIPO_DOCUMENTO", reporte.TIPO_DOCUMENTO);
             comando.Parameters.AddWithValue("@FACTURADO", reporte.FACTURADO);
@@ -300,7 +300,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec PA_CON_DEVUELVE_REPORTE @ID";
+            comando.CommandText = "exec PA_CTRL_CON_DEVUELVE_REPORTE @ID";
             comando.Parameters.AddWithValue("@ID", id);
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -341,7 +341,7 @@ namespace Biblioteca_Clases.DAO
             //QuitarDetallesReporte(servicios[0].ID_CONTRATO);
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_MAN_AGREGAR_DETALLES_REPORTE_PROYECTO] @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION";
+            comando.CommandText = "execute [PA_CTRL_MAN_AGREGAR_DETALLES_REPORTE_PROYECTO] @TARIFA, @USUARIO, @FECHA, @ID_REPORTE, @OBSERVACION";
             comando.Parameters.AddWithValue("@TARIFA", detalle_Reporte.TARIFA);
             comando.Parameters.AddWithValue("@USUARIO", detalle_Reporte.USUARIO_CREACION);
             comando.Parameters.AddWithValue("@FECHA", detalle_Reporte.FECHA_CREACION);
@@ -360,7 +360,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_CAMBIAR_ESTADO_REPORTE_PROYECTO @ID, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_CAMBIAR_ESTADO_REPORTE_PROYECTO @ID, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@ID", id_proyecto);
             comando.Parameters.AddWithValue("@USUARIO", usuario);
             comando.Parameters.AddWithValue("@FECHA", fecha);
@@ -376,7 +376,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute PA_MAN_CAMBIAR_ESTADO_REPORTE_CONTRATO @ID, @USUARIO, @FECHA";
+            comando.CommandText = "execute PA_CTRL_MAN_CAMBIAR_ESTADO_REPORTE_CONTRATO @ID, @USUARIO, @FECHA";
             comando.Parameters.AddWithValue("@ID", id_contrato);
             comando.Parameters.AddWithValue("@USUARIO", usuario);
             comando.Parameters.AddWithValue("@FECHA", fecha);
@@ -392,7 +392,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_CON_BUSCAR_REVISION] @dato";
+            comando.CommandText = "execute [PA_CTRL_CON_BUSCAR_REVISION] @dato";
             comando.Parameters.AddWithValue("@dato", dato);
 
             SqlDataReader list = comando.ExecuteReader();
@@ -414,7 +414,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "execute [PA_MAN_AGREGAR_RECHAZO_REPORTE] @P_FK_REPORTE, @NOMBRE";
+            comando.CommandText = "execute [PA_CTRL_MAN_AGREGAR_RECHAZO_REPORTE] @P_FK_REPORTE, @NOMBRE";
             comando.Parameters.AddWithValue("@P_FK_REPORTE", FK_REPORTE);
             comando.Parameters.AddWithValue("@NOMBRE", motivo);
 
@@ -593,7 +593,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec [PA_CON_LISTAR_MAN_Reportes_FACTURADOS] ";
+            comando.CommandText = "exec [PA_CTRL_CON_LISTAR_MAN_Reportes_FACTURADOS] ";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -619,7 +619,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec [PA_CON_LISTAR_MAN_Reportes] ";
+            comando.CommandText = "exec [PA_CTRL_CON_LISTAR_MAN_Reportes] ";
 
             SqlDataReader list = comando.ExecuteReader();
             while (list.Read())
@@ -679,7 +679,7 @@ namespace Biblioteca_Clases.DAO
             SqlCommand comando = new SqlCommand();
 
             comando.Connection = conexion;
-            comando.CommandText = "exec [PA_CON_LISTAR_REPORTE] @dato";
+            comando.CommandText = "exec [PA_CTRL_CON_LISTAR_REPORTE] @dato";
             comando.Parameters.AddWithValue("@dato", dato);
     
             SqlDataReader list = comando.ExecuteReader();
