@@ -117,7 +117,7 @@ namespace Biblioteca_Clases.Modelos
                 dao_reporte.CambiarEstadoReporteContrato(reporte.ID_CONTRATO, user, fecha_asignar);
             }
 
-            //mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente, vector_correo);
+            mail.Enviar_Resporte_Correo(encryption.Encrypt(id.ToString()), reporte, detalles_reporte, nombre_cliente, vector_correo);
 
             return result;
         }

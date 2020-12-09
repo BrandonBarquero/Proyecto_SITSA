@@ -146,6 +146,10 @@ function Buscar() {
             url: "/Cierre_Mes/Buscar",
             data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2 },
             success: function (result) {
+
+                $("#cliente option[value='nulo'").attr("selected", true);
+                $('#cliente').val('nulo').trigger('change');
+
                 var json_obj6 = $.parseJSON(result);
                 var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
@@ -199,6 +203,8 @@ function Buscar() {
             url: "/Cierre_Mes/Buscar_Facturados",
             data: { Reporte: Reporte, cliente: cliente, horas_convertidas: horas_convertidas, horas_convertidas2: horas_convertidas2 },
             success: function (result) {
+                $("#cliente option[value='nulo'").attr("selected", true);
+                $('#cliente').val('nulo').trigger('change');
                 var json_obj6 = $.parseJSON(result);
                 var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
@@ -306,7 +312,7 @@ function Reenviar(dato) {
         url: "/Cierre_Mes/Reenviar_Correo",
         data: { dato: dato },
         success: function (result) {
-
+           
             var json_obj6 = $.parseJSON(result);
             var cantidadDeClaves6 = Object.keys(json_obj6).length;
 
@@ -333,7 +339,7 @@ function Reenviar(dato) {
         }
     })
 
-
+   
 }
 
 
@@ -523,7 +529,7 @@ function reenvio_reporte() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (result) {
-
+            $('#cambio_contrasenna').modal('hide');
             swal({
                 title: "Reenv\u00EDo de reporte",
                 text: "Reporte reenviado exitosamente",

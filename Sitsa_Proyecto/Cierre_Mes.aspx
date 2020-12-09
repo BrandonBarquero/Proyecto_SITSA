@@ -74,7 +74,7 @@
 
                     <div class="input-group">
                         <input type="date" class="form-control" id="horas_convertidas2" name="horas_convertidas">
-                        <div class="input-group-append" > <button type="button" onclick="Buscar()" class="cliente-btn-search">Buscar</button></div>
+                        <div class="input-group-append" > <button type="reset" onclick="Buscar()" class="cliente-btn-search">Buscar</button></div>
                     </div>
                     
                 </div>

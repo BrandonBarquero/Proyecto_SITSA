@@ -4,7 +4,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    debugger;
+  
     $('.js-example-responsive').select2();
 
 });

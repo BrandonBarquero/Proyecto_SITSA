@@ -14,7 +14,7 @@ $(document).ready(function () {
     let params = new URLSearchParams(location.search);
     g_id = params.get('id');
     if (g_id != null) {
-
+        $("#collapseServicios").collapse('show');
         devolver_contrato(g_id);
 
     } else {

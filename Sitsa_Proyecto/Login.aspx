@@ -95,10 +95,7 @@
                             Iniciar Sesión
                         </button>
                     </div>
-                 <div  style="display: none;"  id="loader" class="flex-sb-m w-full p-b-48">
-                       <img src="https://www.griferiaclever.com/images/giphy.gif" alt="" style="width: 380px;height:85px;" >
-
-                   </div>
+                
                     <div id="error">
 
                     </div>

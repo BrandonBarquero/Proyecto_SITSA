@@ -44,10 +44,7 @@ namespace Biblioteca_Clases.DAO
                 cont.LLAVE05 = list.GetString(8);
                 cont.LLAVE06 = list.GetString(9);
                 cont.VALOR = list.GetString(10);
-                cont.FK_LLAVE_FORANEA = list.GetInt64(11);
-                cont.ESTRUCTURA = list.GetString(12);
-                cont.GUI_RELACION = list.GetString(13);
-                cont.PK_TBL_CONFIG = list.GetInt64(14);
+              
                 listaConfiguracion.Add(cont);
                 
             }

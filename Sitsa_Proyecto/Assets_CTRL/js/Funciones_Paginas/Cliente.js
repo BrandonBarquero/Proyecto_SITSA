@@ -99,10 +99,6 @@ function Borrar_Servicios(dato, dato2) {
 
                                 Llaves_Servicios.splice(i, 1);
 
-
-
-
-
                             }
                         }
                         $("#Servi" + dato).remove();
@@ -216,12 +212,12 @@ function Agregar() {
 
 
                         Llaves_Servicios.push(val4);
-                        var htmlTags = '<tr id=' + $('#tabla-mant2').val() + '>' +
-                            '<td>' + data + '</td>' +
-                            '<td>' + $('#Servicio option:selected').html() + '</td>' +
-                            '<td>' + $('#Tarifa').val() + '</td>' +
-                            '<td style="text-align: center;"><a onclick="Borrar_Servicios(' + data + ',' + val4 + ')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>' +
-                            '</tr>';
+                        var htmlTags = `<tr id='Servi${data}'>
+                            <td> ${data} </td>
+                            <td> ${$('#Servicio option:selected').html()} </td>
+                            <td> ${$('#Tarifa').val()}  </td>
+                            <td style="text-align: center;"><a onclick="Borrar_Servicios(${data},'${val4}')" ><i class="fas fa-trash color-icono" aria-hidden="true"></td>
+                            </tr>`;
 
                         console.log(val4);
 

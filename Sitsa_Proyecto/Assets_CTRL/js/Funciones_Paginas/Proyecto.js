@@ -4,7 +4,7 @@ let proyectos = [];
 let numero = 0; 
 
 $(document).ready(function () {
-    debugger;
+   
     $('.js-example-responsive').select2();
 
 });
@@ -19,6 +19,7 @@ $(document).ready(function () {
     let params = new URLSearchParams(location.search);
     g_id = params.get('id');
     if (g_id != null) {
+        $("#collapseProyectos").collapse('show');
         $('#boton_multiple').text("Detalles del Proyecto");
         $('#parrafo_proyecto').text("Detalles del proyecto actual");
         $("#boton_agregar").css("display", "none");
